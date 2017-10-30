@@ -8,7 +8,7 @@ Sections::Sections()
 }
 Sections::Sections(int sectionNumber)
 {
-	texture.loadFromFile("Ressources\\Tiles\\BlockA0.png");
+	texture.loadFromFile("Ressources\\Tiles\\BlockA1.png");
 	if (sectionNumber == 1)
 	{
 		plateformes[0] = Plateforme(250, sf::Vector2f(0, 0), texture);
