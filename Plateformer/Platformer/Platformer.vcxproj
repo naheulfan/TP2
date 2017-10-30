@@ -100,6 +100,7 @@
     <ClCompile Include="SceneNiveau1.cpp" />
     <ClCompile Include="SceneTitre.cpp" />
     <ClCompile Include="SectionGenerator.cpp" />
+    <ClCompile Include="Sections.cpp" />
     <ClCompile Include="Testeur.cpp" />
     <ClCompile Include="Textbox.cpp" />
   </ItemGroup>
@@ -115,6 +116,7 @@
     <ClInclude Include="SceneNiveau1.h" />
     <ClInclude Include="SceneTitre.h" />
     <ClInclude Include="SectionGenerator.h" />
+    <ClInclude Include="Sections.h" />
     <ClInclude Include="Testeur.h" />
     <ClInclude Include="Textbox.h" />
   </ItemGroup>
