@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "Scene.h"
 #include "Joueur.h"
-#include "Plateforme.h"
+#include "Sections.h"
 
 
 using namespace sf;
@@ -28,7 +28,7 @@ namespace platformer
 		static const int TAILLE_TUILES_Y = 32;
 		static const int TUILES_ROUGES = 7;
 		static const int BACKGROUNDS = 3;
-
+		
 
 		/// <summary>
 		/// Théoriquement la fenêtre pourrait être remplie de tuile de manière exacte (20 X 15 pour être précis, voir plus haut)
@@ -49,5 +49,6 @@ namespace platformer
 		
 		Joueur joueur;
 		int interfaceCommande;
+		Sections section;
 	};
 }

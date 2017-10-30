@@ -76,6 +76,7 @@ bool SceneNiveau1::init(RenderWindow * const window)
 	joueur.setPosition(100, window->getSize().y - TAILLE_TUILES_Y * 2);
 
 	this->mainWin = window;
+	section = Sections(1);
 	isRunning = true;
 	return true;
 }
@@ -137,6 +138,7 @@ void SceneNiveau1::update()
 	{
 		joueur.Gravity(40,0,0);
 	}
+	section.Update();
 }
 
 void SceneNiveau1::draw()
@@ -156,7 +158,7 @@ void SceneNiveau1::draw()
 				mainWin->draw(*grilleDeTuiles[x][y]);
 			}
 		}
-	
+	section.Draw(*mainWin);
 	mainWin->draw(joueur);
 	mainWin->display();
 }

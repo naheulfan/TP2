@@ -14,6 +14,7 @@ public:
 	void Update();
 	void Draw(sf::RenderWindow &window);
 private:
+	sf::Texture texture;
 	Plateforme plateformes[3];
 };
 
