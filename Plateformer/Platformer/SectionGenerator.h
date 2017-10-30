@@ -4,5 +4,7 @@ class Section
 public:
 	Section();
 	~Section();
+private:
+
 };
 

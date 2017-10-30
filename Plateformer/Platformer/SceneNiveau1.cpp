@@ -77,10 +77,6 @@ bool SceneNiveau1::init(RenderWindow * const window)
 
 	this->mainWin = window;
 	isRunning = true;
-	plateformeTexture.loadFromFile("Ressources\\Tiles\\BlockA0.png");
-	plateformesBlock1[0] = Plateforme(400, Vector2f(50, 50), plateformeTexture);
-	plateformesBlock1[1] = Plateforme(100, Vector2f(400, 250), plateformeTexture);
-	plateformesBlock1[2] = Plateforme(230, Vector2f(400, 400), plateformeTexture);
 	return true;
 }
 
@@ -145,10 +141,6 @@ void SceneNiveau1::update()
 	//{
 	//	joueur.Gravity();
 	//}
-	for (int i = 0; i < 3; i++)
-	{
-		plateformesBlock1[i].SetPosition(Vector2f(plateformesBlock1[i].GetPosition().x, plateformesBlock1[i].GetPosition().y + 1));
-	}
 }
 
 void SceneNiveau1::draw()
@@ -170,10 +162,6 @@ void SceneNiveau1::draw()
 		}
 	
 	mainWin->draw(joueur);
-	for (int i = 0; i < 3; i++)
-	{
-		plateformesBlock1[i].Draw(*mainWin);
-	}
 	mainWin->display();
 }
 

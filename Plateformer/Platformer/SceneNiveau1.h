@@ -29,8 +29,6 @@ namespace platformer
 		static const int TUILES_ROUGES = 7;
 		static const int BACKGROUNDS = 3;
 
-		Plateforme plateformesBlock1[3];
-		Texture plateformeTexture;
 
 		/// <summary>
 		/// Théoriquement la fenêtre pourrait être remplie de tuile de manière exacte (20 X 15 pour être précis, voir plus haut)
