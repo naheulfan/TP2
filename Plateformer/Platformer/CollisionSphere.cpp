@@ -16,6 +16,7 @@ CollisionSphere::CollisionSphere(const float rayon, const float posX, const floa
 	this->posY = posY;
 }
 
+//Version de collision sphere modifié pour collision avec rectangle
 bool CollisionSphere::verifierCollision(const CollisionSphere &autreSphere) const
 {
 	float LigneX = this->posX - autreSphere.posX;

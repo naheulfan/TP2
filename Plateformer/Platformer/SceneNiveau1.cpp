@@ -136,7 +136,7 @@ void SceneNiveau1::update()
 	}
 	else if (!joueur.GetJump())
 	{
-		joueur.Gravity(0,0.1f,0.1f);
+		joueur.Gravity(40,0,0);
 	}
 	section.Update();
 }
