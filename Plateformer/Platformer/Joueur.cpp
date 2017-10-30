@@ -75,8 +75,7 @@ void Joueur::Gravity(int size, float posX, float posY)
 {
 	if (isFalling)
 	{
-		//Check avec collisionSphere ?
-		//if (getPosition().x > posX && getPosition().x < posX + size  && lround(getPosition().y) == lround(posY))
+		//Check avec Des BOXS ?
 		if (Collision(CollisionSphere(size, posX, posY)))
 		{
 			setPosition(getPosition().x, posY);
