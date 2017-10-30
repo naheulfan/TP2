@@ -72,14 +72,14 @@ void Joueur::Jump()
 
 void Joueur::Gravity(int size, float posX, float posY)
 {
-	if (isFalling)
+	if (isFalling || !isFalling)
 	{
 		//Check avec collisionSphere ?
-		if (getPosition().x > posX && getPosition().x < posX + size  && lround(getPosition().y) == lround(posY))
-		{
-			setPosition(getPosition().x, posY);
-			isFalling = false;
-		}
+		//if (getPosition().x > posX && getPosition().x < posX + size  && lround(getPosition().y) == lround(posY))
+		//{
+		//	setPosition(getPosition().x, posY);
+		//	isFalling = false;
+		//}
 
 		Sprite::move(0, vitesse * 2);
 	}

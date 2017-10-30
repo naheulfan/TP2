@@ -115,11 +115,6 @@ void SceneNiveau1::getInputs()
 	{
 		interfaceCommande |= 2;
 	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-	{
-		interfaceCommande |= 4;
-	}
 }
 
 void SceneNiveau1::update()
@@ -132,15 +127,16 @@ void SceneNiveau1::update()
 	{
 		joueur.move(1);
 	}
-	if (interfaceCommande == 4 || joueur.GetJump())
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::W) || joueur.GetJump())
 	{
+		interfaceCommande |= 4;
 		joueur.SetJump(true);
 		joueur.Jump();
 	}
-	//else if (!joueur.GetJump())
-	//{
-	//	joueur.Gravity();
-	//}
+	else if (!joueur.GetJump())
+	{
+		joueur.Gravity(0,0.1f,0.1f);
+	}
 }
 
 void SceneNiveau1::draw()
