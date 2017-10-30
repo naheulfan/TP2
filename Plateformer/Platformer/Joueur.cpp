@@ -45,11 +45,11 @@ void Joueur::move(const int direction)
 	//Test sur les limites de l'écran
 	if (getPosition().x < limiteGauche)
 	{
-		setPosition(limiteGauche, getPosition().y);
+		setPosition(limiteDroite, getPosition().y);
 	}
 	else if (getPosition().x > limiteDroite)
 	{
-		setPosition(limiteDroite, getPosition().y);
+		setPosition(limiteGauche, getPosition().y);
 	}
 }
 
@@ -67,27 +67,36 @@ void Joueur::Jump()
 	{
 		jump = false;
 		jumpClock.restart();
+		isFalling = true;
 	}
 }
 
 void Joueur::Gravity(int size, float posX, float posY)
 {
-	if (isFalling || !isFalling)
+	if (isFalling)
 	{
 		//Check avec collisionSphere ?
 		//if (getPosition().x > posX && getPosition().x < posX + size  && lround(getPosition().y) == lround(posY))
-		//{
-		//	setPosition(getPosition().x, posY);
-		//	isFalling = false;
-		//}
+		if (Collision(CollisionSphere(size, posX, posY)))
+		{
+			setPosition(getPosition().x, posY);
+			isFalling = false;
+		}
 
 		Sprite::move(0, vitesse * 2);
+	}
+	else
+	{
+		if (!Collision(CollisionSphere(size, posX, posY)))
+		{
+			isFalling = true;
+		}
 	}
 }
 
 bool Joueur::Collision(CollisionSphere &autreSphere)
 {
-	CollisionSphere sphere = CollisionSphere(texture.getSize().x / 2, getPosition().x, getPosition().y);
+	CollisionSphere sphere = CollisionSphere(limiteGauche, getPosition().x, getPosition().y);
 	bool reponse = sphere.verifierCollision(autreSphere);
 	return reponse;
 }
