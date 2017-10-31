@@ -1,7 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "CollisionSphere.h"
+
 
 using namespace sf;
 
@@ -33,9 +33,9 @@ namespace platformer
 
 		void Jump();
 
-		void Gravity(int size, float posX, float posY);
+		void Gravity(Vector2f pos, int width, int height);
 
-		bool Collision(CollisionSphere &autreSphere);
+		bool Collision(Vector2f pos, int width, int height);
 
 		bool GetJump() const;
 		void SetJump(bool value);

@@ -71,14 +71,16 @@ void Joueur::Jump()
 	}
 }
 
-void Joueur::Gravity(int size, float posX, float posY)
+void Joueur::Gravity(Vector2f pos, int width, int height)
 {
+	pos.y += TAILLE_RECT;
 	if (isFalling)
 	{
 		//Check avec Des BOXS ?
-		if (Collision(CollisionSphere(size, posX, posY)))
+		if (Collision(pos, width, height))
 		{
-			setPosition(getPosition().x, posY);
+			// plus la hauteur du joueur
+			setPosition(getPosition().x, pos.y);
 			isFalling = false;
 		}
 
@@ -86,18 +88,20 @@ void Joueur::Gravity(int size, float posX, float posY)
 	}
 	else
 	{
-		if (!Collision(CollisionSphere(size, posX, posY)))
+		if (!Collision(pos, width, height))
 		{
 			isFalling = true;
 		}
 	}
 }
 
-bool Joueur::Collision(CollisionSphere &autreSphere)
+bool Joueur::Collision(Vector2f pos, int width, int height)
 {
-	CollisionSphere sphere = CollisionSphere(limiteGauche, getPosition().x, getPosition().y);
-	bool reponse = sphere.verifierCollision(autreSphere);
-	return reponse;
+	if (getPosition().x <= pos.x + width && getPosition().x >= pos.x && getPosition().y <= pos.y + height && getPosition().y >= pos.y)
+	{
+		return true;
+	}
+	return false;
 }
 
 bool Joueur::GetJump() const
