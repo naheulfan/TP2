@@ -13,6 +13,9 @@ public:
 	~Sections();
 	void Update();
 	void Draw(sf::RenderWindow &window);
+	float* GetSizes();
+	sf::Vector2f* GetPositions();
+
 private:
 	sf::Texture texture;
 	Plateforme plateformes[3];

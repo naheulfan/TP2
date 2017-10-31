@@ -49,3 +49,21 @@ void Sections::Draw(sf::RenderWindow &window)
 		plateformes[i].Draw(window);
 	}
 }
+sf::Vector2f* Sections::GetPositions()
+{
+	sf::Vector2f positions[3];
+	for (int i = 0; i < 3; i++)
+	{
+		positions[i] = plateformes[i].GetPosition();
+	}
+	return positions;
+}
+float* Sections::GetSizes()
+{
+	float sizes[3];
+	for (int i = 0; i < 3; i++)
+	{
+		sizes[i] = plateformes[i].GetSize();
+	}
+	return sizes;
+}
