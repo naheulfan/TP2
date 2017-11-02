@@ -2,19 +2,25 @@
 
 
 
-Ennemi::Ennemi()
+Ennemi::Ennemi(sf::Vector2f basePos,sf::Texture &texture)
 {
+	position = basePos;
+	sprite.setTexture(texture);
+
 }
-
-
+void Ennemi::Draw(sf::RenderWindow &window)
+{
+	sprite.setPosition(position);
+	window.draw(sprite);
+}
 Ennemi::~Ennemi()
 {
 }
-void Ennemi::Move()
+sf::Vector2f Ennemi::Getposition()
 {
-	int bob = 2;
-	if (bob == 2)
-	{
-		int roger = 6;
-	}
+	return position;
+}
+void Ennemi::SetPosition(sf::Vector2f newPos)
+{
+	position = newPos;
 }

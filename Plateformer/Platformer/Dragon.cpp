@@ -1,12 +1,16 @@
 #include "Dragon.h"
 
 
-
-Dragon::Dragon()
-{
-}
-
-
-Dragon::~Dragon()
-{
-}
+//
+//Dragon::Dragon(sf::Vector2f position, sf::Texture &texture) : Ennemi(position, &texture)
+//{
+//}
+//
+//
+//Dragon::~Dragon()
+//{
+//}
+//void Dragon::Update()
+//{
+//
+//}

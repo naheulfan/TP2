@@ -77,7 +77,9 @@ bool SceneNiveau1::init(RenderWindow * const window)
 	this->mainWin = window;
 	section = Sections(1);
 	isRunning = true;
+	gameStarted = false;
 	return true;
+
 }
 
 void SceneNiveau1::getInputs()
@@ -132,17 +134,26 @@ void SceneNiveau1::update()
 		interfaceCommande |= 4;
 		joueur.SetJump(true);
 		joueur.Jump();
+		gameStarted = true;
 	}
-	else if (!joueur.GetJump())
+	if (gameStarted)
 	{
-		//Chexk avec tous les blocs
-		joueur.Gravity(Vector2f(0, 50), TAILLE_TUILES_X, TAILLE_TUILES_Y);
-		//for (int i = 0; i < NOMBRE_TUILES_X; ++i)
-		//{
-		//	joueur.Gravity(Vector2f(i, mainWin->getSize().y - TAILLE_TUILES_Y * 2), TAILLE_TUILES_X, TAILLE_TUILES_Y);
-		//}
-	}
-	section.Update();
+		if (!joueur.GetJump())
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				//Chexk avec tous les blocs
+				joueur.Gravity(section.GetPositions()[i], section.GetSizes()[i], TAILLE_TUILES_Y);
+				section.GetPositions()[i];
+				//for (int i = 0; i < NOMBRE_TUILES_X; ++i)
+				//{
+				//	joueur.Gravity(Vector2f(i, mainWin->getSize().y - TAILLE_TUILES_Y * 2), TAILLE_TUILES_X, TAILLE_TUILES_Y);
+				//}
+			}
+		}
+
+		section.Update();
+		}
 }
 
 void SceneNiveau1::draw()

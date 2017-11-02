@@ -50,5 +50,6 @@ namespace platformer
 		Joueur joueur;
 		int interfaceCommande;
 		Sections section;
+		bool gameStarted;
 	};
 }

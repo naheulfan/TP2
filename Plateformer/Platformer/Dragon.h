@@ -1,8 +1,11 @@
 #pragma once
-class Dragon
+#include "Ennemi.h"
+class Dragon : public Ennemi
 {
 public:
-	Dragon();
+	Dragon(sf::Vector2f position, sf::Vector2f &texture);
 	~Dragon();
+	void Update();
+
 };
 
