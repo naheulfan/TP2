@@ -63,7 +63,7 @@ bool SceneNiveau1::init(RenderWindow * const window)
 		background[i].setTexture(backgroundT[i]);
 	}
 	srand(time(NULL));
-
+	
 	for (int x = 0; x < NOMBRE_TUILES_X; x++)
 	{
 		//Choix du bloc au hasard
@@ -139,8 +139,10 @@ void SceneNiveau1::update()
 		joueur.Gravity(Vector2f(0, 50), TAILLE_TUILES_X, TAILLE_TUILES_Y);
 		//for (int i = 0; i < NOMBRE_TUILES_X; ++i)
 		//{
-		//	joueur.Gravity(Vector2f(i, mainWin->getSize().y - TAILLE_TUILES_Y * 2), TAILLE_TUILES_X, TAILLE_TUILES_Y);
+		//	joueur.Gravity();
+		//	joueur.Gravity(, TAILLE_TUILES_X, TAILLE_TUILES_Y);
 		//}
+		//section.GetPositions()[0].x;
 	}
 	section.Update();
 }

@@ -90,6 +90,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Chevalier.cpp" />
+    <ClCompile Include="Controleur.cpp" />
     <ClCompile Include="Dragon.cpp" />
     <ClCompile Include="Ennemi.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -102,9 +103,11 @@
     <ClCompile Include="Sections.cpp" />
     <ClCompile Include="Testeur.cpp" />
     <ClCompile Include="Textbox.cpp" />
+    <ClCompile Include="Menu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chevalier.h" />
+    <ClInclude Include="Controleur.h" />
     <ClInclude Include="Dragon.h" />
     <ClInclude Include="Ennemi.h" />
     <ClInclude Include="Game.h" />
@@ -117,6 +120,7 @@
     <ClInclude Include="Sections.h" />
     <ClInclude Include="Testeur.h" />
     <ClInclude Include="Textbox.h" />
+    <ClInclude Include="Menu.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Ressources\Backgrounds\Layer0_0.png" />
