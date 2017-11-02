@@ -31,7 +31,6 @@ Scene::scenes requeteChangerScene(Scene::scenes sceneCourante, Event event)
 		{
 			return Scene::scenes::TITRE;
 		}
-
 	}
 	return sceneCourante;
 }

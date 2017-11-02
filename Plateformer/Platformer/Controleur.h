@@ -10,7 +10,7 @@ namespace platformer
 		static Controleur *GetInstance();
 		static void Release();
 
-		Scene::scenes requeteChangerScene(Scene::scenes sceneCourante, Event event);
+		//Scene::scenes requeteChangerScene(Scene::scenes sceneCourante, Event event);
 
 	private:
 		Controleur();

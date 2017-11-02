@@ -143,13 +143,14 @@ void SceneNiveau1::update()
 			for (int i = 0; i < 3; i++)
 			{
 				//Chexk avec tous les blocs
-				joueur.Gravity(section.GetPositions()[i], section.GetSizes()[i], TAILLE_TUILES_Y);
+				joueur.Collision(section.GetPositions()[i], section.GetSizes()[i], TAILLE_TUILES_Y);
 				section.GetPositions()[i];
 				//for (int i = 0; i < NOMBRE_TUILES_X; ++i)
 				//{
 				//	joueur.Gravity(Vector2f(i, mainWin->getSize().y - TAILLE_TUILES_Y * 2), TAILLE_TUILES_X, TAILLE_TUILES_Y);
 				//}
 			}
+			joueur.Gravity();
 		}
 
 		section.Update();
