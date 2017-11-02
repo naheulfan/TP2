@@ -1,4 +1,5 @@
 #include "Menu.h"
+#include "Controleur.h"
 
 using namespace platformer;
 
@@ -48,8 +49,7 @@ void SceneMenu::getInputs()
 			transitionVersScene = Scene::scenes::SORTIE;
 		}
 
-		transitionVersScene = Scene::scenes::TITRE;
-		//Controleur::GetInstance()->requeteChangerScene(Scene::scenes::MENU, event);
+		transitionVersScene = Controleur::GetInstance()->RequeteChangerScene(Scene::scenes::MENU, event);
 		if (transitionVersScene != Scene::scenes::MENU)
 		{
 			isRunning = false;

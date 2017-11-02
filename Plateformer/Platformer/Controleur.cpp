@@ -22,7 +22,7 @@ void Controleur::Release()
 	instance = nullptr;
 }
 
-Scene::scenes requeteChangerScene(Scene::scenes sceneCourante, Event event)
+Scene::scenes Controleur::RequeteChangerScene(Scene::scenes sceneCourante, Event event)
 {
 	if (sceneCourante == Scene::scenes::MENU)
 	{
