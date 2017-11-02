@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "SceneTitre.h"
 #include "SceneNiveau1.h"
+#include "Menu.h"
 
 using namespace platformer;
 
@@ -24,7 +25,7 @@ int Game::testTest()
 int Game::run()
 {
 	//deux enums et un pointeur de scene pour faire la manipulation de scène
-	Scene::scenes selecteurDeScene = Scene::scenes::TITRE;
+	Scene::scenes selecteurDeScene = Scene::scenes::MENU;
 	Scene::scenes sceneEnRetour;
 	Scene* sceneActive = nullptr; //Pointeur de la super-classe, peut pointer sur n'imprte quelle scène
 
@@ -41,6 +42,10 @@ int Game::run()
 			//être ajoutées ici
 			switch (selecteurDeScene)
 			{
+			case Scene::scenes::MENU:
+				sceneActive = new SceneMenu();
+				break;
+
 			case Scene::scenes::TITRE:
 				sceneActive = new SceneTitre();
 				break;
