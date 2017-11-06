@@ -7,6 +7,7 @@ public:
 	Dragon(sf::Vector2f position, sf::Texture &texture, float platformSize);
 	~Dragon();
 	void Update();
-
+private:
+	float speed;
 };
 

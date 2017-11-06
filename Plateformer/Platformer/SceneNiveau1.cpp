@@ -159,6 +159,7 @@ void SceneNiveau1::update()
 		}
 
 		section.Update();
+		dragon.Update();
 		}
 }
 
