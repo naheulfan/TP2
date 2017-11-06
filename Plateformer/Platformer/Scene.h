@@ -28,7 +28,7 @@ namespace platformer
 	protected:
 		RenderWindow *mainWin;
 		Event event;
-		
+		 
 		/// <summary>
 		/// À la fin de chaque scène, on indique à Game quelle nouvelle scène elle doit charger.
 		/// </summary>
