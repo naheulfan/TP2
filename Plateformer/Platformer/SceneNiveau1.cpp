@@ -76,6 +76,8 @@ bool SceneNiveau1::init(RenderWindow * const window)
 
 	this->mainWin = window;
 	section = Sections(1);
+	DragonTexture.loadFromFile("Ressources\\Sprites\\Gem.png");
+	dragon = Dragon(section.GetPositions()[0], DragonTexture, section.GetSizes()[0]);
 	isRunning = true;
 	gameStarted = false;
 	return true;
@@ -132,7 +134,10 @@ void SceneNiveau1::update()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::W) || joueur.GetJump())
 	{
 		interfaceCommande |= 4;
-		joueur.SetJump(true);
+		if (!joueur.GetJump())
+		{
+			joueur.SetJump(true);
+		}
 		joueur.Jump();
 		gameStarted = true;
 	}
@@ -143,13 +148,14 @@ void SceneNiveau1::update()
 			for (int i = 0; i < 3; i++)
 			{
 				//Chexk avec tous les blocs
-				joueur.Gravity(section.GetPositions()[i], section.GetSizes()[i], TAILLE_TUILES_Y);
+				joueur.Collision(section.GetPositions()[i], section.GetSizes()[i], TAILLE_TUILES_Y);
 				section.GetPositions()[i];
 				//for (int i = 0; i < NOMBRE_TUILES_X; ++i)
 				//{
 				//	joueur.Gravity(Vector2f(i, mainWin->getSize().y - TAILLE_TUILES_Y * 2), TAILLE_TUILES_X, TAILLE_TUILES_Y);
 				//}
 			}
+			joueur.Gravity();
 		}
 
 		section.Update();
@@ -174,6 +180,7 @@ void SceneNiveau1::draw()
 			}
 		}
 	section.Draw(*mainWin);
+	dragon.Draw(*mainWin);
 	mainWin->draw(joueur);
 	mainWin->display();
 }

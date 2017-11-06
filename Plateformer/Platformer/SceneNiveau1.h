@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "Joueur.h"
 #include "Sections.h"
+#include "Dragon.h"
 
 
 using namespace sf;
@@ -51,5 +52,7 @@ namespace platformer
 		int interfaceCommande;
 		Sections section;
 		bool gameStarted;
+		Dragon dragon;
+		Texture DragonTexture;
 	};
 }

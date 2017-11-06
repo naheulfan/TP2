@@ -33,7 +33,7 @@ namespace platformer
 
 		void Jump();
 
-		void Gravity(Vector2f pos, int width, int height);
+		void Gravity();
 
 		bool Collision(Vector2f pos, int width, int height);
 

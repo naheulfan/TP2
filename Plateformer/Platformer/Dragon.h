@@ -3,7 +3,8 @@
 class Dragon : public Ennemi
 {
 public:
-	Dragon(sf::Vector2f position, sf::Vector2f &texture);
+	Dragon::Dragon();
+	Dragon(sf::Vector2f position, sf::Texture &texture, float platformSize);
 	~Dragon();
 	void Update();
 

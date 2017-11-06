@@ -71,36 +71,22 @@ void Joueur::Jump()
 	}
 }
 
-void Joueur::Gravity(Vector2f pos, int width, int height)
+void Joueur::Gravity()
 {
-	pos.y += TAILLE_RECT;
-	if (isFalling)
-	{
-		//Check avec Des BOXS ?
-		if (Collision(pos, width, height))
-		{
-			// plus la hauteur du joueur
-			setPosition(getPosition().x, pos.y);
-			isFalling = false;
-		}
-
+	if(isFalling)
 		Sprite::move(0, vitesse * 2);
-	}
-	else
-	{
-		if (!Collision(pos, width, height))
-		{
-			isFalling = true;
-		}
-	}
 }
 
 bool Joueur::Collision(Vector2f pos, int width, int height)
 {
+	pos.y -= TAILLE_RECT/2;
 	if (getPosition().x <= pos.x + width && getPosition().x >= pos.x && getPosition().y <= pos.y + height && getPosition().y >= pos.y)
 	{
+		setPosition(getPosition().x, pos.y);
+		isFalling = false;
 		return true;
 	}
+	isFalling = true;
 	return false;
 }
 

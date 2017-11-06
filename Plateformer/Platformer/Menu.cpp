@@ -47,7 +47,9 @@ void SceneMenu::getInputs()
 			isRunning = false;
 			transitionVersScene = Scene::scenes::SORTIE;
 		}
-		transitionVersScene = Controleur::GetInstance()->requeteChangerScene(Scene::scenes::MENU, event);
+
+		transitionVersScene = Scene::scenes::TITRE;
+		//Controleur::GetInstance()->requeteChangerScene(Scene::scenes::MENU, event);
 		if (transitionVersScene != Scene::scenes::MENU)
 		{
 			isRunning = false;
