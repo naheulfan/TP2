@@ -8,6 +8,7 @@ Dragon::Dragon(sf::Vector2f position, sf::Texture &texture, float platformSize) 
 	speed = 1;
 	currentSprite = 0;
 	timer.restart();
+	sprite.setOrigin(sf::Vector2f(48, 48));
 }
 Dragon::Dragon()
 {
@@ -21,10 +22,12 @@ void Dragon::Update()
 	if (position.x <= bounds[0])
 	{
 		goingRight = true;
+		sprite.scale(-1, 1);
 	}
 	else if (position.x >= bounds[1])
 	{
 		goingRight = false;
+		sprite.scale(-1, 1);
 	}
 	if (goingRight)
 	{
@@ -39,14 +42,13 @@ void Dragon::Update()
 void Dragon::Draw(sf::RenderWindow &window)
 {
 	sprite.setPosition(position);
-	sprite.setTextureRect(sf::IntRect(currentSprite + 2 * 64, currentSprite + 2 * 64, 64, 64));
+	sprite.setTextureRect(sf::IntRect(currentSprite * 96, 0, 96, 96));
 	window.draw(sprite);
-	currentSprite++;
-	if (timer.getElapsedTime() >= sf::milliseconds(2000) )
+	if (timer.getElapsedTime() >= sf::milliseconds(200) )
 	{
-		//currentSprite++;
+		currentSprite++;
 		timer.restart();
-		if (currentSprite > 9)
+		if (currentSprite >= 3)
 		{
 			currentSprite = 0;
 		}

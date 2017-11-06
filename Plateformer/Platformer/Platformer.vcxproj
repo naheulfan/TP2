@@ -137,6 +137,7 @@
     <Image Include="Ressources\Overlays\you_died.png" />
     <Image Include="Ressources\Overlays\you_lose.png" />
     <Image Include="Ressources\Overlays\you_win.png" />
+    <Image Include="Ressources\Sprites\Dragon.png" />
     <Image Include="Ressources\Sprites\Gem.png" />
     <Image Include="Ressources\Sprites\MonsterA\Idle.png" />
     <Image Include="Ressources\Sprites\MonsterA\Run.png" />
