@@ -2,6 +2,7 @@
 #include "SceneTitre.h"
 #include "SceneNiveau1.h"
 #include "Menu.h"
+#include "GestionCompte.h"
 
 using namespace platformer;
 
@@ -53,6 +54,14 @@ int Game::run()
 			case Scene::scenes::NIVEAU1:
 				sceneActive = new SceneNiveau1();
 				break;
+
+			case Scene::scenes::GESTION_COMPTE:
+				sceneActive = new GestionCompte();
+				break;
+
+			//case Scene::scenes::CREER_COMPTE:
+			//	sceneActive =
+			//	break;
 			}
 			
 			if (sceneActive->init(&mainWin))

@@ -94,6 +94,7 @@
     <ClCompile Include="Dragon.cpp" />
     <ClCompile Include="Ennemi.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GestionCompte.cpp" />
     <ClCompile Include="Joueur.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Modele.cpp" />
@@ -112,6 +113,7 @@
     <ClInclude Include="Dragon.h" />
     <ClInclude Include="Ennemi.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GestionCompte.h" />
     <ClInclude Include="Joueur.h" />
     <ClInclude Include="Modele.h" />
     <ClInclude Include="Plateforme.h" />
