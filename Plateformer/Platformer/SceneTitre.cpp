@@ -1,4 +1,5 @@
 #include "SceneTitre.h"
+#include "Controleur.h"
 
 using namespace platformer;
 
@@ -92,7 +93,7 @@ void SceneTitre::getInputs()
 				enterActif = true; //Pour s'assurer que enter n'est pas saisie comme caractère
 
 				//Condition bison pour voir que la transition fonctionne.
-				if (textbox.getTexte() == "password")
+				if (Controleur::GetInstance()->VerificationCompte("antoknee", textbox.getTexte()))
 				{
 					isRunning = false;
 					transitionVersScene = Scene::scenes::NIVEAU1;
