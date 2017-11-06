@@ -8,7 +8,7 @@ public:
 	sf::Vector2f Getposition();
 	void SetPosition(sf::Vector2f newPos);
 	virtual void Update() =0;
-	void Draw(sf::RenderWindow &window);
+
 	Ennemi();
 
 protected:
@@ -16,5 +16,6 @@ protected:
 	sf::Sprite sprite;
 	float bounds[2]; // bounds[0] est la première limite en x, bounds[1] est la deuxième limite en x
 	bool goingRight;
+	sf::Clock timer;
 };
 

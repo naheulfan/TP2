@@ -11,11 +11,7 @@ Ennemi::Ennemi(sf::Vector2f basePos ,sf::Texture &texture, float plateformSize)
 
 
 }
-void Ennemi::Draw(sf::RenderWindow &window)
-{
-	sprite.setPosition(position);
-	window.draw(sprite);
-}
+
 Ennemi::Ennemi()
 {
 

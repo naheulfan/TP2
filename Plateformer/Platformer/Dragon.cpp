@@ -6,6 +6,8 @@ Dragon::Dragon(sf::Vector2f position, sf::Texture &texture, float platformSize) 
 {
 	goingRight = true;
 	speed = 1;
+	currentSprite = 0;
+	timer.restart();
 }
 Dragon::Dragon()
 {
@@ -33,5 +35,22 @@ void Dragon::Update()
 		position.x -= speed;
 	}
 	position.y += 1;
+}
+void Dragon::Draw(sf::RenderWindow &window)
+{
+	sprite.setPosition(position);
+	sprite.setTextureRect(sf::IntRect(currentSprite + 2 * 64, currentSprite + 2 * 64, 64, 64));
+	window.draw(sprite);
+	currentSprite++;
+	if (timer.getElapsedTime() >= sf::milliseconds(2000) )
+	{
+		//currentSprite++;
+		timer.restart();
+		if (currentSprite > 9)
+		{
+			currentSprite = 0;
+		}
+	}
+	
 }
 
