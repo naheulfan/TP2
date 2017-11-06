@@ -19,5 +19,8 @@ namespace platformer
 		Texture ecranTitreT;
 		Sprite ecranTitre;
 		Font font;
+		Text texteLogin;
+		Text texteScore;
+		Text texteCompte;
 	};
 }
