@@ -36,13 +36,28 @@ Scene::scenes Controleur::RequeteChangerScene(Scene::scenes sceneCourante, Event
 		{
 			return Scene::scenes::TITRE;
 		}
-		else if (event.key.code == Keyboard::Tab)
+		else if (event.key.code == Keyboard::S)
 		{
-			return Scene::scenes::TITRE;
+			return Scene::scenes::SCORE;
+		}
+		else if (event.key.code == Keyboard::G)
+		{
+			return Scene::scenes::GESTION_COMPTE;
+		}
+	}
+	if (sceneCourante == Scene::scenes::GESTION_COMPTE)
+	{
+		if (event.key.code == Keyboard::E)
+		{
+			return Scene::scenes::EFFACER_COMPTE;
+		}
+		else if (event.key.code == Keyboard::M)
+		{
+			return Scene::scenes::MODIFIER_COMPTE;
 		}
 		else if (event.key.code == Keyboard::C)
 		{
-			return Scene::scenes::TITRE;
+			return Scene::scenes::CREER_COMPTE;
 		}
 	}
 	return sceneCourante;

@@ -93,7 +93,7 @@ void SceneTitre::getInputs()
 				enterActif = true; //Pour s'assurer que enter n'est pas saisie comme caractère
 
 				//Condition bison pour voir que la transition fonctionne.
-				if (Controleur::GetInstance()->VerificationCompte("antoknee", textbox.getTexte()))
+				if (Controleur::GetInstance()->VerificationCompte("nobody", textbox.getTexte()))
 				{
 					isRunning = false;
 					transitionVersScene = Scene::scenes::NIVEAU1;
