@@ -76,7 +76,7 @@ bool SceneNiveau1::init(RenderWindow * const window)
 
 	this->mainWin = window;
 	section = Sections(1);
-	DragonTexture.loadFromFile("Ressources\\Sprites\\Gem.png");
+	DragonTexture.loadFromFile("Ressources\\Sprites\\MonsterA\\Run.png");
 	dragon = Dragon(section.GetPositions()[0], DragonTexture, section.GetSizes()[0]);
 	isRunning = true;
 	gameStarted = false;
@@ -159,6 +159,7 @@ void SceneNiveau1::update()
 		}
 
 		section.Update();
+		dragon.Update();
 		}
 }
 

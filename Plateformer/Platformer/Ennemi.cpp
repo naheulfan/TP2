@@ -2,20 +2,16 @@
 
 
 
-Ennemi::Ennemi(sf::Vector2f basePos,sf::Texture &texture, float plateformSize)
+Ennemi::Ennemi(sf::Vector2f basePos ,sf::Texture &texture, float plateformSize)
 {
-	position = basePos;
+	position = sf::Vector2f(basePos.x, basePos.y - texture.getSize().y);
 	sprite.setTexture(texture);
 	bounds[0] = basePos.x;
-	bounds[1] = bounds[0] + plateformSize;
+	bounds[1] = basePos.x + plateformSize;
 
 
 }
-void Ennemi::Draw(sf::RenderWindow &window)
-{
-	sprite.setPosition(position);
-	window.draw(sprite);
-}
+
 Ennemi::Ennemi()
 {
 
