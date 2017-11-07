@@ -271,6 +271,9 @@
     <Image Include="Ressources\Sprites\Player\Player.png">
       <Filter>Fichiers de ressources\Sprites\Player</Filter>
     </Image>
+    <Image Include="Ressources\Sprites\Dragon.png">
+      <Filter>Fichiers de ressources\Sprites</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Ressources\Fonts\Peric.ttf">
