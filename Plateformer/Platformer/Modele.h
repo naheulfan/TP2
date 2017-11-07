@@ -9,7 +9,7 @@ namespace platformer
 	{
 	public:
 		Modele();
-		void AjoutCompte(std::string nom, std::string password);
+		void AjoutCompte(std::string nickname, std::string password, std::string nom, std::string prenom, std::string courriel);
 		
 		std::string* DonneeCompte(size_t pos) const;
 
@@ -18,7 +18,10 @@ namespace platformer
 		std::vector<std::string> GetNomCompte();
 
 	private:
-		std::vector<std::string> nomCompte;
+		std::vector<std::string> nicknameCompte;
 		std::vector<std::string> passwordCompte;
+		std::vector<std::string> nomCompte;
+		std::vector<std::string> prenomCompte;
+		std::vector<std::string> courrielCompte;
 	};
 }

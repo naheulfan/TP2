@@ -61,11 +61,6 @@ void SceneTitre::getInputs()
 			isRunning = false;
 			transitionVersScene = Scene::scenes::SORTIE;
 		}
-		transitionVersScene = Controleur::GetInstance()->RequeteChangerScene(Scene::scenes::TITRE, event);
-		if (transitionVersScene != Scene::scenes::TITRE)
-		{
-			isRunning = false;
-		}
 
 		//Si on a un événement de click de souris
 		if (event.type == Event::MouseButtonPressed)
@@ -114,6 +109,11 @@ void SceneTitre::getInputs()
 				textboxActif->retirerChar();
 				backspaceActif = true;  //Pour s'assurer que backspace n'est pas saisie comme caractère
 			}
+			else if (event.key.code == Keyboard::Escape)
+			{
+				isRunning = false;
+				transitionVersScene = Controleur::GetInstance()->RequeteChangerScene(Scene::scenes::TITRE, event);
+			}	
 		}
 
 		//Attention : TextEntered est différent de KeyPressed

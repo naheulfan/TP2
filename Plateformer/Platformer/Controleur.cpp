@@ -29,11 +29,11 @@ Scene::scenes Controleur::RequeteChangerScene(Scene::scenes sceneCourante, Event
 	{
 		return Scene::scenes::MENU;
 	}
-	if (sceneCourante == Scene::scenes::TITRE && event.key.code == Keyboard::Escape)
+	else if (sceneCourante == Scene::scenes::TITRE && event.key.code == Keyboard::Escape)
 	{
 		return Scene::scenes::MENU;
 	}
-	if (sceneCourante == Scene::scenes::MENU)
+	else if (sceneCourante == Scene::scenes::MENU)
 	{
 		//Les scenes que Menu peut se rendre
 		if (event.key.code == Keyboard::Space)
@@ -49,7 +49,7 @@ Scene::scenes Controleur::RequeteChangerScene(Scene::scenes sceneCourante, Event
 			return Scene::scenes::GESTION_COMPTE;
 		}
 	}
-	if (sceneCourante == Scene::scenes::GESTION_COMPTE)
+	else if (sceneCourante == Scene::scenes::GESTION_COMPTE)
 	{
 		if (event.key.code == Keyboard::E)
 		{
@@ -68,22 +68,29 @@ Scene::scenes Controleur::RequeteChangerScene(Scene::scenes sceneCourante, Event
 			return Scene::scenes::MENU;
 		}
 	}
+	else if (sceneCourante == Scene::scenes::CREER_COMPTE)
+	{
+		if (event.key.code == Keyboard::Escape)
+		{
+			return Scene::scenes::GESTION_COMPTE;
+		}
+	}
 	return sceneCourante;
 }
 
-bool Controleur::VerificationCompte(std::string nom, std::string password)
+bool Controleur::VerificationCompte(std::string nickname, std::string password)
 {
 		size_t pos;
 		std::string* compte;
 		std::vector<std::string> nomCompte = modele.GetNomCompte();
 		for (int i = 0; i < modele.GetSize(); ++i)
 		{
-			if (nom == nomCompte.at(i))
+			if (nickname == nomCompte.at(i))
 			{
 				compte = modele.DonneeCompte(i);
 			}
 		}
-		if (compte[0] == nom && compte[1] == password)
+		if (compte[0] == nickname && compte[1] == password)
 		{
 			return true;
 		}
@@ -91,4 +98,33 @@ bool Controleur::VerificationCompte(std::string nom, std::string password)
 		{
 			return false;
 		}
+}
+
+bool Controleur::ValidationCompte(std::string nickname, std::string password, std::string nom, std::string prenom, std::string courriel)
+{
+	if (nickname.size() >= 3 && nickname.size() <= 25)
+	{
+		//Check si existe ou pas dans modele
+
+		if (password.size() >= 5 && password.size() <= 15)
+		{
+			//Check critères
+
+			if (nom.size() >= 2 && nom.size <= 25)
+			{
+				//Check critères
+
+				if (prenom.size() >= 2 && prenom.size <= 25)
+				{
+					//Check critères (comme Nom)
+
+					//if () Check courriel
+					return true;
+				}
+
+			}
+
+		}
+	}
+	return false;
 }

@@ -2,25 +2,26 @@
 
 #include <SFML/Graphics.hpp>
 #include "Scene.h"
+#include "Textbox.h"
 
 namespace platformer
 {
-	class GestionCompte : public Scene
+	class CreationCompte : public Scene
 	{
 	public:
-		GestionCompte();
+		CreationCompte();
 		scenes run();
 		bool init(RenderWindow * const window);
 		void getInputs();
 		void update();
 		void draw();
 	private:
-		//Texture ecranTitreT;
-		//Sprite ecranTitre;
+		Textbox textbox;
+		Textbox textboxErreur;
+		Textbox* textboxActif = nullptr;
+		Texture ecranTitreT;
+		Sprite ecranTitre;
 		Font font;
 		Text titre;
-		Text texteModifier;
-		Text texteEffacer;
-		Text texteCreer;
 	};
 }

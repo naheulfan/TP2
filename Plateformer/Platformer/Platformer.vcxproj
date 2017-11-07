@@ -91,6 +91,7 @@
   <ItemGroup>
     <ClCompile Include="Chevalier.cpp" />
     <ClCompile Include="Controleur.cpp" />
+    <ClCompile Include="CreationCompte.cpp" />
     <ClCompile Include="Dragon.cpp" />
     <ClCompile Include="Ennemi.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -110,6 +111,7 @@
   <ItemGroup>
     <ClInclude Include="Chevalier.h" />
     <ClInclude Include="Controleur.h" />
+    <ClInclude Include="CreationCompte.h" />
     <ClInclude Include="Dragon.h" />
     <ClInclude Include="Ennemi.h" />
     <ClInclude Include="Game.h" />
