@@ -61,6 +61,11 @@ void SceneTitre::getInputs()
 			isRunning = false;
 			transitionVersScene = Scene::scenes::SORTIE;
 		}
+		transitionVersScene = Controleur::GetInstance()->RequeteChangerScene(Scene::scenes::TITRE, event);
+		if (transitionVersScene != Scene::scenes::TITRE)
+		{
+			isRunning = false;
+		}
 
 		//Si on a un événement de click de souris
 		if (event.type == Event::MouseButtonPressed)

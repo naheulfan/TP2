@@ -71,7 +71,7 @@ void GestionCompte::getInputs()
 		}
 
 		transitionVersScene = Controleur::GetInstance()->RequeteChangerScene(Scene::scenes::GESTION_COMPTE, event);
-		if (transitionVersScene != Scene::scenes::MENU)
+		if (transitionVersScene != Scene::scenes::GESTION_COMPTE)
 		{
 			isRunning = false;
 		}

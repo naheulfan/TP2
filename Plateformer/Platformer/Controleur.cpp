@@ -29,6 +29,10 @@ Scene::scenes Controleur::RequeteChangerScene(Scene::scenes sceneCourante, Event
 	{
 		return Scene::scenes::MENU;
 	}
+	if (sceneCourante == Scene::scenes::TITRE && event.key.code == Keyboard::Escape)
+	{
+		return Scene::scenes::MENU;
+	}
 	if (sceneCourante == Scene::scenes::MENU)
 	{
 		//Les scenes que Menu peut se rendre
@@ -58,6 +62,10 @@ Scene::scenes Controleur::RequeteChangerScene(Scene::scenes sceneCourante, Event
 		else if (event.key.code == Keyboard::C)
 		{
 			return Scene::scenes::CREER_COMPTE;
+		}
+		else if (event.key.code == Keyboard::Escape)
+		{
+			return Scene::scenes::MENU;
 		}
 	}
 	return sceneCourante;
