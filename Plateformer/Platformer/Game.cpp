@@ -3,6 +3,7 @@
 #include "SceneNiveau1.h"
 #include "Menu.h"
 #include "GestionCompte.h"
+#include "CreationCompte.h"
 
 using namespace platformer;
 
@@ -59,9 +60,9 @@ int Game::run()
 				sceneActive = new GestionCompte();
 				break;
 
-			//case Scene::scenes::CREER_COMPTE:
-			//	sceneActive =
-			//	break;
+			case Scene::scenes::CREER_COMPTE:
+				sceneActive = new CreationCompte();
+				break;
 			}
 			
 			if (sceneActive->init(&mainWin))

@@ -21,10 +21,10 @@ Scene::scenes GestionCompte::run()
 
 bool GestionCompte::init(RenderWindow * const window)
 {
-	if (!ecranTitreT.loadFromFile("Ressources\\Sprites\\Title.png"))
-	{
-		return false;
-	}
+	//if (!ecranTitreT.loadFromFile("Ressources\\Sprites\\Title.png"))
+	//{
+	//	return false;
+	//}
 
 	if (!font.loadFromFile("Ressources\\Fonts\\Peric.ttf"))
 	{
@@ -52,7 +52,7 @@ bool GestionCompte::init(RenderWindow * const window)
 	texteCreer.setFillColor(Color::White);
 
 
-	ecranTitre.setTexture(ecranTitreT);
+	//ecranTitre.setTexture(ecranTitreT);
 
 	this->mainWin = window;
 	isRunning = true;
@@ -71,7 +71,7 @@ void GestionCompte::getInputs()
 		}
 
 		transitionVersScene = Controleur::GetInstance()->RequeteChangerScene(Scene::scenes::GESTION_COMPTE, event);
-		if (transitionVersScene != Scene::scenes::MENU)
+		if (transitionVersScene != Scene::scenes::GESTION_COMPTE)
 		{
 			isRunning = false;
 		}

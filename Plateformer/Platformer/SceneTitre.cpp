@@ -109,6 +109,11 @@ void SceneTitre::getInputs()
 				textboxActif->retirerChar();
 				backspaceActif = true;  //Pour s'assurer que backspace n'est pas saisie comme caractère
 			}
+			else if (event.key.code == Keyboard::Escape)
+			{
+				isRunning = false;
+				transitionVersScene = Controleur::GetInstance()->RequeteChangerScene(Scene::scenes::TITRE, event);
+			}	
 		}
 
 		//Attention : TextEntered est différent de KeyPressed
