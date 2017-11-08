@@ -99,6 +99,9 @@
     <ClCompile Include="GestionCompte.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="Slime.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
     <ClCompile Include="CreationCompte.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -153,9 +156,6 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="GestionCompte.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="CreationCompte.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
@@ -278,6 +278,12 @@
       <Filter>Fichiers de ressources\Sprites\Player</Filter>
     </Image>
     <Image Include="Ressources\Sprites\Dragon.png">
+      <Filter>Fichiers de ressources\Sprites</Filter>
+    </Image>
+    <Image Include="Ressources\Sprites\Paladin.png">
+      <Filter>Fichiers de ressources\Sprites</Filter>
+    </Image>
+    <Image Include="Ressources\Sprites\Slime.png">
       <Filter>Fichiers de ressources\Sprites</Filter>
     </Image>
   </ItemGroup>

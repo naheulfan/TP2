@@ -1,8 +1,16 @@
 #pragma once
-class Chevalier
+#include "Ennemi.h"
+class Chevalier : public Ennemi
 {
 public:
-	Chevalier();
+	Chevalier::Chevalier();
+	Chevalier(sf::Vector2f position, sf::Texture &texture, float platformSize);
 	~Chevalier();
+	void Update();
+	void Draw(sf::RenderWindow &window);
+
+private:
+	float speed;
+	int currentSprite;
 };
 

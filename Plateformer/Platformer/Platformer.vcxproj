@@ -104,6 +104,7 @@
     <ClCompile Include="SceneTitre.cpp" />
     <ClCompile Include="SectionGenerator.cpp" />
     <ClCompile Include="Sections.cpp" />
+    <ClCompile Include="Slime.cpp" />
     <ClCompile Include="Testeur.cpp" />
     <ClCompile Include="Textbox.cpp" />
     <ClCompile Include="Menu.cpp" />
@@ -124,6 +125,7 @@
     <ClInclude Include="SceneTitre.h" />
     <ClInclude Include="SectionGenerator.h" />
     <ClInclude Include="Sections.h" />
+    <ClInclude Include="Slime.h" />
     <ClInclude Include="Testeur.h" />
     <ClInclude Include="Textbox.h" />
     <ClInclude Include="Menu.h" />
@@ -151,12 +153,14 @@
     <Image Include="Ressources\Sprites\MonsterC\Run.png" />
     <Image Include="Ressources\Sprites\MonsterD\Idle.png" />
     <Image Include="Ressources\Sprites\MonsterD\Run.png" />
+    <Image Include="Ressources\Sprites\Paladin.png" />
     <Image Include="Ressources\Sprites\Player\Celebrate.png" />
     <Image Include="Ressources\Sprites\Player\Die.png" />
     <Image Include="Ressources\Sprites\Player\Idle.png" />
     <Image Include="Ressources\Sprites\Player\Jump.png" />
     <Image Include="Ressources\Sprites\Player\Player.png" />
     <Image Include="Ressources\Sprites\Player\Run.png" />
+    <Image Include="Ressources\Sprites\Slime.png" />
     <Image Include="Ressources\Sprites\Title.png" />
     <Image Include="Ressources\Tiles\BlockA0.png" />
     <Image Include="Ressources\Tiles\BlockA1.png" />
