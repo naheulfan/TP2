@@ -4,7 +4,8 @@
 #include "Joueur.h"
 #include "Sections.h"
 #include "Dragon.h"
-
+#include "Chevalier.h"
+#include "Slime.h"
 
 using namespace sf;
 
@@ -53,6 +54,10 @@ namespace platformer
 		Sections section;
 		bool gameStarted;
 		Dragon dragon;
+		Chevalier chevalier;
+		Slime slime;
 		Texture DragonTexture;
+		Texture ChevalierTexture;
+		Texture SlimeTexture;
 	};
 }
