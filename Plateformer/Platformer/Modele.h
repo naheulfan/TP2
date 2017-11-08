@@ -23,5 +23,8 @@ namespace platformer
 		std::vector<std::string> nomCompte;
 		std::vector<std::string> prenomCompte;
 		std::vector<std::string> courrielCompte;
+
+		//std::fstream fichier;
+		//std::string line;
 	};
 }

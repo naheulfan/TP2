@@ -104,16 +104,24 @@ bool Controleur::ValidationCompte(std::string nickname, std::string password, st
 {
 	if (nickname.size() >= 3 && nickname.size() <= 25)
 	{
-		//Check si existe ou pas dans modele
+		//Check si existe ou pas dans le txt
+		/*while(readLine)
+		if(nicknameTxt != nickname)
+		*/
 
 		if (password.size() >= 5 && password.size() <= 15)
 		{
-			//Check critères
-
+			//Check critères Doit contenir au moins une lettre minuscule, une majuscule, 
+			//une chiffre et un caractère qui n’est ni un chiffre ni une lettre. 
+			//std::any_of(password.begin(), password.end(), islower);
+			//std::any_of(password.begin(), password.end(), isupper);
+			//std::any_of(password.begin(), password.end(), isdigit);
+			//check manuel pour un caractère spécial autre que chiffre et lettre
 			if (nom.size() >= 2 && nom.size <= 25)
 			{
 				//Check critères
-
+				//!std::any_of(nom.begin(), nom.end(), isdigit);
+				//Check point et trait d'union en parcourant la chiane manuellement
 				if (prenom.size() >= 2 && prenom.size <= 25)
 				{
 					//Check critères (comme Nom)
