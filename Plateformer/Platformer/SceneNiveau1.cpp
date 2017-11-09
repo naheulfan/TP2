@@ -80,7 +80,7 @@ bool SceneNiveau1::init(RenderWindow * const window)
 	dragon = Dragon(section.GetPositions()[0], DragonTexture, section.GetSizes()[0]);
 	ChevalierTexture.loadFromFile("Ressources\\Sprites\\Paladin.png");
 	SlimeTexture.loadFromFile("Ressources\\Sprites\\Slime.png");
-	//slime = Slime(section.GetPositions()[2], SlimeTexture, section.GetSizes()[2]);
+	slime = Slime(section.GetPositions()[2], SlimeTexture, section.GetSizes()[2]);
 	chevalier = Chevalier(section.GetPositions()[1], ChevalierTexture, section.GetSizes()[1]);
 	isRunning = true;
 	gameStarted = false;

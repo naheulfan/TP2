@@ -83,11 +83,11 @@ bool Controleur::VerificationCompte(std::string nickname, std::string password)
 		size_t pos;
 		std::string* compte;
 		std::vector<std::string> nomCompte = modele.GetNomCompte();
-		for (int i = 0; i < modele.GetSize(); ++i)
+		for (int i = 0; i < nomCompte.size(); ++i)
 		{
 			if (nickname == nomCompte.at(i))
 			{
-				compte = modele.DonneeCompte(i);
+				compte = modele.DonneeCompte(nickname);
 			}
 		}
 		if (compte[0] == nickname && compte[1] == password)
@@ -100,6 +100,7 @@ bool Controleur::VerificationCompte(std::string nickname, std::string password)
 		}
 }
 
+//Création de compte
 bool Controleur::ValidationCompte(std::string nickname, std::string password, std::string nom, std::string prenom, std::string courriel)
 {
 	if (nickname.size() >= 3 && nickname.size() <= 25)
@@ -117,12 +118,12 @@ bool Controleur::ValidationCompte(std::string nickname, std::string password, st
 			//std::any_of(password.begin(), password.end(), isupper);
 			//std::any_of(password.begin(), password.end(), isdigit);
 			//check manuel pour un caractère spécial autre que chiffre et lettre
-			if (nom.size() >= 2 && nom.size <= 25)
+			if (nom.size() >= 2 && nom.size() <= 25)
 			{
 				//Check critères
 				//!std::any_of(nom.begin(), nom.end(), isdigit);
 				//Check point et trait d'union en parcourant la chiane manuellement
-				if (prenom.size() >= 2 && prenom.size <= 25)
+				if (prenom.size() >= 2 && prenom.size() <= 25)
 				{
 					//Check critères (comme Nom)
 

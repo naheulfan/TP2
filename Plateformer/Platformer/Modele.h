@@ -11,20 +11,10 @@ namespace platformer
 		Modele();
 		void AjoutCompte(std::string nickname, std::string password, std::string nom, std::string prenom, std::string courriel);
 		
-		std::string* DonneeCompte(size_t pos) const;
+		std::string* DonneeCompte(std::string nickname) const;
 
-		size_t GetSize();
-
-		std::vector<std::string> GetNomCompte();
-
+		std::vector<std::string> GetNomCompte() const;
 	private:
-		std::vector<std::string> nicknameCompte;
-		std::vector<std::string> passwordCompte;
-		std::vector<std::string> nomCompte;
-		std::vector<std::string> prenomCompte;
-		std::vector<std::string> courrielCompte;
-
-		//std::fstream fichier;
-		//std::string line;
+		//poid mouche ?
 	};
 }
