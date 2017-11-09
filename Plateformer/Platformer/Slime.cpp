@@ -2,8 +2,7 @@
 
 
 
-Slime::Slime(sf::Vector2f position, sf::Texture &texture, float platformSize) : Ennemi
-(position, texture, platformSize)
+Slime::Slime(sf::Vector2f position, sf::Texture &texture, float platformSize) : Ennemi(position, texture, platformSize)
 {
 	goingRight = true;
 	speed = 1;

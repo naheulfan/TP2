@@ -1,50 +1,56 @@
 #include "Modele.h"
+#include <iostream>
 #include <fstream>
+#include <string>
+#include <sstream>
 
 using namespace platformer;
 
 Modele::Modele()
 {
-	nicknameCompte = {"antoknee", "naheulfan","nobody"};
-	passwordCompte = { "anto","zantar", "password" };
-	//Voir si ça marche et si seulement l'initier dans la méthode
-	//fichier = std::fstream("compte.txt");
 }
 
 
 void Modele::AjoutCompte(std::string nickname, std::string password, std::string nom, std::string prenom, std::string courriel)
 {
-	//std::ofstream fichier("compte.txt");
-	//instruction pour écrire dans le txt...
-
-	//À changer, ajouter les infos dans le fichier .txt
-	nicknameCompte.push_back(nickname);
-	passwordCompte.push_back(password);
-	nomCompte.push_back(nom);
-	prenomCompte.push_back(prenom);
-	courrielCompte.push_back(courriel);
+	//Ajouter vérification si fichier ouvert, etc.
+	std::ofstream fichier("compte.txt", std::ofstream::app);
+	fichier << nickname << " " << password << " " << nom << " " << prenom << " " << courriel << std::endl;
 }
 
-std::string* Modele::DonneeCompte(size_t pos) const
+std::string* Modele::DonneeCompte(std::string nickname) const
 {
-	//std::ifstream fichier("compte.txt");
-	//string line;
-	//while (getline(fichier, line))
-	//voir exemple algo...
-
-	//À changer
-	std::string* compte = new std::string[2];
-	compte[0] = nicknameCompte.at(pos);
-	compte[1] = passwordCompte.at(pos);
+	std::ifstream fichier("compte.txt");
+	std::string line;
+	std::string* compte = new std::string[5];
+	while (getline(fichier, line))
+	{
+		std::stringstream l(line);
+		std::string surnom, password, nom, prenom, courriel;
+		l >> surnom >> password >> nom >> prenom >> courriel;
+		if (surnom == nickname)
+		{
+			compte[0] = surnom;
+			compte[1] = password;
+			compte[2] = nom;
+			compte[3] = prenom;
+			compte[4] = courriel;
+		}
+	}
 	return compte;
 }
 
-size_t Modele::GetSize()
+std::vector<std::string> Modele::GetNomCompte() const
 {
-	return nicknameCompte.size();
-}
-
-std::vector<std::string> Modele::GetNomCompte()
-{
-	return nicknameCompte;
+	std::vector<std::string> nomComptes;
+	std::ifstream fichier("compte.txt");
+	std::string line;
+	while (getline(fichier, line))
+	{
+		std::stringstream l(line);
+		std::string nickname;
+		l >> nickname;
+		nomComptes.push_back(nickname);
+	}
+	return nomComptes;
 }
