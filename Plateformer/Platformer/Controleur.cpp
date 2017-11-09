@@ -117,12 +117,12 @@ bool Controleur::ValidationCompte(std::string nickname, std::string password, st
 			//std::any_of(password.begin(), password.end(), isupper);
 			//std::any_of(password.begin(), password.end(), isdigit);
 			//check manuel pour un caractère spécial autre que chiffre et lettre
-			if (nom.size() >= 2 && nom.size <= 25)
+			if (nom.size() >= 2 && nom.size() <= 25)
 			{
 				//Check critères
 				//!std::any_of(nom.begin(), nom.end(), isdigit);
 				//Check point et trait d'union en parcourant la chiane manuellement
-				if (prenom.size() >= 2 && prenom.size <= 25)
+				if (prenom.size() >= 2 && prenom.size() <= 25)
 				{
 					//Check critères (comme Nom)
 

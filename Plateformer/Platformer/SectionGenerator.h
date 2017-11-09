@@ -1,10 +1,15 @@
 #pragma once
-class Section
+#include "Sections.h"
+#include <queue>
+class SectionGenerator
 {
 public:
-	Section();
-	~Section();
+	SectionGenerator();
+	~SectionGenerator();
+	Sections* getNextInstance();
 private:
+	Sections* sectionsToGenerate[3];
+	int currentSection;
 
 };
 

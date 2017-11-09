@@ -6,6 +6,7 @@
 #include "Dragon.h"
 #include "Chevalier.h"
 #include "Slime.h"
+#include "Gems.h"
 
 using namespace sf;
 
@@ -59,5 +60,9 @@ namespace platformer
 		Texture DragonTexture;
 		Texture ChevalierTexture;
 		Texture SlimeTexture;
+		sf::Texture gemsTexture;
+		Sprite GemSprite;
+
+		Gems gems[10];
 	};
 }
