@@ -75,13 +75,16 @@ bool SceneNiveau1::init(RenderWindow * const window)
 	joueur.setPosition(100, window->getSize().y - TAILLE_TUILES_Y * 2);
 
 	this->mainWin = window;
-	section = Sections(1);
+	section = Sections(0);
 	DragonTexture.loadFromFile("Ressources\\Sprites\\Dragon.png");
 	dragon = Dragon(section.GetPositions()[0], DragonTexture, section.GetSizes()[0]);
 	ChevalierTexture.loadFromFile("Ressources\\Sprites\\Paladin.png");
 	SlimeTexture.loadFromFile("Ressources\\Sprites\\Slime.png");
 	slime = Slime(section.GetPositions()[2], SlimeTexture, section.GetSizes()[2]);
 	chevalier = Chevalier(section.GetPositions()[1], ChevalierTexture, section.GetSizes()[1]);
+	gemsTexture.loadFromFile("Ressources\\Sprites\\Gem.png");
+	GemSprite.setTexture(gemsTexture);
+	gems[0] = Gems(sf::Vector2f(section.GetPositions()[0].x + section.GetSizes()[0] / 2, section.GetPositions()[0].y - 20));
 	isRunning = true;
 	gameStarted = false;
 	return true;
@@ -166,6 +169,7 @@ void SceneNiveau1::update()
 		dragon.Update();
 		chevalier.Update();
 		slime.Update();
+		gems[0].Update();
 		}
 }
 
@@ -190,6 +194,7 @@ void SceneNiveau1::draw()
 	dragon.Draw(*mainWin);
 	chevalier.Draw(*mainWin);
 	slime.Draw(*mainWin);
+	gems[0].Draw(GemSprite, *mainWin);
 	mainWin->draw(joueur);
 	mainWin->display();
 }
