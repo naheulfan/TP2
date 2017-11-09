@@ -81,7 +81,7 @@ Scene::scenes Controleur::RequeteChangerScene(Scene::scenes sceneCourante, Event
 bool Controleur::VerificationCompte(std::string nickname, std::string password)
 {
 		size_t pos;
-		std::string* compte;
+		std::string* compte = nullptr;
 		std::vector<std::string> nomCompte = modele.GetNomCompte();
 		for (int i = 0; i < nomCompte.size(); ++i)
 		{
@@ -90,14 +90,16 @@ bool Controleur::VerificationCompte(std::string nickname, std::string password)
 				compte = modele.DonneeCompte(nickname);
 			}
 		}
-		if (compte[0] == nickname && compte[1] == password)
-		{
-			return true;
-		}
-		else
+		if (compte == nullptr)
 		{
 			return false;
 		}
+		else if (compte[0] == nickname && compte[1] == password)
+		{
+			return true;
+		}
+
+		return false;
 }
 
 //Création de compte
