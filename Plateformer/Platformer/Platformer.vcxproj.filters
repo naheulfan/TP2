@@ -324,4 +324,9 @@
       <Filter>Fichiers de ressources\Sounds</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="comptes.txt">
+      <Filter>Fichiers de ressources</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

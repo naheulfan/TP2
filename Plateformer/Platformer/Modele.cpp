@@ -14,13 +14,13 @@ Modele::Modele()
 void Modele::AjoutCompte(std::string nickname, std::string password, std::string nom, std::string prenom, std::string courriel)
 {
 	//Ajouter vérification si fichier ouvert, etc.
-	std::ofstream fichier("compte.txt", std::ofstream::app);
+	std::ofstream fichier("comptes.txt", std::ofstream::app);
 	fichier << nickname << " " << password << " " << nom << " " << prenom << " " << courriel << std::endl;
 }
 
 std::string* Modele::DonneeCompte(std::string nickname) const
 {
-	std::ifstream fichier("compte.txt");
+	std::ifstream fichier("comptes.txt");
 	std::string line;
 	std::string* compte = new std::string[5];
 	while (getline(fichier, line))
@@ -43,7 +43,7 @@ std::string* Modele::DonneeCompte(std::string nickname) const
 std::vector<std::string> Modele::GetNomCompte() const
 {
 	std::vector<std::string> nomComptes;
-	std::ifstream fichier("compte.txt");
+	std::ifstream fichier("comptes.txt");
 	std::string line;
 	while (getline(fichier, line))
 	{
