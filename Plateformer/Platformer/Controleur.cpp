@@ -63,7 +63,7 @@ Scene::scenes Controleur::RequeteChangerScene(Scene::scenes sceneCourante, Event
 		{
 			return Scene::scenes::CREER_COMPTE;
 		}
-		else if (event.key.code == Keyboard::Escape)
+		else if (event.key.code == Keyboard::P)
 		{
 			return Scene::scenes::MENU;
 		}

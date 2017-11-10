@@ -22,5 +22,6 @@ namespace platformer
 		Text texteModifier;
 		Text texteEffacer;
 		Text texteCreer;
+		Text texteMenu;
 	};
 }

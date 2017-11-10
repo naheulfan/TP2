@@ -33,6 +33,8 @@ bool CreationCompte::init(RenderWindow * const window)
 	titre.setCharacterSize(50);
 	titre.setFillColor(Color::White);
 
+	//textboxNickname.init(480, 24, Vector2f(430, 260), font);
+
 	this->mainWin = window;
 	isRunning = true;
 
@@ -48,13 +50,6 @@ void CreationCompte::getInputs()
 			isRunning = false;
 			transitionVersScene = Scene::scenes::SORTIE;
 		}
-
-		transitionVersScene = Controleur::GetInstance()->RequeteChangerScene(Scene::scenes::GESTION_COMPTE, event);
-		if (transitionVersScene != Scene::scenes::GESTION_COMPTE)
-		{
-			isRunning = false;
-		}
-
 		if (event.type == Event::MouseButtonPressed)
 		{
 			//Si on touche à la textbox avec la souris
@@ -73,7 +68,46 @@ void CreationCompte::getInputs()
 			}
 
 		}
+		if (event.type == Event::KeyPressed && textboxActif != nullptr)
+		{
+			//VALIDER LES INFOS DANS TOUS LES TEXTBOX D'UNE SCÈNE
+			if (event.key.code == Keyboard::Return)
+			{
+				enterActif = true; //Pour s'assurer que enter n'est pas saisie comme caractère
+
+				//Appeller ajout compte
+				if (Controleur::GetInstance()->VerificationCompte("nobody", textbox.getTexte()))
+				{
+					isRunning = false;
+					transitionVersScene = Scene::scenes::NIVEAU1;
+				}
+				else
+				{
+					//On affiche notre erreur.
+					textboxErreur.insererTexte("Mauvais mot de passe, veillez recommencer");
+				}
+			}
+			else if (event.key.code == Keyboard::BackSpace)
+			{
+				textboxActif->retirerChar();
+				backspaceActif = true;  //Pour s'assurer que backspace n'est pas saisie comme caractère
+			}
+			else if (event.key.code == Keyboard::Escape)
+			{
+				isRunning = false;
+				transitionVersScene = Controleur::GetInstance()->RequeteChangerScene(Scene::scenes::CREER_COMPTE, event);
+			}
+		}
+		if (!backspaceActif && !enterActif && textboxActif != nullptr && (event.type == Event::TextEntered))
+		{
+			if (event.text.unicode < 128) 
+			{                            
+				textboxActif->ajouterChar((char)event.text.unicode);
+			}
+		}
 	}
+	enterActif = false;
+	backspaceActif = false;
 }
 
 void CreationCompte::update()

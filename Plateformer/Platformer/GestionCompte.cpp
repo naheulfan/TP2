@@ -51,6 +51,11 @@ bool GestionCompte::init(RenderWindow * const window)
 	texteCreer.setCharacterSize(20);
 	texteCreer.setFillColor(Color::White);
 
+	texteMenu.setString("\"P\" pour revenir au menu principal");
+	texteMenu.setFont(font);
+	texteMenu.setCharacterSize(20);
+	texteMenu.setFillColor(Color::White);
+
 
 	//ecranTitre.setTexture(ecranTitreT);
 
@@ -84,12 +89,14 @@ void GestionCompte::update()
 	texteCreer.setPosition(mainWin->getSize().x / 2 - 120, mainWin->getSize().y - 100);
 	texteEffacer.setPosition(mainWin->getSize().x / 2 - 120, mainWin->getSize().y - 130);
 	texteModifier.setPosition(mainWin->getSize().x / 2 - 120, mainWin->getSize().y - 160);
+	texteMenu.setPosition(mainWin->getSize().x / 2 - 120, mainWin->getSize().y - 190);
 }
 
 void GestionCompte::draw()
 {
 	mainWin->clear();
 	mainWin->draw(titre);
+	mainWin->draw(texteMenu);
 	mainWin->draw(texteEffacer);
 	mainWin->draw(texteCreer);
 	mainWin->draw(texteModifier);

@@ -23,5 +23,8 @@ namespace platformer
 		Sprite ecranTitre;
 		Font font;
 		Text titre;
+
+		bool backspaceActif = false;
+		bool enterActif = false;
 	};
 }
