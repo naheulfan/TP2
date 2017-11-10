@@ -166,11 +166,13 @@ void SceneNiveau1::update()
 		}
 		if (section[0].GetPositions()[0].y >= mainWin->getSize().y)
 		{
-			section[0] = *SectionGenerator::GenerateSection(2);
+			int sectionNumber = std::rand() % 3 + 1;
+			section[0] = *SectionGenerator::GenerateSection(sectionNumber);
 		}
-		else if (section[0].GetPositions()[0].y >= mainWin->getSize().y / 2)
+		else if ((section[0].GetPositions()[0].y >= mainWin->getSize().y / 2) && (section[1].GetPositions()[0].y >= mainWin->getSize().y / 2))
 		{
-			section[1] = *SectionGenerator::GenerateSection(3);
+			int sectionNumber = std::rand() % 3 + 1;
+			section[1] = *SectionGenerator::GenerateSection(sectionNumber);
 		}
 
 		section[0].Update();
