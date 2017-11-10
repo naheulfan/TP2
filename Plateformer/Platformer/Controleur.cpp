@@ -80,7 +80,6 @@ Scene::scenes Controleur::RequeteChangerScene(Scene::scenes sceneCourante, Event
 
 bool Controleur::VerificationCompte(std::string nickname, std::string password)
 {
-		size_t pos;
 		std::string* compte = nullptr;
 		std::vector<std::string> nomCompte = modele.GetNomCompte();
 		for (int i = 0; i < nomCompte.size(); ++i)
@@ -105,21 +104,33 @@ bool Controleur::VerificationCompte(std::string nickname, std::string password)
 //Création de compte
 bool Controleur::ValidationCompte(std::string nickname, std::string password, std::string nom, std::string prenom, std::string courriel)
 {
+	bool compteOk = false;
 	if (nickname.size() >= 3 && nickname.size() <= 25)
 	{
-		//Check si existe ou pas dans le txt
-		/*while(readLine)
-		if(nicknameTxt != nickname)
-		*/
+		//Check si existe ou pas dans le .txt
+		std::vector<std::string> nomCompte = modele.GetNomCompte();
+		for (int i = 0; i < nomCompte.size(); ++i)
+		{
+			if (nickname == nomCompte.at(i))
+			{
+				compteOk = true;
+			}
+		}
 
-		if (password.size() >= 5 && password.size() <= 15)
+		if (password.size() >= 5 && password.size() <= 15 && compteOk == true)
 		{
 			//Check critères Doit contenir au moins une lettre minuscule, une majuscule, 
 			//une chiffre et un caractère qui n’est ni un chiffre ni une lettre. 
-			//std::any_of(password.begin(), password.end(), islower);
-			//std::any_of(password.begin(), password.end(), isupper);
-			//std::any_of(password.begin(), password.end(), isdigit);
+			if (!std::any_of(password.begin(), password.end(), islower) && !std::any_of(password.begin(), password.end(), isupper))
+			{
+				compteOk = false;
+			}
+			if (!std::any_of(password.begin(), password.end(), isdigit))
+			{
+				compteOk = false;
+			}
 			//check manuel pour un caractère spécial autre que chiffre et lettre
+
 			if (nom.size() >= 2 && nom.size() <= 25)
 			{
 				//Check critères
@@ -130,12 +141,12 @@ bool Controleur::ValidationCompte(std::string nickname, std::string password, st
 					//Check critères (comme Nom)
 
 					//if () Check courriel
-					return true;
+					//return true;
 				}
 
 			}
 
 		}
 	}
-	return false;
+	return compteOk;
 }
