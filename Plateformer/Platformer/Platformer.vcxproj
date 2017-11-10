@@ -189,9 +189,6 @@
     <None Include="Ressources\Sounds\PlayerKilled.ogg" />
     <None Include="Ressources\Sounds\Powerup.ogg" />
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="comptes.txt" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "Scene.h"
 #include "Textbox.h"
+#include "Modele.h"
 
 namespace platformer
 {
@@ -23,6 +24,7 @@ namespace platformer
 		Sprite ecranTitre;
 		Font font;
 		Text titre;
+		Modele modele;
 
 		bool backspaceActif = false;
 		bool enterActif = false;

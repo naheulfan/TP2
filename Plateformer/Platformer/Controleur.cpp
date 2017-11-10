@@ -105,7 +105,6 @@ bool Controleur::VerificationCompte(std::string nickname, std::string password)
 //Création de compte
 bool Controleur::ValidationCompte(std::string nickname, std::string password, std::string nom, std::string prenom, std::string courriel)
 {
-	bool compteOk = false;
 	//Vérification du surnom
 	if (nickname.size() >= 3 && nickname.size() <= 25)
 	{
@@ -114,24 +113,24 @@ bool Controleur::ValidationCompte(std::string nickname, std::string password, st
 		{
 			if (nickname == nomCompte.at(i))
 			{
-				compteOk = true;
+				return false;
 			}
 		}
 
-		if (password.size() >= 5 && password.size() <= 15 && compteOk == true)
+		if (password.size() >= 5 && password.size() <= 15)
 		{
 			//Vérification si le mot de passe contient un minimum d'une minuscule, d'une majuscule et d'un chiffre
 			if (!std::any_of(password.begin(), password.end(), islower) && !std::any_of(password.begin(), password.end(), isupper) && !std::any_of(password.begin(), password.end(), isdigit))
 			{
-				compteOk = false;
+				return false;
 			}
 			//Vérification si le mot de passe contient seulement des chiffres et des lettres
 			if (std::all_of(password.begin(), password.end(), isalnum))
 			{
-				compteOk = false;
+				return false;
 			}
 
-			if (nom.size() >= 2 && nom.size() <= 25 && compteOk == true)
+			if (nom.size() >= 2 && nom.size() <= 25)
 			{
 				//Check critères
 				for (int i = 0; i < nom.size(); ++i)
@@ -143,10 +142,10 @@ bool Controleur::ValidationCompte(std::string nickname, std::string password, st
 				}
 				if (!std::all_of(nom.begin(), nom.end(), isalpha))
 				{
-					compteOk = false;
+					return false;
 				}
 				//Check point et trait d'union en parcourant la chiane manuellement
-				if (prenom.size() >= 2 && prenom.size() <= 25 && compteOk == true)
+				if (prenom.size() >= 2 && prenom.size() <= 25)
 				{
 					for (int i = 0; i < prenom.size(); ++i)
 					{
@@ -157,17 +156,58 @@ bool Controleur::ValidationCompte(std::string nickname, std::string password, st
 					}
 					if (!std::all_of(prenom.begin(), prenom.end(), isalpha))
 					{
-						compteOk = false;
+						return false;
 					}
 
-					if (compteOk == true) //Check courriel
+					//Peut-être revoir la vérification bizzare
+					int atPosition = -1;
+					int dotPosition = -1;
+					for (int i = courriel.size() - 1; i > 0; --i)
 					{
-
+						if (courriel.at(i) == '@')
+						{
+							if (atPosition != -1)
+							{
+								return false;
+							}
+							else
+							{
+								atPosition = i;
+							}
+						}
+						else if (courriel.at(i) == '.')
+						{
+							if (dotPosition != -1)
+							{
+								return false;
+							}
+							else
+							{
+								dotPosition = i;
+							}
+						}
+						//À revoir pour les 'é' etc...
+						else if (!isalnum(courriel.at(i)) && courriel.at(i) != '_' && courriel.at(i) != '-')
+						{
+							return false;
+						}
+					}
+					if (atPosition == -1 || dotPosition == -1 || atPosition > dotPosition)
+					{
+						return false;
+					}
+					else if ((courriel.size() - 1) - dotPosition < 2 || (courriel.size() - 1) - dotPosition > 3)
+					{
+						return false;
+					}
+					else if (atPosition == 0 || dotPosition - atPosition == 0)
+					{
+						return false;
 					}
 				}
 			}
 
 		}
 	}
-	return compteOk;
+	return true;
 }

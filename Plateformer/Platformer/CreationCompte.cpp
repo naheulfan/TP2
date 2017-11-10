@@ -76,10 +76,9 @@ void CreationCompte::getInputs()
 				enterActif = true; //Pour s'assurer que enter n'est pas saisie comme caractère
 
 				//Appeller ajout compte
-				if (Controleur::GetInstance()->ValidationCompte("antoknee", "Bruno-123", "pl.eau-marie", "bruno" , "bruno@gmail.com"))
+				if (Controleur::GetInstance()->ValidationCompte("naheulfanv", "Bruno-123", "Pleau", "Bruno" , "bruno@gmail.com"))
 				{
-					isRunning = false;
-					transitionVersScene = Scene::scenes::NIVEAU1;
+					modele.AjoutCompte("naheulfanv", "Bruno-123", "Pleau", "Bruno", "bruno@gmail.com");
 				}
 				else
 				{
