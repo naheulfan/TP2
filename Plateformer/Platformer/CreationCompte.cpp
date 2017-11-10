@@ -76,7 +76,7 @@ void CreationCompte::getInputs()
 				enterActif = true; //Pour s'assurer que enter n'est pas saisie comme caractère
 
 				//Appeller ajout compte
-				if (Controleur::GetInstance()->VerificationCompte("nobody", textbox.getTexte()))
+				if (Controleur::GetInstance()->ValidationCompte("antoknee", "Bruno123", "pleau", "bruno" , "bruno@gmail.com"))
 				{
 					isRunning = false;
 					transitionVersScene = Scene::scenes::NIVEAU1;
