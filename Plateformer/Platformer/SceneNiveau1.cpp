@@ -138,10 +138,10 @@ void SceneNiveau1::update()
 	{
 		joueur.move(1);
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::W) || joueur.GetJump())
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || joueur.GetJump() || joueur.GetIsFalling())
 	{
 		interfaceCommande |= 4;
-		if (!joueur.GetJump())
+		if (!joueur.GetJump() && !joueur.GetIsFalling())
 		{
 			joueur.SetJump(true);
 		}
