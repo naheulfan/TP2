@@ -40,8 +40,10 @@ bool SceneTitre::init(RenderWindow * const window)
 
 	//Les positions sont arbitraires, obtenus par essai et erreur.
 	//par rapport au fond d'écran
-	textbox.init(480, 24, Vector2f(430, 320), font);
+	textboxPassword.init(480, 24, Vector2f(430, 320), font);
 	textboxErreur.initInfo(Vector2f(430, 290), font, true);
+
+	textboxNickname.init(480, 24, Vector2f(430, 260), font);
 
 	this->mainWin = window;
 	isRunning = true;
@@ -66,24 +68,36 @@ void SceneTitre::getInputs()
 		if (event.type == Event::MouseButtonPressed)
 		{
 			//Si on touche à la textbox avec la souris
-			if (textbox.touche(Mouse::getPosition(*mainWin)))
+			if (textboxPassword.touche(Mouse::getPosition(*mainWin)))
 			{
-				textboxActif = &textbox; //Ce textbox devient actif
-				textbox.selectionner();  //on l'affiche comme étant sélectionné
+				textboxActifPassword = &textboxPassword; //Ce textbox devient actif
+				textboxPassword.selectionner();  //on l'affiche comme étant sélectionné
 				textboxErreur.insererTexte(""); //on efface le message d'erreur (optionnel, amis ça fait clean si on fait un nouvel essai)
 			}
 			else
 			{
 				//Sinon aucun textbox actif
 				//Ce else devrait être dans toutes vos fenêtres où il n'y a pas de textbox.
-				textboxActif = nullptr;
-				textbox.deSelectionner();
+				textboxActifPassword = nullptr;
+				textboxPassword.deSelectionner();
 			}
-
+			//Si on touche à la textbox avec la souris
+			if (textboxNickname.touche(Mouse::getPosition(*mainWin)))
+			{
+				textboxActifPassword = &textboxNickname; //Ce textbox devient actif
+				textboxNickname.selectionner();  //on l'affiche comme étant sélectionné
+			}
+			else
+			{
+				//Sinon aucun textbox actif
+				//Ce else devrait être dans toutes vos fenêtres où il n'y a pas de textbox.
+				textboxActifNickname = nullptr;
+				textboxNickname.deSelectionner();
+			}
 		}
 
 		//Un événement de touche de clavier AVEC un textobx actif
-		if (event.type == Event::KeyPressed && textboxActif != nullptr)
+		if (event.type == Event::KeyPressed && textboxActifPassword != nullptr)
 		{
 			//ON VA SE SERVIR DE ENTER PARTOUT DANS LE TP POUR VALIDER LES INFOS DANS TOUS
 			//LES TEXTBOX D'UNE SCÈNE (Vous pouviez vous codez un bouton si ça vous amuse,
@@ -93,7 +107,7 @@ void SceneTitre::getInputs()
 				enterActif = true; //Pour s'assurer que enter n'est pas saisie comme caractère
 
 				//Condition bison pour voir que la transition fonctionne.
-				if (Controleur::GetInstance()->VerificationCompte("nobody", textbox.getTexte()))
+				if (Controleur::GetInstance()->VerificationCompte(textboxNickname.getTexte(), textboxPassword.getTexte()))
 				{
 					isRunning = false;
 					transitionVersScene = Scene::scenes::NIVEAU1;
@@ -101,12 +115,12 @@ void SceneTitre::getInputs()
 				else
 				{
 					//On affiche notre erreur.
-					textboxErreur.insererTexte("Mauvais mot de passe, entrez-en un bon!");
+					textboxErreur.insererTexte("Mauvais mot de passe, veillez recommencer");
 				}
 			}
 			else if (event.key.code == Keyboard::BackSpace)
 			{
-				textboxActif->retirerChar();
+				textboxActifPassword->retirerChar();
 				backspaceActif = true;  //Pour s'assurer que backspace n'est pas saisie comme caractère
 			}
 			else if (event.key.code == Keyboard::Escape)
@@ -118,11 +132,11 @@ void SceneTitre::getInputs()
 
 		//Attention : TextEntered est différent de KeyPressed
 		//Voir ici pour l'explication: https://www.sfml-dev.org/tutorials/2.4/window-events-fr.php
-		if (!backspaceActif && !enterActif && textboxActif != nullptr && (event.type == Event::TextEntered))
+		if (!backspaceActif && !enterActif && textboxActifPassword != nullptr && (event.type == Event::TextEntered))
 		{
 			if (event.text.unicode < 128) //Travailler en unicode n'est pas simple en C++; on peut vivre avec du simple
 			{                             //ascii pour ce tp (libre à vous d'aller plus loin si vous voulez)
-				textboxActif->ajouterChar((char)event.text.unicode);
+				textboxActifPassword->ajouterChar((char)event.text.unicode);
 			}
 		}
 	}
@@ -140,7 +154,8 @@ void SceneTitre::draw()
 {
 	mainWin->clear();
 	mainWin->draw(ecranTitre);
-	textbox.dessiner(mainWin);
+	textboxPassword.dessiner(mainWin);
 	textboxErreur.dessiner(mainWin);
+	textboxNickname.dessiner(mainWin);
 	mainWin->display();
 }
