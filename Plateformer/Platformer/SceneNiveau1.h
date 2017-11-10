@@ -63,6 +63,7 @@ namespace platformer
 		Texture SlimeTexture;
 		sf::Texture gemsTexture;
 		Sprite GemSprite;
+		bool initialFloor;
 
 		Gems gems[10];
 	};
