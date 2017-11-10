@@ -1,5 +1,6 @@
 #include "Controleur.h"
 #include <vector>
+#include <locale>
 
 using namespace platformer;
 
@@ -80,34 +81,34 @@ Scene::scenes Controleur::RequeteChangerScene(Scene::scenes sceneCourante, Event
 
 bool Controleur::VerificationCompte(std::string nickname, std::string password)
 {
-		std::string* compte = nullptr;
-		std::vector<std::string> nomCompte = modele.GetNomCompte();
-		for (int i = 0; i < nomCompte.size(); ++i)
+	std::string* compte = nullptr;
+	std::vector<std::string> nomCompte = modele.GetNomCompte();
+	for (int i = 0; i < nomCompte.size(); ++i)
+	{
+		if (nickname == nomCompte.at(i))
 		{
-			if (nickname == nomCompte.at(i))
-			{
-				compte = modele.DonneeCompte(nickname);
-			}
+			compte = modele.DonneeCompte(nickname);
 		}
-		if (compte == nullptr)
-		{
-			return false;
-		}
-		else if (compte[0] == nickname && compte[1] == password)
-		{
-			return true;
-		}
-
+	}
+	if (compte == nullptr)
+	{
 		return false;
+	}
+	else if (compte[0] == nickname && compte[1] == password)
+	{
+		return true;
+	}
+
+	return false;
 }
 
 //Création de compte
 bool Controleur::ValidationCompte(std::string nickname, std::string password, std::string nom, std::string prenom, std::string courriel)
 {
 	bool compteOk = false;
+	//Vérification du surnom
 	if (nickname.size() >= 3 && nickname.size() <= 25)
 	{
-		//Check si existe ou pas dans le .txt
 		std::vector<std::string> nomCompte = modele.GetNomCompte();
 		for (int i = 0; i < nomCompte.size(); ++i)
 		{
@@ -119,31 +120,51 @@ bool Controleur::ValidationCompte(std::string nickname, std::string password, st
 
 		if (password.size() >= 5 && password.size() <= 15 && compteOk == true)
 		{
-			//Check critères Doit contenir au moins une lettre minuscule, une majuscule, 
-			//une chiffre et un caractère qui n’est ni un chiffre ni une lettre. 
-			if (!std::any_of(password.begin(), password.end(), islower) && !std::any_of(password.begin(), password.end(), isupper))
+			//Vérification si le mot de passe contient un minimum d'une minuscule, d'une majuscule et d'un chiffre
+			if (!std::any_of(password.begin(), password.end(), islower) && !std::any_of(password.begin(), password.end(), isupper) && !std::any_of(password.begin(), password.end(), isdigit))
 			{
 				compteOk = false;
 			}
-			if (!std::any_of(password.begin(), password.end(), isdigit))
+			//Vérification si le mot de passe contient seulement des chiffres et des lettres
+			if (std::all_of(password.begin(), password.end(), isalnum))
 			{
 				compteOk = false;
 			}
-			//check manuel pour un caractère spécial autre que chiffre et lettre
 
-			if (nom.size() >= 2 && nom.size() <= 25)
+			if (nom.size() >= 2 && nom.size() <= 25 && compteOk == true)
 			{
 				//Check critères
-				//!std::any_of(nom.begin(), nom.end(), isdigit);
-				//Check point et trait d'union en parcourant la chiane manuellement
-				if (prenom.size() >= 2 && prenom.size() <= 25)
+				for (int i = 0; i < nom.size(); ++i)
 				{
-					//Check critères (comme Nom)
-
-					//if () Check courriel
-					//return true;
+					if (nom.at(i) == '.' || nom.at(i) == '-')
+					{
+						nom.erase(i,1);
+					}
 				}
+				if (!std::all_of(nom.begin(), nom.end(), isalpha))
+				{
+					compteOk = false;
+				}
+				//Check point et trait d'union en parcourant la chiane manuellement
+				if (prenom.size() >= 2 && prenom.size() <= 25 && compteOk == true)
+				{
+					for (int i = 0; i < prenom.size(); ++i)
+					{
+						if (prenom.at(i) == '.' || prenom.at(i) == '-')
+						{
+							prenom.erase(i, 1);
+						}
+					}
+					if (!std::all_of(prenom.begin(), prenom.end(), isalpha))
+					{
+						compteOk = false;
+					}
 
+					if (compteOk == true) //Check courriel
+					{
+
+					}
+				}
 			}
 
 		}
