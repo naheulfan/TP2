@@ -63,7 +63,7 @@ void Joueur::Jump()
 	{
 		jumpClock.restart();
 	}
-	if (GetJumpClock() > 1.0f)
+	if (GetJumpClock() > 0.6f)
 	{
 		jump = false;
 		jumpClock.restart();
@@ -75,18 +75,27 @@ void Joueur::Gravity()
 {
 	if(isFalling)
 		Sprite::move(0, vitesse * 2);
+	else
+	{
+		Sprite::move(0, 1);
+	}
 }
 
 bool Joueur::Collision(Vector2f pos, int width, int height)
 {
 	pos.y -= TAILLE_RECT/2;
-	if (getPosition().x <= pos.x + width && getPosition().x >= pos.x && getPosition().y <= pos.y + height && getPosition().y >= pos.y)
+	if (!GetJump())
 	{
-		setPosition(getPosition().x, pos.y);
-		isFalling = false;
-		return true;
+		if (getPosition().x <= pos.x + width && getPosition().x >= pos.x)
+		{	
+			if (getPosition().y <= pos.y + height && getPosition().y >= pos.y)
+			{
+				setPosition(getPosition().x, pos.y);
+				isFalling = false;
+				return true;
+			}
+		}
 	}
-	isFalling = true;
 	return false;
 }
 

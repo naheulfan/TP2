@@ -87,6 +87,7 @@ bool SceneNiveau1::init(RenderWindow * const window)
 	gems[0] = Gems(sf::Vector2f(section[0].GetPositions()[0].x + section[0].GetSizes()[0] / 2, section[0].GetPositions()[0].y - 20));
 	isRunning = true;
 	gameStarted = false;
+	initialFloor = true;
 	return true;
 
 }
@@ -150,31 +151,50 @@ void SceneNiveau1::update()
 	}
 	if (gameStarted)
 	{
-		if (!joueur.GetJump() && joueur.GetIsFalling())
+		if (!joueur.GetJump())
 		{
+			bool uneCollision = false;
 			for (int i = 0; i < 3; i++)
 			{
 				//Chexk avec tous les blocs
-				joueur.Collision(section[0].GetPositions()[i], section[0].GetSizes()[i], TAILLE_TUILES_Y);
-				joueur.Collision(section[1].GetPositions()[i], section[1].GetSizes()[i], TAILLE_TUILES_Y);
+				if (joueur.Collision(section[0].GetPositions()[i], section[0].GetSizes()[i], TAILLE_TUILES_Y) || joueur.Collision(section[1].GetPositions()[i], section[1].GetSizes()[i], TAILLE_TUILES_Y))
+				{
+					uneCollision = true;
+				}
+				if (!uneCollision)
+				{
+					joueur.SetIsFalling(true);
+				}
+
 				//for (int i = 0; i < NOMBRE_TUILES_X; ++i)
 				//{
 				//	joueur.Gravity(Vector2f(i, mainWin->getSize().y - TAILLE_TUILES_Y * 2), TAILLE_TUILES_X, TAILLE_TUILES_Y);
 				//}
 			}
-			joueur.Gravity();
+			if (joueur.getPosition().y < mainWin->getSize().y - TAILLE_TUILES_Y)
+			{
+				joueur.Gravity();
+			}
+			else if (!initialFloor)
+			{
+				joueur.Gravity();
+			}
+			else(joueur.SetIsFalling(false));
 		}
 		if (section[0].GetPositions()[0].y >= mainWin->getSize().y)
 		{
 			int sectionNumber = std::rand() % 3 + 1;
 			section[0] = *SectionGenerator::GenerateSection(sectionNumber);
+			if (initialFloor)
+			{
+				initialFloor = false;
+			}
 		}
 		else if ((section[0].GetPositions()[0].y >= mainWin->getSize().y / 2) && (section[1].GetPositions()[0].y >= mainWin->getSize().y / 2))
 		{
 			int sectionNumber = std::rand() % 3 + 1;
 			section[1] = *SectionGenerator::GenerateSection(sectionNumber);
 		}
-
 		section[0].Update();
 		section[1].Update();
 		dragon.Update();
