@@ -150,7 +150,7 @@ void SceneNiveau1::update()
 	}
 	if (gameStarted)
 	{
-		if (!joueur.GetJump())
+		if (!joueur.GetJump() && joueur.GetIsFalling())
 		{
 			for (int i = 0; i < 3; i++)
 			{
