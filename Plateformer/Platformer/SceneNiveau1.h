@@ -55,12 +55,7 @@ namespace platformer
 		int interfaceCommande;
 		Sections section[2];
 		bool gameStarted;
-		Dragon dragon;
-		Chevalier chevalier;
-		Slime slime;
-		Texture DragonTexture;
-		Texture ChevalierTexture;
-		Texture SlimeTexture;
+		std::vector<Ennemi*> listeEnnemis;
 		sf::Texture gemsTexture;
 		Sprite GemSprite;
 		bool initialFloor;

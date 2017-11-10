@@ -8,6 +8,7 @@ public:
 	sf::Vector2f Getposition();
 	void SetPosition(sf::Vector2f newPos);
 	virtual void Update() =0;
+	virtual void Draw(sf::RenderWindow &window) = 0;
 
 	Ennemi();
 

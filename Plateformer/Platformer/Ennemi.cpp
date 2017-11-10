@@ -18,7 +18,6 @@ Ennemi::Ennemi()
 }
 Ennemi::~Ennemi()
 {
-
 }
 sf::Vector2f Ennemi::Getposition()
 {
