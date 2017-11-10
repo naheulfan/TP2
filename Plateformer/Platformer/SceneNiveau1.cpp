@@ -75,16 +75,16 @@ bool SceneNiveau1::init(RenderWindow * const window)
 	joueur.setPosition(100, window->getSize().y - TAILLE_TUILES_Y * 2);
 
 	this->mainWin = window;
-	section = Sections(0);
+	section[0] = *SectionGenerator::GenerateSection(1);
 	DragonTexture.loadFromFile("Ressources\\Sprites\\Dragon.png");
-	dragon = Dragon(section.GetPositions()[0], DragonTexture, section.GetSizes()[0]);
+	dragon = Dragon(section[0].GetPositions()[0], DragonTexture, section[0].GetSizes()[0]);
 	ChevalierTexture.loadFromFile("Ressources\\Sprites\\Paladin.png");
 	SlimeTexture.loadFromFile("Ressources\\Sprites\\Slime.png");
-	slime = Slime(section.GetPositions()[2], SlimeTexture, section.GetSizes()[2]);
-	chevalier = Chevalier(section.GetPositions()[1], ChevalierTexture, section.GetSizes()[1]);
+	slime = Slime(section[0].GetPositions()[2], SlimeTexture, section[0].GetSizes()[2]);
+	chevalier = Chevalier(section[0].GetPositions()[1], ChevalierTexture, section[0].GetSizes()[1]);
 	gemsTexture.loadFromFile("Ressources\\Sprites\\Gem.png");
 	GemSprite.setTexture(gemsTexture);
-	gems[0] = Gems(sf::Vector2f(section.GetPositions()[0].x + section.GetSizes()[0] / 2, section.GetPositions()[0].y - 20));
+	gems[0] = Gems(sf::Vector2f(section[0].GetPositions()[0].x + section[0].GetSizes()[0] / 2, section[0].GetPositions()[0].y - 20));
 	isRunning = true;
 	gameStarted = false;
 	return true;
@@ -138,10 +138,10 @@ void SceneNiveau1::update()
 	{
 		joueur.move(1);
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::W) || joueur.GetJump())
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || joueur.GetJump() || joueur.GetIsFalling())
 	{
 		interfaceCommande |= 4;
-		if (!joueur.GetJump())
+		if (!joueur.GetJump() && !joueur.GetIsFalling())
 		{
 			joueur.SetJump(true);
 		}
@@ -150,13 +150,13 @@ void SceneNiveau1::update()
 	}
 	if (gameStarted)
 	{
-		if (!joueur.GetJump())
+		if (!joueur.GetJump() && joueur.GetIsFalling())
 		{
 			for (int i = 0; i < 3; i++)
 			{
 				//Chexk avec tous les blocs
-				joueur.Collision(section.GetPositions()[i], section.GetSizes()[i], TAILLE_TUILES_Y);
-				section.GetPositions()[i];
+				joueur.Collision(section[0].GetPositions()[i], section[0].GetSizes()[i], TAILLE_TUILES_Y);
+				joueur.Collision(section[1].GetPositions()[i], section[1].GetSizes()[i], TAILLE_TUILES_Y);
 				//for (int i = 0; i < NOMBRE_TUILES_X; ++i)
 				//{
 				//	joueur.Gravity(Vector2f(i, mainWin->getSize().y - TAILLE_TUILES_Y * 2), TAILLE_TUILES_X, TAILLE_TUILES_Y);
@@ -164,8 +164,17 @@ void SceneNiveau1::update()
 			}
 			joueur.Gravity();
 		}
+		if (section[0].GetPositions()[0].y >= mainWin->getSize().y)
+		{
+			section[0] = *SectionGenerator::GenerateSection(2);
+		}
+		else if (section[0].GetPositions()[0].y >= mainWin->getSize().y / 2)
+		{
+			section[1] = *SectionGenerator::GenerateSection(3);
+		}
 
-		section.Update();
+		section[0].Update();
+		section[1].Update();
 		dragon.Update();
 		chevalier.Update();
 		slime.Update();
@@ -190,7 +199,8 @@ void SceneNiveau1::draw()
 				mainWin->draw(*grilleDeTuiles[x][y]);
 			}
 		}
-	section.Draw(*mainWin);
+	section[0].Draw(*mainWin);
+	section[1].Draw(*mainWin);
 	dragon.Draw(*mainWin);
 	chevalier.Draw(*mainWin);
 	slime.Draw(*mainWin);

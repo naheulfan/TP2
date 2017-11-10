@@ -63,7 +63,7 @@ void Joueur::Jump()
 	{
 		jumpClock.restart();
 	}
-	if (GetJumpClock() > 0.6f)
+	if (GetJumpClock() > 1.0f)
 	{
 		jump = false;
 		jumpClock.restart();

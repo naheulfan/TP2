@@ -4,30 +4,22 @@
 
 SectionGenerator::SectionGenerator()
 {
-	currentSection = -1;//donc présentement inactif
-	*sectionsToGenerate[0] = Sections(0);
-	*sectionsToGenerate[1] = Sections(1);
-	*sectionsToGenerate[2] = Sections(2);
+
 }
 
-
-SectionGenerator::~SectionGenerator()
+Sections* SectionGenerator::GenerateSection(int sectionNumber)
 {
-}
-
-Sections* SectionGenerator::getNextInstance()
-{
-	int sectionToReturn;
-	if (currentSection == 3)
+	if (sectionNumber == 1)
 	{
-		sectionToReturn = 0;
-		currentSection = 0;
+		return new Sections(1);
 	}
-	else
+	else if (sectionNumber == 2)
 	{
-		currentSection++;
-		sectionToReturn = currentSection;
+		return new Sections(2);
 	}
-	return sectionsToGenerate[sectionToReturn];
-
+	else if (sectionNumber == 3)
+	{
+		return new Sections(3);
+	}
+	return nullptr;
 }

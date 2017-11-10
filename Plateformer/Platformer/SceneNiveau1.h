@@ -7,6 +7,7 @@
 #include "Chevalier.h"
 #include "Slime.h"
 #include "Gems.h"
+#include "SectionGenerator.h"
 
 using namespace sf;
 
@@ -52,7 +53,7 @@ namespace platformer
 		
 		Joueur joueur;
 		int interfaceCommande;
-		Sections section;
+		Sections section[2];
 		bool gameStarted;
 		Dragon dragon;
 		Chevalier chevalier;
