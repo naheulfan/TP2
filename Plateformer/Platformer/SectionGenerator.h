@@ -4,12 +4,9 @@
 class SectionGenerator
 {
 public:
-	SectionGenerator();
-	~SectionGenerator();
-	Sections* getNextInstance();
+	static Sections* GenerateSection(int sectionNumber);
 private:
-	Sections* sectionsToGenerate[3];
-	int currentSection;
+	SectionGenerator();
 
 };
 
