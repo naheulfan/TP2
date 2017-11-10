@@ -76,12 +76,6 @@ bool SceneNiveau1::init(RenderWindow * const window)
 
 	this->mainWin = window;
 	section[0] = *SectionGenerator::GenerateSection(1);
-	DragonTexture.loadFromFile("Ressources\\Sprites\\Dragon.png");
-	dragon = Dragon(section[0].GetPositions()[0], DragonTexture, section[0].GetSizes()[0]);
-	ChevalierTexture.loadFromFile("Ressources\\Sprites\\Paladin.png");
-	SlimeTexture.loadFromFile("Ressources\\Sprites\\Slime.png");
-	slime = Slime(section[0].GetPositions()[2], SlimeTexture, section[0].GetSizes()[2]);
-	chevalier = Chevalier(section[0].GetPositions()[1], ChevalierTexture, section[0].GetSizes()[1]);
 	gemsTexture.loadFromFile("Ressources\\Sprites\\Gem.png");
 	GemSprite.setTexture(gemsTexture);
 	gems[0] = Gems(sf::Vector2f(section[0].GetPositions()[0].x + section[0].GetSizes()[0] / 2, section[0].GetPositions()[0].y - 20));
@@ -197,9 +191,14 @@ void SceneNiveau1::update()
 		}
 		section[0].Update();
 		section[1].Update();
-		dragon.Update();
-		chevalier.Update();
-		slime.Update();
+		for (int i = 0; i < listeEnnemis.size(); i++)
+		{
+			listeEnnemis.at(i)->Update();
+			if (listeEnnemis.at(i)->Getposition().y >= mainWin->getSize().y)
+			{
+				listeEnnemis.at(i)->~Ennemi();
+			}
+		}
 		gems[0].Update();
 		}
 }
@@ -216,16 +215,17 @@ void SceneNiveau1::draw()
 	for (int x = 0; x < NOMBRE_TUILES_X; x++)
 		for (int y = 0; y < NOMBRE_TUILES_Y; y++)
 		{
-			if (grilleDeTuiles[x][y] != nullptr)
+			if (grilleDeTuiles[x][y] != nullptr && initialFloor)
 			{
 				mainWin->draw(*grilleDeTuiles[x][y]);
 			}
 		}
 	section[0].Draw(*mainWin);
 	section[1].Draw(*mainWin);
-	dragon.Draw(*mainWin);
-	chevalier.Draw(*mainWin);
-	slime.Draw(*mainWin);
+	for (int i = 0; i < listeEnnemis.size(); i++)
+	{
+		listeEnnemis[i]->Draw(*mainWin);
+	}
 	gems[0].Draw(GemSprite, *mainWin);
 	mainWin->draw(joueur);
 	mainWin->display();
