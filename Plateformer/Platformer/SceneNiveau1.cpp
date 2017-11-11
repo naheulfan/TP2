@@ -252,7 +252,7 @@ void SceneNiveau1::update()
 				score += 5;
 			}
 		}
-		if (scoreClock.getElapsedTime() >= sf::seconds(3))
+		if (scoreClock.getElapsedTime() >= sf::seconds(3) && !joueur.GetIsDead())
 		{
 			score++;
 			scoreClock.restart();

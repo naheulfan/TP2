@@ -127,10 +127,13 @@ void Textbox::insererTexte(String leTexte)
 /// </summary>
 void Textbox::ajouterChar(const char leChar)
 {
-	if (texte.getString().getSize() >= limite) return;
+	if (leChar != ' ')
+	{
+		if (texte.getString().getSize() >= limite) return;
 
-	texte.setString(texte.getString() + leChar);
-	ajustementsVisuels();
+		texte.setString(texte.getString() + leChar);
+		ajustementsVisuels();
+	}
 }
 
 /// <summary>

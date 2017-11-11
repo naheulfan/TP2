@@ -56,7 +56,7 @@ Scene::scenes Controleur::RequeteChangerScene(Scene::scenes sceneCourante, Event
 		{
 			return Scene::scenes::EFFACER_COMPTE;
 		}
-		else if (event.key.code == Keyboard::M)
+		else if (event.key.code == Keyboard::D)
 		{
 			return Scene::scenes::MODIFIER_COMPTE;
 		}
@@ -64,7 +64,7 @@ Scene::scenes Controleur::RequeteChangerScene(Scene::scenes sceneCourante, Event
 		{
 			return Scene::scenes::CREER_COMPTE;
 		}
-		else if (event.key.code == Keyboard::P)
+		else if (event.key.code == Keyboard::M)
 		{
 			return Scene::scenes::MENU;
 		}

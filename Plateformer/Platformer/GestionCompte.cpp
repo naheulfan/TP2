@@ -41,7 +41,7 @@ bool GestionCompte::init(RenderWindow * const window)
 	texteModifier.setCharacterSize(20);
 	texteModifier.setFillColor(Color::White);
 
-	texteEffacer.setString("\"M\" pour modifier un compte");
+	texteEffacer.setString("\"D\" pour modifier un compte");
 	texteEffacer.setFont(font);
 	texteEffacer.setCharacterSize(20);
 	texteEffacer.setFillColor(Color::White);
@@ -51,7 +51,7 @@ bool GestionCompte::init(RenderWindow * const window)
 	texteCreer.setCharacterSize(20);
 	texteCreer.setFillColor(Color::White);
 
-	texteMenu.setString("\"P\" pour revenir au menu principal");
+	texteMenu.setString("\"M\" pour revenir au menu principal");
 	texteMenu.setFont(font);
 	texteMenu.setCharacterSize(20);
 	texteMenu.setFillColor(Color::White);
