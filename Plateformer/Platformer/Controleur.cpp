@@ -75,6 +75,10 @@ Scene::scenes Controleur::RequeteChangerScene(Scene::scenes sceneCourante, Event
 		{
 			return Scene::scenes::GESTION_COMPTE;
 		}
+		else if (event.key.code == Keyboard::Return)
+		{
+			return Scene::scenes::MENU;
+		}
 	}
 	return sceneCourante;
 }
