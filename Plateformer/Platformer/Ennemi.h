@@ -13,6 +13,7 @@ public:
 	float GetHeight();
 	int GetEnnemiType(); // 0 pour dragon 1 pour chevalier 2 pour slime
 	Ennemi();
+	virtual void Attack();
 
 protected:
 	sf::Vector2f position;

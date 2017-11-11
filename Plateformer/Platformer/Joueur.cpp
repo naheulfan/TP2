@@ -9,6 +9,7 @@ Joueur::Joueur() : persoRect(0, 0, TAILLE_RECT, TAILLE_RECT)
 	isFalling = false;
 	isFrozen = false;
 	isSlown = false;
+	isConfused = false;
 }
 
 Joueur::~Joueur()
@@ -34,6 +35,7 @@ bool Joueur::init(const int limiteGauche, const int limiteDroite, const String t
 
 void Joueur::move(const int direction)
 {
+	int modifiedDirection = direction;
 	if (SlimeTimer.getElapsedTime() < sf::seconds(2) && isSlown)
 	{
 		vitesse = 0.7;
@@ -43,11 +45,19 @@ void Joueur::move(const int direction)
 		vitesse = 3;
 		isSlown = false;
 	}
-	if (direction == 1)
+	if (isConfused && ConfusionTimer.getElapsedTime() < sf::seconds(3))
+	{
+		modifiedDirection = direction * -1;
+	}
+	else if (ConfusionTimer.getElapsedTime() >= sf::seconds(3))
+	{
+		isConfused = false;
+	}
+	if (modifiedDirection == 1)
 	{
 		Sprite::move(vitesse, 0);
 	}
-	else if (direction == -1)
+	else if (modifiedDirection == -1)
 	{
 		Sprite::move(-vitesse, 0);
 	}
@@ -159,4 +169,9 @@ void Joueur::SlimeSlow()
 {
 	SlimeTimer.restart();
 	isSlown = true;
+}
+void Joueur::Confuse()
+{
+	ConfusionTimer.restart();
+	isConfused = true;
 }
