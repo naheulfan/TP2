@@ -17,19 +17,19 @@ namespace platformer
 		void update();
 		void draw();
 	private:
-		Textbox textbox3;
+		Textbox textboxNickname;
 		Textbox textboxErreur3;
 
-		Textbox textbox2;
+		Textbox textboxPassword;
 		Textbox textboxErreur2;
 
-		Textbox textbox;
+		Textbox textboxNom;
 		Textbox textboxErreur;
 
-		Textbox textbox1;
+		Textbox textboxPrenom;
 		Textbox textboxErreur1;
 
-		Textbox textbox0;
+		Textbox textboxCourriel;
 		Textbox textboxErreur0;
 
 		Textbox* textboxActif = nullptr;

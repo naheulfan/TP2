@@ -102,6 +102,7 @@
     <ClCompile Include="Joueur.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Modele.cpp" />
+    <ClCompile Include="ModifierCompte.cpp" />
     <ClCompile Include="Plateforme.cpp" />
     <ClCompile Include="SceneNiveau1.cpp" />
     <ClCompile Include="SceneTitre.cpp" />
@@ -125,6 +126,7 @@
     <ClInclude Include="GestionCompte.h" />
     <ClInclude Include="Joueur.h" />
     <ClInclude Include="Modele.h" />
+    <ClInclude Include="ModifierCompte.h" />
     <ClInclude Include="Plateforme.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneNiveau1.h" />

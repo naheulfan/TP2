@@ -1,18 +1,18 @@
-#include "EffacerCompte.h"
+#include "ModifierCompte.h"
 #include "Controleur.h"
 
 using namespace platformer;
 
-EffacerCompte::EffacerCompte()
+ModifierCompte::ModifierCompte()
 {
 
 }
 
-EffacerCompte::~EffacerCompte()
+ModifierCompte::~ModifierCompte()
 {
 }
 
-Scene::scenes EffacerCompte::run()
+Scene::scenes ModifierCompte::run()
 {
 	while (isRunning)
 	{
@@ -24,7 +24,7 @@ Scene::scenes EffacerCompte::run()
 	return transitionVersScene;
 }
 
-bool EffacerCompte::init(RenderWindow * const window)
+bool ModifierCompte::init(RenderWindow * const window)
 {
 	if (!ecranTitreT.loadFromFile("Ressources\\Sprites\\Title.png"))
 	{
@@ -42,8 +42,6 @@ bool EffacerCompte::init(RenderWindow * const window)
 	//par rapport au fond d'écran
 	textboxPassword.init(480, 15, Vector2f(430, 320), font);
 
-	textboxErreur.initInfo(Vector2f(430, 350), font, true);
-
 	descriptionPassword.initInfo(Vector2f(430, 290), font, false);
 	descriptionPassword.insererTexte("Mot de passe");
 
@@ -52,6 +50,13 @@ bool EffacerCompte::init(RenderWindow * const window)
 	descriptionNickname.initInfo(Vector2f(430, 230), font, false);
 	descriptionNickname.insererTexte("Surnom");
 
+	textboxCourriel.init(480, 24, Vector2f(430, 380), font);
+
+	descriptionCourriel.initInfo(Vector2f(430, 350), font, false);
+	descriptionCourriel.insererTexte("Courriel");
+
+	textboxErreur.initInfo(Vector2f(430, 410), font, true);
+
 	this->mainWin = window;
 	isRunning = true;
 	validation = false;
@@ -59,7 +64,7 @@ bool EffacerCompte::init(RenderWindow * const window)
 	return true;
 }
 
-void EffacerCompte::getInputs()
+void ModifierCompte::getInputs()
 {
 	while (mainWin->pollEvent(event))
 	{
@@ -74,18 +79,24 @@ void EffacerCompte::getInputs()
 		if (event.type == Event::MouseButtonPressed)
 		{
 			//Si on touche à la textbox avec la souris
-			if (textboxPassword.touche(Mouse::getPosition(*mainWin)) && !validation)
+			if (textboxPassword.touche(Mouse::getPosition(*mainWin)))
 			{
 				textboxActif = &textboxPassword; //Ce textbox devient actif
 				textboxPassword.selectionner();  //on l'affiche comme étant sélectionné
 				textboxErreur.insererTexte(""); //on efface le message d'erreur
-				
 			}
-			//Sinon on touche l'autre textbox avec la souris
+			//Sinon si on touche la deuxième textbox avec la souris
 			else if (textboxNickname.touche(Mouse::getPosition(*mainWin)))
 			{
 				textboxActif = &textboxNickname; //Ce textbox devient actif
 				textboxNickname.selectionner();  //on l'affiche comme étant sélectionné
+				textboxErreur.insererTexte(""); //on efface le message d'erreur
+			}
+			//Sinon si on touche la troisième textbox avec la souris
+			else if (textboxCourriel.touche(Mouse::getPosition(*mainWin)) && validation)
+			{
+				textboxActif = &textboxCourriel; //Ce textbox devient actif
+				textboxCourriel.selectionner();  //on l'affiche comme étant sélectionné
 				textboxErreur.insererTexte(""); //on efface le message d'erreur
 			}
 			else
@@ -105,31 +116,14 @@ void EffacerCompte::getInputs()
 
 				if (Controleur::GetInstance()->VerificationCompte(textboxNickname.getTexte(), textboxPassword.getTexte()) || validation)
 				{
-					//Ajouter une deuxième vérification
-					if (!validation)
-					{
-						nickname = textboxNickname.getTexte();
-						password = textboxPassword.getTexte();
-						textboxNickname.insererTexte("");
-					}
-					descriptionNickname.insererTexte("Entez \"effacer\" pour effacer le compte");
-					if (textboxNickname.getTexte() == "effacer")
-					{
-						Controleur::GetInstance()->RequeteEffacerCompte(nickname, password);
-						//À changer
-						isRunning = false;
-						transitionVersScene = Scene::scenes::MENU;
-					}
-					else if (validation)
-					{
-						textboxErreur.insererTexte("Erreur, veillez recommencer");
-					}
+					
+					//modification avec modèle
 					validation = true;
 				}
 				else
 				{
 					//On affiche notre erreur.
-					textboxErreur.insererTexte("Mauvais mot de passe, veillez recommencer");
+					textboxErreur.insererTexte("Il y a eu une erreur, veillez recommencer");
 				}
 			}
 			else if (event.key.code == Keyboard::BackSpace)
@@ -146,8 +140,8 @@ void EffacerCompte::getInputs()
 
 		if (!backspaceActif && !enterActif && textboxActif != nullptr && (event.type == Event::TextEntered))
 		{
-			if (event.text.unicode < 128) 
-			{                            
+			if (event.text.unicode < 128)
+			{
 				textboxActif->ajouterChar((char)event.text.unicode);
 			}
 		}
@@ -158,7 +152,7 @@ void EffacerCompte::getInputs()
 	backspaceActif = false;
 }
 
-void EffacerCompte::update()
+void ModifierCompte::update()
 {
 	if (textboxActif != &textboxNickname)
 	{
@@ -168,18 +162,24 @@ void EffacerCompte::update()
 	{
 		textboxPassword.deSelectionner();
 	}
+	if (textboxActif != &textboxCourriel)
+	{
+		textboxCourriel.deSelectionner();
+	}
 }
 
-void EffacerCompte::draw()
+void ModifierCompte::draw()
 {
 	mainWin->clear();
 	mainWin->draw(ecranTitre);
 	textboxNickname.dessiner(mainWin);
 	descriptionNickname.dessiner(mainWin);
-	if (!validation)
+	descriptionPassword.dessiner(mainWin);
+	textboxPassword.dessiner(mainWin);
+	if (validation)
 	{
-		descriptionPassword.dessiner(mainWin);
-		textboxPassword.dessiner(mainWin);
+		textboxCourriel.dessiner(mainWin);
+		descriptionCourriel.dessiner(mainWin);
 	}
 	textboxErreur.dessiner(mainWin);
 	mainWin->display();

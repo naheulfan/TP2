@@ -25,19 +25,19 @@ bool CreationCompte::init(RenderWindow * const window)
 	{
 		return false;
 	}
-	textbox3.init(480, 24, Vector2f(430, 200), font);
+	textboxNickname.init(480, 25, Vector2f(430, 200), font);
 	textboxErreur3.initInfo(Vector2f(430, 170), font, true);
 
-	textbox2.init(480, 24, Vector2f(430, 260), font);
+	textboxPassword.init(480, 15, Vector2f(430, 260), font);
 	textboxErreur2.initInfo(Vector2f(430, 230), font, true);
 
-	textbox.init(480, 24, Vector2f(430, 320), font);
+	textboxNom.init(480, 25, Vector2f(430, 320), font);
 	textboxErreur.initInfo(Vector2f(430, 290), font, true);
 
-	textbox1.init(480, 24, Vector2f(430, 380), font);
+	textboxPrenom.init(480, 25, Vector2f(430, 380), font);
 	textboxErreur1.initInfo(Vector2f(430, 350), font, true);
 
-	textbox0.init(480, 24, Vector2f(430, 440), font);
+	textboxCourriel.init(480, 24, Vector2f(430, 440), font);
 	textboxErreur0.initInfo(Vector2f(430, 410), font, true);
 
 	titre.setString("Creation compte");
@@ -65,34 +65,34 @@ void CreationCompte::getInputs()
 		else if (event.type == Event::MouseButtonPressed)
 		{
 			//Si on touche à la textbox avec la souris
-			if (textbox3.touche(Mouse::getPosition(*mainWin)))
+			if (textboxNickname.touche(Mouse::getPosition(*mainWin)))
 			{
-				textboxActif = &textbox3; //Ce textbox devient actif
-				textbox3.selectionner();  //on l'affiche comme étant sélectionné
+				textboxActif = &textboxNickname; //Ce textbox devient actif
+				textboxNickname.selectionner();  //on l'affiche comme étant sélectionné
 										  //textboxErreurNickname.insererTexte(""); //on efface le message d'erreur (optionnel, amis ça fait clean si on fait un nouvel essai)
 			}
-			else if (textbox2.touche(Mouse::getPosition(*mainWin)))
+			else if (textboxPassword.touche(Mouse::getPosition(*mainWin)))
 			{
-				textboxActif = &textbox2; //Ce textbox devient actif
-				textbox2.selectionner();  //on l'affiche comme étant sélectionné
+				textboxActif = &textboxPassword; //Ce textbox devient actif
+				textboxPassword.selectionner();  //on l'affiche comme étant sélectionné
 										  //textboxErreurNickname.insererTexte(""); //on efface le message d'erreur (optionnel, amis ça fait clean si on fait un nouvel essai)
 			}
-			else if (textbox.touche(Mouse::getPosition(*mainWin)))
+			else if (textboxNom.touche(Mouse::getPosition(*mainWin)))
 			{
-				textboxActif = &textbox; //Ce textbox devient actif
-				textbox.selectionner();  //on l'affiche comme étant sélectionné
+				textboxActif = &textboxNom; //Ce textbox devient actif
+				textboxNom.selectionner();  //on l'affiche comme étant sélectionné
 				textboxErreur.insererTexte(""); //on efface le message d'erreur (optionnel, amis ça fait clean si on fait un nouvel essai)
 			}
-			else if (textbox1.touche(Mouse::getPosition(*mainWin)))
+			else if (textboxPrenom.touche(Mouse::getPosition(*mainWin)))
 			{
-				textboxActif = &textbox1; //Ce textbox devient actif
-				textbox1.selectionner();  //on l'affiche comme étant sélectionné
+				textboxActif = &textboxPrenom; //Ce textbox devient actif
+				textboxPrenom.selectionner();  //on l'affiche comme étant sélectionné
 				textboxErreur1.insererTexte(""); //on efface le message d'erreur (optionnel, amis ça fait clean si on fait un nouvel essai)
 			}
-			else if (textbox0.touche(Mouse::getPosition(*mainWin)))
+			else if (textboxCourriel.touche(Mouse::getPosition(*mainWin)))
 			{
-				textboxActif = &textbox0; //Ce textbox devient actif
-				textbox0.selectionner();  //on l'affiche comme étant sélectionné
+				textboxActif = &textboxCourriel; //Ce textbox devient actif
+				textboxCourriel.selectionner();  //on l'affiche comme étant sélectionné
 				textboxErreur0.insererTexte(""); //on efface le message d'erreur (optionnel, amis ça fait clean si on fait un nouvel essai)
 			}
 			else
@@ -112,9 +112,9 @@ void CreationCompte::getInputs()
 				enterActif = true; //Pour s'assurer que enter n'est pas saisie comme caractère
 
 				//Appeller ajout compte
-				if (Controleur::GetInstance()->ValidationCompte(textbox3.getTexte(), textbox2.getTexte(), textbox.getTexte(), textbox1.getTexte(), textbox0.getTexte()))
+				if (Controleur::GetInstance()->ValidationCompte(textboxNickname.getTexte(), textboxPassword.getTexte(), textboxNom.getTexte(), textboxPrenom.getTexte(), textboxCourriel.getTexte()))
 				{
-					modele.AjoutCompte(textbox3.getTexte(), textbox2.getTexte(), textbox.getTexte(), textbox1.getTexte(), textbox0.getTexte());
+					modele.AjoutCompte(textboxNickname.getTexte(), textboxPassword.getTexte(), textboxNom.getTexte(), textboxPrenom.getTexte(), textboxCourriel.getTexte());
 					isRunning = false;
 					transitionVersScene = Controleur::GetInstance()->RequeteChangerScene(Scene::scenes::CREER_COMPTE, event);
 				}
@@ -150,25 +150,25 @@ void CreationCompte::getInputs()
 void CreationCompte::update()
 {
 	titre.setPosition(mainWin->getSize().x / 2 - 175, 80);
-	if (textboxActif != &textbox3)
+	if (textboxActif != &textboxNickname)
 	{
-		textbox3.deSelectionner();
+		textboxNickname.deSelectionner();
 	}
-	if (textboxActif != &textbox2)
+	if (textboxActif != &textboxPassword)
 	{
-		textbox2.deSelectionner();
+		textboxPassword.deSelectionner();
 	}
-	if (textboxActif != &textbox)
+	if (textboxActif != &textboxNom)
 	{
-		textbox.deSelectionner();
+		textboxNom.deSelectionner();
 	}
-	if (textboxActif != &textbox1)
+	if (textboxActif != &textboxPrenom)
 	{
-		textbox1.deSelectionner();
+		textboxPrenom.deSelectionner();
 	}
-	if (textboxActif != &textbox0)
+	if (textboxActif != &textboxCourriel)
 	{
-		textbox0.deSelectionner();
+		textboxCourriel.deSelectionner();
 	}
 }
 
@@ -176,11 +176,11 @@ void CreationCompte::draw()
 {
 	mainWin->clear();
 	mainWin->draw(titre);
-	textbox3.dessiner(mainWin);
-	textbox2.dessiner(mainWin);
-	textbox.dessiner(mainWin);
-	textbox1.dessiner(mainWin);
-	textbox0.dessiner(mainWin);
+	textboxNickname.dessiner(mainWin);
+	textboxPassword.dessiner(mainWin);
+	textboxNom.dessiner(mainWin);
+	textboxPrenom.dessiner(mainWin);
+	textboxCourriel.dessiner(mainWin);
 	mainWin->display();
 
 }

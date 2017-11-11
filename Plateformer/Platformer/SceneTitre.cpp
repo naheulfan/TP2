@@ -40,10 +40,10 @@ bool SceneTitre::init(RenderWindow * const window)
 
 	//Les positions sont arbitraires, obtenus par essai et erreur.
 	//par rapport au fond d'écran
-	textboxPassword.init(480, 24, Vector2f(430, 320), font);
+	textboxPassword.init(480, 15, Vector2f(430, 320), font);
 	textboxErreur.initInfo(Vector2f(430, 290), font, true);
 
-	textboxNickname.init(480, 24, Vector2f(430, 260), font);
+	textboxNickname.init(480, 25, Vector2f(430, 260), font);
 
 	this->mainWin = window;
 	isRunning = true;
