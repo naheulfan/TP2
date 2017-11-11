@@ -8,6 +8,7 @@
 #include "Slime.h"
 #include "Gems.h"
 #include "SectionGenerator.h"
+#include "FabriqueEnnemi.h"
 
 using namespace sf;
 

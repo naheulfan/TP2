@@ -18,5 +18,6 @@ protected:
 	float bounds[2]; // bounds[0] est la première limite en x, bounds[1] est la deuxième limite en x
 	bool goingRight;
 	sf::Clock timer;
+	sf::Texture texture;
 };
 
