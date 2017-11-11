@@ -23,6 +23,10 @@ namespace platformer
 		Texture ecranTitreT;
 		Sprite ecranTitre;
 
+		//Surnom et mot de passe du compte à effacer
+		std::string nickname;
+		std::string password;
+
 		//Boites de texte
 		Textbox textboxNickname;
 		Textbox textboxPassword;
@@ -30,7 +34,8 @@ namespace platformer
 		Textbox textboxErreur; 
 
 		//Message
-		Textbox messageValidation;
+		Textbox descriptionNickname;
+		Textbox descriptionPassword;
 
 		Textbox* textboxActif = nullptr;
 

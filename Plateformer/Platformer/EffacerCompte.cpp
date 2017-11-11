@@ -41,13 +41,16 @@ bool EffacerCompte::init(RenderWindow * const window)
 	//Les positions sont arbitraires, obtenus par essai et erreur.
 	//par rapport au fond d'écran
 	textboxPassword.init(480, 24, Vector2f(430, 320), font);
-	textboxErreur.initInfo(Vector2f(430, 290), font, true);
-	//"mot de passe"
+
+	textboxErreur.initInfo(Vector2f(430, 350), font, true);
+
+	descriptionPassword.initInfo(Vector2f(430, 290), font, false);
+	descriptionPassword.insererTexte("Mot de passe");
 
 	textboxNickname.init(480, 24, Vector2f(430, 260), font);
 
-	messageValidation.initInfo(Vector2f(430, 230), font, false);
-	messageValidation.insererTexte("Surnom");
+	descriptionNickname.initInfo(Vector2f(430, 230), font, false);
+	descriptionNickname.insererTexte("Surnom");
 
 	this->mainWin = window;
 	isRunning = true;
@@ -71,17 +74,19 @@ void EffacerCompte::getInputs()
 		if (event.type == Event::MouseButtonPressed)
 		{
 			//Si on touche à la textbox avec la souris
-			if (textboxPassword.touche(Mouse::getPosition(*mainWin)))
+			if (textboxPassword.touche(Mouse::getPosition(*mainWin)) && validation == false)
 			{
 				textboxActif = &textboxPassword; //Ce textbox devient actif
 				textboxPassword.selectionner();  //on l'affiche comme étant sélectionné
-				textboxErreur.insererTexte(""); //on efface le message d'erreur (optionnel, amis ça fait clean si on fait un nouvel essai)
+				textboxErreur.insererTexte(""); //on efface le message d'erreur
+				
 			}
 			//Sinon on touche l'autre textbox avec la souris
 			else if (textboxNickname.touche(Mouse::getPosition(*mainWin)))
 			{
 				textboxActif = &textboxNickname; //Ce textbox devient actif
 				textboxNickname.selectionner();  //on l'affiche comme étant sélectionné
+				textboxErreur.insererTexte(""); //on efface le message d'erreur
 			}
 			else
 			{
@@ -103,18 +108,23 @@ void EffacerCompte::getInputs()
 					//Ajouter une deuxième vérification
 					if (validation == false)
 					{
+						nickname = textboxNickname.getTexte();
+						password = textboxPassword.getTexte();
 						textboxNickname.insererTexte("");
 					}
-					validation = true;
-					messageValidation.insererTexte("Entez \"effacer\" pour effacer le compte");
+					descriptionNickname.insererTexte("Entez \"effacer\" pour effacer le compte");
 					if (textboxNickname.getTexte() == "effacer")
 					{
-						Controleur::GetInstance()->RequeteEffacerCompte(textboxNickname.getTexte(), textboxPassword.getTexte());
+						Controleur::GetInstance()->RequeteEffacerCompte(nickname, password);
+						//À changer
+						isRunning = false;
+						transitionVersScene = Scene::scenes::MENU;
 					}
-					else
+					else if (validation == true)
 					{
 						textboxErreur.insererTexte("Erreur, veillez recommencer");
 					}
+					validation = true;
 				}
 				else
 				{
@@ -165,11 +175,12 @@ void EffacerCompte::draw()
 	mainWin->clear();
 	mainWin->draw(ecranTitre);
 	textboxNickname.dessiner(mainWin);
-	messageValidation.dessiner(mainWin);
+	descriptionNickname.dessiner(mainWin);
 	if (validation == false)
 	{
+		descriptionPassword.dessiner(mainWin);
 		textboxPassword.dessiner(mainWin);
-		textboxErreur.dessiner(mainWin);
 	}
+	textboxErreur.dessiner(mainWin);
 	mainWin->display();
 }
