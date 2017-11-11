@@ -7,8 +7,8 @@
 class FabriqueEnnemi
 {
 public:
-	static Dragon* GenerateDragon(int ennemiId, sf::Vector2f position, float platformSize);
+	static Ennemi* GenerateDragon(int ennemiId, sf::Vector2f position, float platformSize);
 private:
 	FabriqueEnnemi();
-}
+};
 
