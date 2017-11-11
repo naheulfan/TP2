@@ -225,3 +225,16 @@ void Controleur::RequeteEffacerCompte(std::string nickname, std::string password
 		modele.EffacerCompte(noCompte);
 	}
 }
+bool Controleur::CompteExiste(std::string nickname)
+{
+	bool compteExiste = false;
+	std::vector<std::string> nomCompte = modele.GetNomCompte();
+	for (int i = 0; i < nomCompte.size(); i++)
+	{
+		if (nomCompte.at(i) == nickname)
+		{
+			compteExiste = true;
+		}
+	}
+	return compteExiste;
+}
