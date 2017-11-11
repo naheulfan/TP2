@@ -8,7 +8,7 @@ public:
 	~Slime();
 	void Update();
 	void Draw(sf::RenderWindow &window);
-
+	void Attack() override;
 private:
 	float speed;
 	int currentSprite;

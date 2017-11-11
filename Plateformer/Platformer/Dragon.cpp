@@ -56,4 +56,8 @@ void Dragon::Draw(sf::RenderWindow &window)
 	}
 	
 }
+void Dragon::Attack()
+{
+
+}
 

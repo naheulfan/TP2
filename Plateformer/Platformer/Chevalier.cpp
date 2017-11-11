@@ -8,7 +8,7 @@ Chevalier::Chevalier(sf::Vector2f position, sf::Texture &texture, float platform
 	speed = 1;
 	currentSprite = 0;
 	timer.restart();
-	sprite.setOrigin(sf::Vector2f(26, 26));
+	sprite.setOrigin(sf::Vector2f(32, 32));
 	typeEnnemi = 1;
 }
 Chevalier::Chevalier()
@@ -43,7 +43,14 @@ void Chevalier::Update()
 void Chevalier::Draw(sf::RenderWindow &window)
 {
 	sprite.setPosition(position);
-	sprite.setTextureRect(sf::IntRect(currentSprite * 52, 0, 52, 52));
+	if (currentSprite == 4)
+	{
+		sprite.setTextureRect(sf::IntRect(3 * 64, 0, 128, 64));
+	}
+	else
+	{
+		sprite.setTextureRect(sf::IntRect(currentSprite * 64, 0, 64, 64));
+	}
 	window.draw(sprite);
 	if (timer.getElapsedTime() >= sf::milliseconds(200))
 	{
@@ -55,5 +62,9 @@ void Chevalier::Draw(sf::RenderWindow &window)
 		}
 	}
 
+}
+void Chevalier::Attack()
+{
+	currentSprite = 4;
 }
 

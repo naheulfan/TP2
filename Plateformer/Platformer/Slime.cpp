@@ -70,3 +70,7 @@ void Slime::Draw(sf::RenderWindow &window)
 	}
 
 }
+void Slime::Attack()
+{
+
+}

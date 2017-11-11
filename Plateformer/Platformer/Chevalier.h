@@ -8,6 +8,7 @@ public:
 	~Chevalier();
 	void Update();
 	void Draw(sf::RenderWindow &window);
+	void Attack() override;
 
 private:
 	float speed;

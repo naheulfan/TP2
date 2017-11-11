@@ -230,7 +230,8 @@ void SceneNiveau1::update()
 				}
 				else if (listeEnnemis.at(i)->GetEnnemiType() == 1)
 				{
-
+					joueur.Confuse();
+					listeEnnemis.at(i)->Attack();
 				}
 				else if (listeEnnemis.at(i)->GetEnnemiType() == 2)
 				{
