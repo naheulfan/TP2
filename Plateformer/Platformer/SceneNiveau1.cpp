@@ -179,10 +179,13 @@ void SceneNiveau1::update()
 		{
 			int sectionNumber = std::rand() % 3 + 1;
 			section[0] = *SectionGenerator::GenerateSection(sectionNumber);
-			if (initialFloor)
+		if (initialFloor)
 			{
 				initialFloor = false;
 			}
+			int ennemiNumber = std::rand() % 3;
+			int ennemiPlateform = std::rand() % 3;
+			listeEnnemis.push_back(FabriqueEnnemi::GenerateEnnemi(ennemiNumber, section[0].GetPositions()[ennemiPlateform], section[0].GetSizes()[ennemiPlateform]));
 		}
 		else if ((section[0].GetPositions()[0].y >= mainWin->getSize().y / 2) && (section[1].GetPositions()[0].y >= mainWin->getSize().y / 2))
 		{

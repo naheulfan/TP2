@@ -2,7 +2,7 @@
 
 
 
- static Dragon* FabriqueEnnemi::GenerateDragon(int ennemiId, sf::Vector2f position, float platformSize)
+	Ennemi* FabriqueEnnemi::GenerateEnnemi(int ennemiId, sf::Vector2f position, float platformSize)
 {
 	sf::Texture DragonTexture;
 	sf::Texture ChevalierTexture;

@@ -12,5 +12,6 @@ public:
 private:
 	float speed;
 	int currentSprite;
+
 };
 
