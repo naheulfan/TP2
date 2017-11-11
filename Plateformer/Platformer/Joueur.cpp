@@ -8,6 +8,7 @@ Joueur::Joueur() : persoRect(0, 0, TAILLE_RECT, TAILLE_RECT)
 	jump = false;
 	isFalling = false;
 	isFrozen = false;
+	isSlown = false;
 }
 
 Joueur::~Joueur()
@@ -33,6 +34,15 @@ bool Joueur::init(const int limiteGauche, const int limiteDroite, const String t
 
 void Joueur::move(const int direction)
 {
+	if (SlimeTimer.getElapsedTime() < sf::seconds(3) && isSlown)
+	{
+		vitesse = 0.5;
+	}
+	else if (SlimeTimer.getElapsedTime() >= sf::seconds(3))
+	{
+		vitesse = 3;
+		isSlown = false;
+	}
 	if (direction == 1)
 	{
 		Sprite::move(vitesse, 0);
@@ -75,7 +85,7 @@ void Joueur::Jump()
 void Joueur::Gravity()
 {
 	if(isFalling)
-		Sprite::move(0, vitesse * 2);
+		Sprite::move(0, 3 * 2);
 	else
 	{
 		Sprite::move(0, 1);
@@ -144,4 +154,9 @@ void Joueur::Freeze()
 bool Joueur::GetIsFrozen()
 {
 	return isFrozen;
+}
+void Joueur::SlimeSlow()
+{
+	SlimeTimer.restart();
+	isSlown = true;
 }

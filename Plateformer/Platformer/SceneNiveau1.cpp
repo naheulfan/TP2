@@ -140,7 +140,10 @@ void SceneNiveau1::update()
 		interfaceCommande |= 4;
 		if (!joueur.GetJump() && !joueur.GetIsFalling())
 		{
-			joueur.SetJump(true);
+			if (!joueur.GetIsFrozen())
+			{
+				joueur.SetJump(true);
+			}
 		}
 		joueur.Jump();
 		gameStarted = true;
@@ -167,7 +170,7 @@ void SceneNiveau1::update()
 				//	joueur.Gravity(Vector2f(i, mainWin->getSize().y - TAILLE_TUILES_Y * 2), TAILLE_TUILES_X, TAILLE_TUILES_Y);
 				//}
 			}
-			if (joueur.getPosition().y < mainWin->getSize().y - TAILLE_TUILES_Y)
+			if (joueur.getPosition().y < mainWin->getSize().y - 2 * TAILLE_TUILES_Y)
 			{
 				joueur.Gravity();
 			}
@@ -181,7 +184,7 @@ void SceneNiveau1::update()
 		{
 			int sectionNumber = std::rand() % 3 + 1;
 			section[0] = *SectionGenerator::GenerateSection(sectionNumber);
-		if (initialFloor)
+			if (initialFloor)
 			{
 				initialFloor = false;
 			}
@@ -219,6 +222,14 @@ void SceneNiveau1::update()
 				if (listeEnnemis.at(i)->GetEnnemiType() == 0)
 				{
 					joueur.Freeze();
+				}
+				else if (listeEnnemis.at(i)->GetEnnemiType() == 1)
+				{
+
+				}
+				else if (listeEnnemis.at(i)->GetEnnemiType() == 2)
+				{
+					joueur.SlimeSlow();
 				}
 			}
 		}
