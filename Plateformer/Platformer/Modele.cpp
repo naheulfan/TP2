@@ -108,3 +108,31 @@ int Modele::NoCompte(std::string nickname)
 	fichier.close();
 	return noCompte;
 }
+
+void Modele::ModifierCompte(std::string nickname, std::string password, std::string nom, std::string prenom, std::string courriel)
+{
+	std::string texte = "";
+	std::ifstream fichier("comptes.txt");
+	if (fichier)
+	{
+		std::string line;
+		int compteurLine = 0;
+		while (getline(fichier, line))
+		{
+			++compteurLine;
+			if (compteurLine != NoCompte(nickname))
+			{
+				texte += line + "\n";
+			}
+			else
+			{
+				texte += nickname + " " + password + " " + nom + " " + prenom + " " + courriel + "\n";
+			}
+		}
+	}
+	fichier.close();
+
+	std::ofstream nouveauFichier("comptes.txt");
+	nouveauFichier << texte;
+	nouveauFichier.close();
+}

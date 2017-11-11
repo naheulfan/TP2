@@ -27,6 +27,7 @@ bool Scores::init(RenderWindow * const window)
 	}
 	textbox1.init(480, 24, sf::Vector2f(mainWin->getSize().x, mainWin->getSize().y - 150), font);
 	textbox2.init(480, 24, sf::Vector2f(mainWin->getSize().x + 600, mainWin->getSize().y - 150), font);
+	return true;
 }
 void Scores::draw()
 {

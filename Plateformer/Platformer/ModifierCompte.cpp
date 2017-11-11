@@ -116,8 +116,11 @@ void ModifierCompte::getInputs()
 
 				if (Controleur::GetInstance()->VerificationCompte(textboxNickname.getTexte(), textboxPassword.getTexte()) || validation)
 				{
-					
-					//modification avec modèle
+					//Vérification si les informations entrées sont valide
+					if (Controleur::GetInstance()->ValidationCompte(textboxNickname.getTexte(), textboxPassword.getTexte(),))
+					{
+
+					}
 					validation = true;
 				}
 				else
