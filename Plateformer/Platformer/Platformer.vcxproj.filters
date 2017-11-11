@@ -310,6 +310,9 @@
     <Image Include="Ressources\Sprites\Slime.png">
       <Filter>Fichiers de ressources\Sprites</Filter>
     </Image>
+    <Image Include="Ressources\Sprites\Player\IceBlock.png">
+      <Filter>Fichiers de ressources\Sprites\Player</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Ressources\Fonts\Peric.ttf">

@@ -28,3 +28,15 @@ void Ennemi::SetPosition(sf::Vector2f newPos)
 {
 	position = newPos;
 }
+float Ennemi::GetHeight()
+{
+	return sprite.getTextureRect().height;
+}
+float Ennemi::GetWidth()
+{
+	return sprite.getTextureRect().width;
+}
+int Ennemi::GetEnnemiType()
+{
+	return typeEnnemi;
+}

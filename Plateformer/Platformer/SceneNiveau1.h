@@ -60,7 +60,6 @@ namespace platformer
 		sf::Texture gemsTexture;
 		Sprite GemSprite;
 		bool initialFloor;
-
-		Gems gems[10];
+		std::vector<Gems> gems;
 	};
 }

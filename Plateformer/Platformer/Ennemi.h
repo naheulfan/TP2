@@ -9,7 +9,9 @@ public:
 	void SetPosition(sf::Vector2f newPos);
 	virtual void Update() =0;
 	virtual void Draw(sf::RenderWindow &window) = 0;
-
+	float GetWidth();
+	float GetHeight();
+	int GetEnnemiType(); // 0 pour dragon 1 pour chevalier 2 pour slime
 	Ennemi();
 
 protected:
@@ -19,5 +21,6 @@ protected:
 	bool goingRight;
 	sf::Clock timer;
 	sf::Texture texture;
+	int typeEnnemi;
 };
 

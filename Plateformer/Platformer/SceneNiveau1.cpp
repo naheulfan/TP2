@@ -27,7 +27,10 @@ Scene::scenes SceneNiveau1::run()
 {
 	while (isRunning)
 	{
-		getInputs();
+		if (!joueur.GetIsFrozen())
+		{
+			getInputs();
+		}
 		update();
 		draw();
 	}
@@ -78,7 +81,6 @@ bool SceneNiveau1::init(RenderWindow * const window)
 	section[0] = *SectionGenerator::GenerateSection(1);
 	gemsTexture.loadFromFile("Ressources\\Sprites\\Gem.png");
 	GemSprite.setTexture(gemsTexture);
-	gems[0] = Gems(sf::Vector2f(section[0].GetPositions()[0].x + section[0].GetSizes()[0] / 2, section[0].GetPositions()[0].y - 20));
 	isRunning = true;
 	gameStarted = false;
 	initialFloor = true;
@@ -151,7 +153,7 @@ void SceneNiveau1::update()
 			for (int i = 0; i < 3; i++)
 			{
 				//Chexk avec tous les blocs
-				if (joueur.Collision(section[0].GetPositions()[i], section[0].GetSizes()[i], TAILLE_TUILES_Y) || joueur.Collision(section[1].GetPositions()[i], section[1].GetSizes()[i], TAILLE_TUILES_Y))
+				if (joueur.CollisionPlateforme(section[0].GetPositions()[i], section[0].GetSizes()[i], TAILLE_TUILES_Y) || joueur.CollisionPlateforme(section[1].GetPositions()[i], section[1].GetSizes()[i], TAILLE_TUILES_Y))
 				{
 					uneCollision = true;
 				}
@@ -186,6 +188,10 @@ void SceneNiveau1::update()
 			int ennemiNumber = std::rand() % 3;
 			int ennemiPlateform = std::rand() % 3;
 			listeEnnemis.push_back(FabriqueEnnemi::GenerateEnnemi(ennemiNumber, section[0].GetPositions()[ennemiPlateform], section[0].GetSizes()[ennemiPlateform]));
+			if (ennemiNumber == 0)
+			{
+				gems.push_back(Gems(sf::Vector2f(section[0].GetPositions()[ennemiPlateform].x + section[0].GetSizes()[ennemiPlateform] / 2, section[0].GetPositions()[ennemiPlateform].y - TAILLE_TUILES_Y)));
+			}
 		}
 		else if ((section[0].GetPositions()[0].y >= mainWin->getSize().y / 2) && (section[1].GetPositions()[0].y >= mainWin->getSize().y / 2))
 		{
@@ -194,6 +200,10 @@ void SceneNiveau1::update()
 			int ennemiNumber = std::rand() % 3;
 			int ennemiPlateform = std::rand() % 3;
 			listeEnnemis.push_back(FabriqueEnnemi::GenerateEnnemi(ennemiNumber, section[1].GetPositions()[ennemiPlateform], section[1].GetSizes()[ennemiPlateform]));
+			if (ennemiNumber == 0)
+			{
+				gems.push_back(Gems(sf::Vector2f(section[1].GetPositions()[ennemiPlateform].x + section[1].GetSizes()[ennemiPlateform] / 2, section[1].GetPositions()[ennemiPlateform].y - TAILLE_TUILES_Y)));
+			}
 		}
 		section[0].Update();
 		section[1].Update();
@@ -202,11 +212,21 @@ void SceneNiveau1::update()
 			listeEnnemis.at(i)->Update();
 			if (listeEnnemis.at(0)->Getposition().y >= mainWin->getSize().y)
 			{
- 				listeEnnemis.pop_back();//en théorie le premier élément de la liste c'est le plus bas
+				listeEnnemis.erase(listeEnnemis.begin());//en théorie le premier élément de la liste c'est le plus bas
+			}
+			if (joueur.CollisionEnnemis(listeEnnemis.at(i)->Getposition(), listeEnnemis.at(i)->GetWidth(), listeEnnemis.at(i)->GetHeight()))
+			{
+				if (listeEnnemis.at(i)->GetEnnemiType() == 0)
+				{
+					joueur.Freeze();
+				}
 			}
 		}
-		gems[0].Update();
+		for (int i = 0; i < gems.size(); i++)
+		{
+			gems.at(i).Update();
 		}
+	}
 }
 
 void SceneNiveau1::draw()
@@ -232,7 +252,10 @@ void SceneNiveau1::draw()
 	{
 		listeEnnemis[i]->Draw(*mainWin);
 	}
-	gems[0].Draw(GemSprite, *mainWin);
+	for (int i = 0; i < gems.size(); i++)
+	{
+		gems.at(i).Draw(GemSprite, *mainWin);
+	}
 	mainWin->draw(joueur);
 	mainWin->display();
 }

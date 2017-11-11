@@ -9,9 +9,11 @@ Slime::Slime(sf::Vector2f position, sf::Texture &texture, float platformSize) : 
 	currentSprite = 0;
 	timer.restart();
 	sprite.setOrigin(sf::Vector2f(16, 10));
+	typeEnnemi = 2;
 }
 Slime::Slime()
 {
+
 }
 
 Slime::~Slime()

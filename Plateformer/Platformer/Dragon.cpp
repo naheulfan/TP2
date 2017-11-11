@@ -9,6 +9,7 @@ Dragon::Dragon(sf::Vector2f position, sf::Texture &texture, float platformSize) 
 	currentSprite = 0;
 	timer.restart();
 	sprite.setOrigin(sf::Vector2f(48, 48));
+	typeEnnemi = 0;
 }
 Dragon::Dragon()
 {

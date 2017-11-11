@@ -35,7 +35,8 @@ namespace platformer
 
 		void Gravity();
 
-		bool Collision(Vector2f pos, int width, int height);
+		bool CollisionPlateforme(Vector2f pos, int width, int height);
+		bool CollisionEnnemis(Vector2f pos, int width, int height);
 
 		bool GetJump() const;
 		void SetJump(bool value);
@@ -44,6 +45,8 @@ namespace platformer
 		void SetIsFalling(bool value);
 
 		float GetJumpClock() const;
+		void Freeze();
+		bool GetIsFrozen();
 
 	private:
 		static const int TAILLE_RECT = 64;
@@ -59,6 +62,7 @@ namespace platformer
 		Clock jumpClock;
 
 		bool isFalling;
+		bool isFrozen;
 
 
 	};
