@@ -34,11 +34,11 @@ bool Joueur::init(const int limiteGauche, const int limiteDroite, const String t
 
 void Joueur::move(const int direction)
 {
-	if (SlimeTimer.getElapsedTime() < sf::seconds(3) && isSlown)
+	if (SlimeTimer.getElapsedTime() < sf::seconds(2) && isSlown)
 	{
-		vitesse = 0.5;
+		vitesse = 0.7;
 	}
-	else if (SlimeTimer.getElapsedTime() >= sf::seconds(3))
+	else if (SlimeTimer.getElapsedTime() >= sf::seconds(2))
 	{
 		vitesse = 3;
 		isSlown = false;

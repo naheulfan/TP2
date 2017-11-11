@@ -84,6 +84,11 @@ bool SceneNiveau1::init(RenderWindow * const window)
 	isRunning = true;
 	gameStarted = false;
 	initialFloor = true;
+	score = 0;
+	font.loadFromFile("Ressources\\Fonts\\Peric.ttf");
+	scoreText.setFont(font);
+	scoreText.setPosition(10, 10);
+	scoreText.setString("Score: ");
 	return true;
 
 }
@@ -236,7 +241,18 @@ void SceneNiveau1::update()
 		for (int i = 0; i < gems.size(); i++)
 		{
 			gems.at(i).Update();
+			if (joueur.CollisionEnnemis(gems.at(i).GetPosition(), GemSprite.getTextureRect().width, GemSprite.getTextureRect().height))
+			{
+				gems.erase(gems.begin() + i);
+				score += 5;
+			}
 		}
+		if (scoreClock.getElapsedTime() >= sf::seconds(3))
+		{
+			score++;
+			scoreClock.restart();
+		}
+		scoreText.setString("score: " + std::to_string(score));
 	}
 }
 
@@ -268,6 +284,7 @@ void SceneNiveau1::draw()
 		gems.at(i).Draw(GemSprite, *mainWin);
 	}
 	mainWin->draw(joueur);
+	mainWin->draw(scoreText);
 	mainWin->display();
 }
 

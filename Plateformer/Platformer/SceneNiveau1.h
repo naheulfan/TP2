@@ -61,5 +61,9 @@ namespace platformer
 		Sprite GemSprite;
 		bool initialFloor;
 		std::vector<Gems> gems;
+		int score;
+		sf::Clock scoreClock;
+		sf::Font font;
+		sf::Text scoreText;
 	};
 }
