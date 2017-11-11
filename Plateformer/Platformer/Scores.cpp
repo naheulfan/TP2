@@ -27,6 +27,8 @@ bool Scores::init(RenderWindow * const window)
 	}
 	textbox1.init(480, 24, sf::Vector2f(mainWin->getSize().x, mainWin->getSize().y - 150), font);
 	textbox2.init(480, 24, sf::Vector2f(mainWin->getSize().x + 600, mainWin->getSize().y - 150), font);
+	textboxErreur1.init(480, 24, sf::Vector2f(mainWin->getSize().x, mainWin->getSize().y - 100), font);
+	textboxErreur2.init(480, 24, sf::Vector2f(mainWin->getSize().x + 600, mainWin->getSize().y - 150), font);
 }
 void Scores::draw()
 {
@@ -77,17 +79,18 @@ void Scores::getInputs()
 			{
 				enterActif = true; //Pour s'assurer que enter n'est pas saisie comme caractère
 
-								   //Appeller ajout compte
-				if (Controleur::GetInstance()->ValidationCompte(textbox3.getTexte(), textbox2.getTexte(), textbox.getTexte(), textbox1.getTexte(), textbox0.getTexte()))
+				if (textboxActif == &textbox1)
 				{
-					modele.AjoutCompte(textbox3.getTexte(), textbox2.getTexte(), textbox.getTexte(), textbox1.getTexte(), textbox0.getTexte());
-					isRunning = false;
-					transitionVersScene = Controleur::GetInstance()->RequeteChangerScene(Scene::scenes::CREER_COMPTE, event);
-				}
-				else
-				{
-					//On affiche notre erreur.
-					textboxErreur.insererTexte("Mauvais mot de passe, veillez recommencer");
+					if (Controleur::GetInstance()->CompteExiste(textboxActif->getTexte()))
+					{
+						int noCompteActif = modele.NoCompte(textboxActif->getTexte());
+
+					}
+					else
+					{
+						//On affiche notre erreur.
+						textboxErreur1.insererTexte("Nom invalide, veuillez recommencer");
+					}
 				}
 			}
 			else if (event.key.code == Keyboard::BackSpace)
