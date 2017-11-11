@@ -23,8 +23,7 @@ std::string* Modele::DonneeCompte(std::string nickname) const
 {
 	std::ifstream fichier("comptes.txt");
 	std::string line;
-	std::string* compte = new std::string[6];
-	int noCompte = 0;
+	std::string* compte = new std::string[5];
 	while (getline(fichier, line))
 	{
 		std::stringstream l(line);
@@ -37,9 +36,7 @@ std::string* Modele::DonneeCompte(std::string nickname) const
 			compte[2] = nom;
 			compte[3] = prenom;
 			compte[4] = courriel;
-			compte[5] = noCompte;
 		}
-		++noCompte;
 	}
 	fichier.close();
 	return compte;
@@ -85,4 +82,29 @@ void Modele::EffacerCompte(int noLigneEffacer)
 	nouveauFichier.close();
 
 	//Effacer scores du compte
+}
+
+int Modele::NoCompte(std::string nickname)
+{
+	std::ifstream fichier("comptes.txt");
+
+		std::string line;
+		bool compteTrouver = false;
+		int noCompte = 0;
+		if (fichier)
+		{
+			while (getline(fichier, line) && compteTrouver == false)
+			{
+				std::stringstream l(line);
+				std::string surnom;
+				l >> surnom;
+				if (surnom == nickname)
+				{
+					compteTrouver = true;
+				}
+				++noCompte;
+			}
+		}
+	fichier.close();
+	return noCompte;
 }

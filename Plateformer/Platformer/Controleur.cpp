@@ -218,5 +218,10 @@ bool Controleur::ValidationCompte(std::string nickname, std::string password, st
 
 void Controleur::RequeteEffacerCompte(std::string nickname, std::string password)
 {
-
+	int noCompte;
+	if (VerificationCompte(nickname, password))
+	{
+		noCompte = modele.NoCompte(nickname);
+		modele.EffacerCompte(noCompte);
+	}
 }
