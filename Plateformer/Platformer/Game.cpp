@@ -4,6 +4,7 @@
 #include "Menu.h"
 #include "GestionCompte.h"
 #include "CreationCompte.h"
+#include "EffacerCompte.h"
 
 using namespace platformer;
 
@@ -62,6 +63,10 @@ int Game::run()
 
 			case Scene::scenes::CREER_COMPTE:
 				sceneActive = new CreationCompte();
+				break;
+
+			case Scene::scenes::EFFACER_COMPTE:
+				sceneActive = new EffacerCompte();
 				break;
 			}
 			

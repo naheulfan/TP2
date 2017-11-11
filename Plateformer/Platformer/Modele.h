@@ -15,7 +15,7 @@ namespace platformer
 
 		std::vector<std::string> GetNomCompte() const;
 
-		void EffacerCompte();
+		void EffacerCompte(int noLigneEffacer);
 	private:
 		//poid mouche ?
 	};

@@ -215,3 +215,8 @@ bool Controleur::ValidationCompte(std::string nickname, std::string password, st
 	}
 	return true;
 }
+
+void Controleur::RequeteEffacerCompte(std::string nickname, std::string password)
+{
+
+}
