@@ -202,7 +202,7 @@ void SceneNiveau1::update()
 			listeEnnemis.at(i)->Update();
 			if (listeEnnemis.at(0)->Getposition().y >= mainWin->getSize().y)
 			{
-				listeEnnemis.pop_back();//en théorie le premier élément de la liste c'est le plus bas
+ 				listeEnnemis.pop_back();//en théorie le premier élément de la liste c'est le plus bas
 			}
 		}
 		gems[0].Update();

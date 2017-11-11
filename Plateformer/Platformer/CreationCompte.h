@@ -17,9 +17,23 @@ namespace platformer
 		void update();
 		void draw();
 	private:
+		Textbox textbox3;
+		Textbox textboxErreur3;
+
+		Textbox textbox2;
+		Textbox textboxErreur2;
+
 		Textbox textbox;
 		Textbox textboxErreur;
+
+		Textbox textbox1;
+		Textbox textboxErreur1;
+
+		Textbox textbox0;
+		Textbox textboxErreur0;
+
 		Textbox* textboxActif = nullptr;
+
 		Texture ecranTitreT;
 		Sprite ecranTitre;
 		Font font;
