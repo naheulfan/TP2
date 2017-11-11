@@ -5,6 +5,7 @@
 #include "GestionCompte.h"
 #include "CreationCompte.h"
 #include "EffacerCompte.h"
+#include "Scores.h"
 
 #include"ModifierCompte.h"
 
@@ -76,6 +77,10 @@ int Game::run()
 
 			case Scene::scenes::MODIFIER_COMPTE:
 				sceneActive = new ModifierCompte();
+				break;
+			
+			case Scene::scenes::SCORE:
+				sceneActive = new Scores();
 				break;
 			}
 			

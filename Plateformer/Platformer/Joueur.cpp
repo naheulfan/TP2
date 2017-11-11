@@ -10,6 +10,7 @@ Joueur::Joueur() : persoRect(0, 0, TAILLE_RECT, TAILLE_RECT)
 	isFrozen = false;
 	isSlown = false;
 	isConfused = false;
+	isDead = false;
 }
 
 Joueur::~Joueur()
