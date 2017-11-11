@@ -105,6 +105,7 @@
     <ClCompile Include="Plateforme.cpp" />
     <ClCompile Include="SceneNiveau1.cpp" />
     <ClCompile Include="SceneTitre.cpp" />
+    <ClCompile Include="Scores.cpp" />
     <ClCompile Include="SectionGenerator.cpp" />
     <ClCompile Include="Sections.cpp" />
     <ClCompile Include="Slime.cpp" />
@@ -129,6 +130,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneNiveau1.h" />
     <ClInclude Include="SceneTitre.h" />
+    <ClInclude Include="Scores.h" />
     <ClInclude Include="SectionGenerator.h" />
     <ClInclude Include="Sections.h" />
     <ClInclude Include="Slime.h" />
