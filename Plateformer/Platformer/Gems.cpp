@@ -25,3 +25,7 @@ void Gems::Update()
 {
 	position.y++;
 }
+sf::Vector2f Gems::GetPosition()
+{
+	return position;
+}

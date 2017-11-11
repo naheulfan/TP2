@@ -8,7 +8,7 @@ Slime::Slime(sf::Vector2f position, sf::Texture &texture, float platformSize) : 
 	speed = 1;
 	currentSprite = 0;
 	timer.restart();
-	sprite.setOrigin(sf::Vector2f(16, 10));
+	sprite.setOrigin(sf::Vector2f(29, 32));
 	typeEnnemi = 2;
 }
 Slime::Slime()
@@ -57,7 +57,7 @@ void Slime::Draw(sf::RenderWindow &window)
 	{
 		spriteDecider = currentSprite;
 	}
-	sprite.setTextureRect(sf::IntRect(spriteDecider * 32, 0, 32, 20));
+	sprite.setTextureRect(sf::IntRect(spriteDecider * 64, 0, 57, 64));
 	window.draw(sprite);
 	if (timer.getElapsedTime() >= sf::milliseconds(200))
 	{

@@ -84,6 +84,11 @@ bool SceneNiveau1::init(RenderWindow * const window)
 	isRunning = true;
 	gameStarted = false;
 	initialFloor = true;
+	score = 0;
+	font.loadFromFile("Ressources\\Fonts\\Peric.ttf");
+	scoreText.setFont(font);
+	scoreText.setPosition(10, 10);
+	scoreText.setString("Score: ");
 	return true;
 
 }
@@ -140,7 +145,10 @@ void SceneNiveau1::update()
 		interfaceCommande |= 4;
 		if (!joueur.GetJump() && !joueur.GetIsFalling())
 		{
-			joueur.SetJump(true);
+			if (!joueur.GetIsFrozen())
+			{
+				joueur.SetJump(true);
+			}
 		}
 		joueur.Jump();
 		gameStarted = true;
@@ -167,7 +175,7 @@ void SceneNiveau1::update()
 				//	joueur.Gravity(Vector2f(i, mainWin->getSize().y - TAILLE_TUILES_Y * 2), TAILLE_TUILES_X, TAILLE_TUILES_Y);
 				//}
 			}
-			if (joueur.getPosition().y < mainWin->getSize().y - TAILLE_TUILES_Y)
+			if (joueur.getPosition().y < mainWin->getSize().y - 2 * TAILLE_TUILES_Y)
 			{
 				joueur.Gravity();
 			}
@@ -181,7 +189,7 @@ void SceneNiveau1::update()
 		{
 			int sectionNumber = std::rand() % 3 + 1;
 			section[0] = *SectionGenerator::GenerateSection(sectionNumber);
-		if (initialFloor)
+			if (initialFloor)
 			{
 				initialFloor = false;
 			}
@@ -220,12 +228,31 @@ void SceneNiveau1::update()
 				{
 					joueur.Freeze();
 				}
+				else if (listeEnnemis.at(i)->GetEnnemiType() == 1)
+				{
+
+				}
+				else if (listeEnnemis.at(i)->GetEnnemiType() == 2)
+				{
+					joueur.SlimeSlow();
+				}
 			}
 		}
 		for (int i = 0; i < gems.size(); i++)
 		{
 			gems.at(i).Update();
+			if (joueur.CollisionEnnemis(gems.at(i).GetPosition(), GemSprite.getTextureRect().width, GemSprite.getTextureRect().height))
+			{
+				gems.erase(gems.begin() + i);
+				score += 5;
+			}
 		}
+		if (scoreClock.getElapsedTime() >= sf::seconds(3))
+		{
+			score++;
+			scoreClock.restart();
+		}
+		scoreText.setString("score: " + std::to_string(score));
 	}
 }
 
@@ -257,6 +284,7 @@ void SceneNiveau1::draw()
 		gems.at(i).Draw(GemSprite, *mainWin);
 	}
 	mainWin->draw(joueur);
+	mainWin->draw(scoreText);
 	mainWin->display();
 }
 

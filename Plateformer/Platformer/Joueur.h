@@ -47,6 +47,7 @@ namespace platformer
 		float GetJumpClock() const;
 		void Freeze();
 		bool GetIsFrozen();
+		void SlimeSlow();
 
 	private:
 		static const int TAILLE_RECT = 64;
@@ -60,9 +61,11 @@ namespace platformer
 
 		bool jump;
 		Clock jumpClock;
-
+		Clock SlimeTimer;
+		
 		bool isFalling;
 		bool isFrozen;
+		bool isSlown;
 
 
 	};
