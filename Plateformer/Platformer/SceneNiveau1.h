@@ -65,5 +65,6 @@ namespace platformer
 		sf::Clock scoreClock;
 		sf::Font font;
 		sf::Text scoreText;
+		sf::Text gameOverText;
 	};
 }

@@ -175,3 +175,12 @@ void Joueur::Confuse()
 	ConfusionTimer.restart();
 	isConfused = true;
 }
+void Joueur::Dies()
+{
+	isDead = true;
+	isFrozen = false;
+}
+bool Joueur::GetIsDead()
+{
+	return isDead;
+}

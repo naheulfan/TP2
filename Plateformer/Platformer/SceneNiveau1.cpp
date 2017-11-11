@@ -89,6 +89,10 @@ bool SceneNiveau1::init(RenderWindow * const window)
 	scoreText.setFont(font);
 	scoreText.setPosition(10, 10);
 	scoreText.setString("Score: ");
+	gameOverText.setFont(font);
+	gameOverText.setCharacterSize(30);
+	gameOverText.setPosition(sf::Vector2f(0, mainWin->getSize().y / 2));
+	scoreText.setColor(sf::Color::Red);
 	return true;
 
 }
@@ -254,6 +258,11 @@ void SceneNiveau1::update()
 			scoreClock.restart();
 		}
 		scoreText.setString("score: " + std::to_string(score));
+		if (joueur.getPosition().y > mainWin->getSize().y)
+		{
+			joueur.Dies();
+			gameOverText.setString("Partie Terminee! esc pour retourner au menu");
+		}
 	}
 }
 
@@ -286,6 +295,10 @@ void SceneNiveau1::draw()
 	}
 	mainWin->draw(joueur);
 	mainWin->draw(scoreText);
+	if (joueur.GetIsDead())
+	{
+		mainWin->draw(gameOverText);
+	}
 	mainWin->display();
 }
 

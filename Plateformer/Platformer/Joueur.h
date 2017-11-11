@@ -43,12 +43,13 @@ namespace platformer
 
 		bool GetIsFalling() const;
 		void SetIsFalling(bool value);
-
+		bool GetIsDead();
 		float GetJumpClock() const;
 		void Freeze();
 		bool GetIsFrozen();
 		void SlimeSlow();
 		void Confuse();
+		void Dies();
 
 	private:
 		static const int TAILLE_RECT = 64;
@@ -68,7 +69,8 @@ namespace platformer
 		bool isFrozen;
 		bool isSlown;
 		bool isConfused;
-
+		bool isDead;
+		
 
 	};
 }
