@@ -7,6 +7,7 @@ Joueur::Joueur() : persoRect(0, 0, TAILLE_RECT, TAILLE_RECT)
 {
 	jump = false;
 	isFalling = false;
+	isFrozen = false;
 }
 
 Joueur::~Joueur()
@@ -81,7 +82,7 @@ void Joueur::Gravity()
 	}
 }
 
-bool Joueur::Collision(Vector2f pos, int width, int height)
+bool Joueur::CollisionPlateforme(Vector2f pos, int width, int height)
 {
 	pos.y -= TAILLE_RECT/2;
 	if (!GetJump())
@@ -94,6 +95,17 @@ bool Joueur::Collision(Vector2f pos, int width, int height)
 				isFalling = false;
 				return true;
 			}
+		}
+	}
+	return false;
+}
+bool Joueur::CollisionEnnemis(Vector2f pos, int width, int height)
+{
+	if (getPosition().x <= pos.x + width && getPosition().x >= pos.x)
+	{
+		if (getPosition().y <= pos.y + height && getPosition().y >= pos.y)
+		{
+			return true;
 		}
 	}
 	return false;
@@ -122,4 +134,14 @@ bool Joueur::GetIsFalling() const
 void Joueur::SetIsFalling(bool value)
 {
 	isFalling = value;
+}
+void Joueur::Freeze()
+{
+	isFrozen = true;
+	texture.loadFromFile("Ressources\\Sprites\\Player\\IceBlock.png");
+
+}
+bool Joueur::GetIsFrozen()
+{
+	return isFrozen;
 }

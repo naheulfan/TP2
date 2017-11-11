@@ -9,6 +9,7 @@ Chevalier::Chevalier(sf::Vector2f position, sf::Texture &texture, float platform
 	currentSprite = 0;
 	timer.restart();
 	sprite.setOrigin(sf::Vector2f(26, 26));
+	typeEnnemi = 1;
 }
 Chevalier::Chevalier()
 {
