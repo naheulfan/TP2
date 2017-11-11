@@ -191,15 +191,18 @@ void SceneNiveau1::update()
 		{
 			int sectionNumber = std::rand() % 3 + 1;
 			section[1] = *SectionGenerator::GenerateSection(sectionNumber);
+			int ennemiNumber = std::rand() % 3;
+			int ennemiPlateform = std::rand() % 3;
+			listeEnnemis.push_back(FabriqueEnnemi::GenerateEnnemi(ennemiNumber, section[1].GetPositions()[ennemiPlateform], section[1].GetSizes()[ennemiPlateform]));
 		}
 		section[0].Update();
 		section[1].Update();
 		for (int i = 0; i < listeEnnemis.size(); i++)
 		{
 			listeEnnemis.at(i)->Update();
-			if (listeEnnemis.at(i)->Getposition().y >= mainWin->getSize().y)
+			if (listeEnnemis.at(0)->Getposition().y >= mainWin->getSize().y)
 			{
-				listeEnnemis.at(i)->~Ennemi();
+				listeEnnemis.pop_back();//en théorie le premier élément de la liste c'est le plus bas
 			}
 		}
 		gems[0].Update();
