@@ -117,11 +117,11 @@ void ModifierCompte::getInputs()
 				if (Controleur::GetInstance()->VerificationCompte(textboxNickname.getTexte(), textboxPassword.getTexte()) || validation)
 				{
 					//Vérification si les informations entrées sont valide
-					if (Controleur::GetInstance()->ValidationCompte(textboxNickname.getTexte(), textboxPassword.getTexte(),))
+				/*	if (Controleur::GetInstance()->ValidationCompte(textboxNickname.getTexte(), textboxPassword.getTexte(),))
 					{
 
 					}
-					validation = true;
+					validation = true;*/
 				}
 				else
 				{

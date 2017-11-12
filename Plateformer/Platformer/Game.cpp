@@ -76,7 +76,7 @@ int Game::run()
 				break;
 			
 			case Scene::scenes::SCORE:
-				sceneActive = new Scores();
+//				sceneActive = new Scores();
 				break;
 			}
 			

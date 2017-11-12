@@ -34,5 +34,6 @@ namespace platformer
 		/// </summary>
 		Scene::scenes transitionVersScene;
 		bool isRunning;
+		int compteActif;
 	};
 }

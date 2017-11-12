@@ -57,6 +57,18 @@ std::vector<std::string> Modele::GetNomCompte() const
 	fichier.close();
 	return nomComptes;
 }
+std::vector<std::string> Modele::GetScoresCompte() const
+{
+	std::vector<std::string> scores;
+	std::ifstream fichier("scores.txt");
+	std::string line;
+	while (getline(fichier, line))
+	{
+		scores.push_back(line);
+	}
+	fichier.close();
+	return scores;
+}
 
 void Modele::EffacerCompte(int noLigneEffacer)
 {
