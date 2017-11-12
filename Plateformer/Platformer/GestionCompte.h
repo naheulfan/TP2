@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Scene.h"
+#include "Textbox.h"
 
 namespace platformer
 {
@@ -18,10 +19,10 @@ namespace platformer
 		//Texture ecranTitreT;
 		//Sprite ecranTitre;
 		Font font;
-		Text titre;
-		Text texteModifier;
-		Text texteEffacer;
-		Text texteCreer;
-		Text texteMenu;
+		Textbox titre;
+		Textbox texteModifier;
+		Textbox texteEffacer;
+		Textbox texteCreer;
+		Textbox texteMenu;
 	};
 }

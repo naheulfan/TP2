@@ -34,10 +34,11 @@ namespace platformer
 
 		Textbox* textboxActif = nullptr;
 
+		Textbox titre;
+
 		Texture ecranTitreT;
 		Sprite ecranTitre;
 		Font font;
-		Text titre;
 		Modele modele;
 
 		bool backspaceActif = false;

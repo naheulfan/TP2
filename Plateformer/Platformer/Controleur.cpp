@@ -30,9 +30,16 @@ Scene::scenes Controleur::RequeteChangerScene(Scene::scenes sceneCourante, Event
 	{
 		return Scene::scenes::MENU;
 	}
-	else if (sceneCourante == Scene::scenes::TITRE && event.key.code == Keyboard::Escape)
+	else if (sceneCourante == Scene::scenes::TITRE)
 	{
-		return Scene::scenes::MENU;
+		if (event.key.code == Keyboard::Escape)
+		{
+			return Scene::scenes::MENU;
+		}
+		else if (event.key.code == Keyboard::Return)
+		{
+			return Scene::scenes::NIVEAU1;
+		}
 	}
 	else if (sceneCourante == Scene::scenes::MENU)
 	{
@@ -77,7 +84,29 @@ Scene::scenes Controleur::RequeteChangerScene(Scene::scenes sceneCourante, Event
 		}
 		else if (event.key.code == Keyboard::Return)
 		{
-			return Scene::scenes::MENU;
+			return Scene::scenes::GESTION_COMPTE;
+		}
+	}
+	else if (sceneCourante == Scene::scenes::MODIFIER_COMPTE)
+	{
+		if (event.key.code == Keyboard::Return)
+		{
+			return Scene::scenes::GESTION_COMPTE;
+		}
+		else if (event.key.code == Keyboard::Escape)
+		{
+			return Scene::scenes::GESTION_COMPTE;
+		}
+	}
+	else if (sceneCourante == Scene::scenes::EFFACER_COMPTE)
+	{
+		if (event.key.code == Keyboard::Return)
+		{
+			return Scene::scenes::GESTION_COMPTE;
+		}
+		else if (event.key.code == Keyboard::Escape)
+		{
+			return Scene::scenes::GESTION_COMPTE;
 		}
 	}
 	return sceneCourante;
@@ -120,103 +149,106 @@ bool Controleur::ValidationCompte(std::string nickname, std::string password, st
 				return false;
 			}
 		}
+	}
+	return ValidationInfoCompte(password,nom,prenom,courriel);
+}
 
-		if (password.size() >= 5 && password.size() <= 15)
+bool Controleur::ValidationInfoCompte(std::string password, std::string nom, std::string prenom, std::string courriel)
+{
+	if (password.size() >= 5 && password.size() <= 15)
+	{
+		//Vérification si le mot de passe contient un minimum d'une minuscule, d'une majuscule et d'un chiffre
+		if (!std::any_of(password.begin(), password.end(), islower) && !std::any_of(password.begin(), password.end(), isupper) && !std::any_of(password.begin(), password.end(), isdigit))
 		{
-			//Vérification si le mot de passe contient un minimum d'une minuscule, d'une majuscule et d'un chiffre
-			if (!std::any_of(password.begin(), password.end(), islower) && !std::any_of(password.begin(), password.end(), isupper) && !std::any_of(password.begin(), password.end(), isdigit))
-			{
-				return false;
-			}
-			//Vérification si le mot de passe contient seulement des chiffres et des lettres
-			if (std::all_of(password.begin(), password.end(), isalnum))
-			{
-				return false;
-			}
+			return false;
+		}
+		//Vérification si le mot de passe contient seulement des chiffres et des lettres
+		if (std::all_of(password.begin(), password.end(), isalnum))
+		{
+			return false;
+		}
 
-			if (nom.size() >= 2 && nom.size() <= 25)
+		if (nom.size() >= 2 && nom.size() <= 25)
+		{
+			//Check critères
+			for (int i = 0; i < nom.size(); ++i)
 			{
-				//Check critères
-				for (int i = 0; i < nom.size(); ++i)
+				if (nom.at(i) == '.' || nom.at(i) == '-')
 				{
-					if (nom.at(i) == '.' || nom.at(i) == '-')
+					nom.erase(i, 1);
+				}
+			}
+			if (!std::all_of(nom.begin(), nom.end(), isalpha))
+			{
+				return false;
+			}
+			//Check point et trait d'union en parcourant la chiane manuellement
+			if (prenom.size() >= 2 && prenom.size() <= 25)
+			{
+				for (int i = 0; i < prenom.size(); ++i)
+				{
+					if (prenom.at(i) == '.' || prenom.at(i) == '-')
 					{
-						nom.erase(i,1);
+						prenom.erase(i, 1);
 					}
 				}
-				if (!std::all_of(nom.begin(), nom.end(), isalpha))
+				if (!std::all_of(prenom.begin(), prenom.end(), isalpha))
 				{
 					return false;
 				}
-				//Check point et trait d'union en parcourant la chiane manuellement
-				if (prenom.size() >= 2 && prenom.size() <= 25)
-				{
-					for (int i = 0; i < prenom.size(); ++i)
-					{
-						if (prenom.at(i) == '.' || prenom.at(i) == '-')
-						{
-							prenom.erase(i, 1);
-						}
-					}
-					if (!std::all_of(prenom.begin(), prenom.end(), isalpha))
-					{
-						return false;
-					}
 
-					//Peut-être revoir la vérification bizzare
-					int atPosition = -1;
-					int dotPosition = -1;
-					for (int i = courriel.size() - 1; i > 0; --i)
+				//Peut-être revoir la vérification bizzare
+				int atPosition = -1;
+				int dotPosition = -1;
+				for (int i = courriel.size() - 1; i > 0; --i)
+				{
+					if (courriel.at(i) == '@')
 					{
-						if (courriel.at(i) == '@')
-						{
-							if (atPosition != -1)
-							{
-								return false;
-							}
-							else
-							{
-								atPosition = i;
-							}
-						}
-						else if (courriel.at(i) == '.')
-						{
-							if (dotPosition != -1)
-							{
-								return false;
-							}
-							else
-							{
-								dotPosition = i;
-							}
-						}
-						//À revoir pour les 'é' etc...
-						else if (!isalnum(courriel.at(i)) && courriel.at(i) != '_' && courriel.at(i) != '-')
+						if (atPosition != -1)
 						{
 							return false;
 						}
+						else
+						{
+							atPosition = i;
+						}
 					}
-					if (atPosition == -1 || dotPosition == -1 || atPosition > dotPosition)
+					else if (courriel.at(i) == '.')
 					{
-						return false;
+						if (dotPosition != -1)
+						{
+							return false;
+						}
+						else
+						{
+							dotPosition = i;
+						}
 					}
-					else if ((courriel.size() - 1) - dotPosition < 2 || (courriel.size() - 1) - dotPosition > 3)
-					{
-						return false;
-					}
-					else if (atPosition == 0 || dotPosition - atPosition == 0)
+					//À revoir pour les 'é' etc...
+					else if (!isalnum(courriel.at(i)) && courriel.at(i) != '_' && courriel.at(i) != '-')
 					{
 						return false;
 					}
 				}
+				if (atPosition == -1 || dotPosition == -1 || atPosition > dotPosition)
+				{
+					return false;
+				}
+				else if ((courriel.size() - 1) - dotPosition < 2 || (courriel.size() - 1) - dotPosition > 3)
+				{
+					return false;
+				}
+				else if (atPosition == 0 || dotPosition - atPosition == 0)
+				{
+					return false;
+				}
 			}
-
 		}
 	}
 	return true;
 }
 
-void Controleur::RequeteEffacerCompte(std::string nickname, std::string password)
+bool Controleur::RequeteEffacerCompte(std::string nickname, std::string password)
 {
 	int noCompte;
 	if (VerificationCompte(nickname, password))
@@ -224,6 +256,7 @@ void Controleur::RequeteEffacerCompte(std::string nickname, std::string password
 		noCompte = modele.NoCompte(nickname);
 		modele.EffacerCompte(noCompte);
 	}
+	return true;
 }
 bool Controleur::CompteExiste(std::string nickname)
 {
@@ -237,4 +270,13 @@ bool Controleur::CompteExiste(std::string nickname)
 		}
 	}
 	return compteExiste;
+}
+
+bool Controleur::RequeteModificationCompte(std::string nickname, std::string password, std::string nom, std::string prenom, std::string courriel)
+{
+	if (ValidationInfoCompte(password, nom, prenom, courriel))
+	{
+		modele.ModifierCompte(nickname, password, nom, prenom, courriel);
+	}
+	return true;
 }

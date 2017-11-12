@@ -6,7 +6,7 @@
 #include "CreationCompte.h"
 #include "EffacerCompte.h"
 #include "ModifierCompte.h"
-#include "Scores.h"
+//#include "Scores.h"
 
 using namespace platformer;
 
@@ -75,9 +75,9 @@ int Game::run()
 				sceneActive = new ModifierCompte();
 				break;
 			
-			case Scene::scenes::SCORE:
-				sceneActive = new Scores();
-				break;
+			//case Scene::scenes::SCORE:
+			//	sceneActive = new Scores();
+			//	break;
 			}
 			
 			if (sceneActive->init(&mainWin))

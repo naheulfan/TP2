@@ -40,10 +40,8 @@ bool CreationCompte::init(RenderWindow * const window)
 	textboxCourriel.init(480, 24, Vector2f(430, 440), font);
 	textboxErreur0.initInfo(Vector2f(430, 410), font, true);
 
-	titre.setString("Creation compte");
-	titre.setFont(font);
-	titre.setCharacterSize(50);
-	titre.setFillColor(Color::White);
+	titre.initInfoTitre(Vector2f(430, 80), font, false);
+	titre.insererTexte("Creation compte");
 
 	this->mainWin = window;
 	isRunning = true;
@@ -149,7 +147,6 @@ void CreationCompte::getInputs()
 
 void CreationCompte::update()
 {
-	titre.setPosition(mainWin->getSize().x / 2 - 175, 80);
 	if (textboxActif != &textboxNickname)
 	{
 		textboxNickname.deSelectionner();
@@ -175,7 +172,7 @@ void CreationCompte::update()
 void CreationCompte::draw()
 {
 	mainWin->clear();
-	mainWin->draw(titre);
+	titre.dessiner(mainWin);
 	textboxNickname.dessiner(mainWin);
 	textboxPassword.dessiner(mainWin);
 	textboxNom.dessiner(mainWin);

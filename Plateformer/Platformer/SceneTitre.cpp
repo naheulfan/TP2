@@ -106,11 +106,10 @@ void SceneTitre::getInputs()
 			{
 				enterActif = true; //Pour s'assurer que enter n'est pas saisie comme caractère
 
-				//Condition bison pour voir que la transition fonctionne.
 				if (Controleur::GetInstance()->VerificationCompte(textboxNickname.getTexte(), textboxPassword.getTexte()))
 				{
 					isRunning = false;
-					transitionVersScene = Scene::scenes::NIVEAU1;
+					transitionVersScene = Controleur::GetInstance()->RequeteChangerScene(Scene::scenes::TITRE, event);;
 				}
 				else
 				{

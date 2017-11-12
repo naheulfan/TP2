@@ -40,18 +40,23 @@ bool ModifierCompte::init(RenderWindow * const window)
 
 	//Les positions sont arbitraires, obtenus par essai et erreur.
 	//par rapport au fond d'écran
-	textboxPassword.init(480, 15, Vector2f(430, 320), font);
-
-	descriptionPassword.initInfo(Vector2f(430, 290), font, false);
-	descriptionPassword.insererTexte("Mot de passe");
-
 	textboxNickname.init(480, 25, Vector2f(430, 260), font);
-
 	descriptionNickname.initInfo(Vector2f(430, 230), font, false);
 	descriptionNickname.insererTexte("Surnom");
 
-	textboxCourriel.init(480, 24, Vector2f(430, 380), font);
+	textboxPassword.init(480, 15, Vector2f(430, 320), font);
+	descriptionPassword.initInfo(Vector2f(430, 290), font, false);
+	descriptionPassword.insererTexte("Mot de passe");
 
+	textboxNom.init(480, 25, Vector2f(430, 260), font);
+	descriptionNom.initInfo(Vector2f(430, 230), font, false);
+	descriptionNom.insererTexte("Nom");
+
+	textboxPrenom.init(480, 15, Vector2f(430, 320), font);
+	descriptionPrenom.initInfo(Vector2f(430, 290), font, false);
+	descriptionPrenom.insererTexte("Prenom");
+
+	textboxCourriel.init(480, 24, Vector2f(430, 380), font);
 	descriptionCourriel.initInfo(Vector2f(430, 350), font, false);
 	descriptionCourriel.insererTexte("Courriel");
 
@@ -79,20 +84,34 @@ void ModifierCompte::getInputs()
 		if (event.type == Event::MouseButtonPressed)
 		{
 			//Si on touche à la textbox avec la souris
-			if (textboxPassword.touche(Mouse::getPosition(*mainWin)))
+			if (textboxPassword.touche(Mouse::getPosition(*mainWin)) && !validation)
 			{
 				textboxActif = &textboxPassword; //Ce textbox devient actif
 				textboxPassword.selectionner();  //on l'affiche comme étant sélectionné
 				textboxErreur.insererTexte(""); //on efface le message d'erreur
 			}
 			//Sinon si on touche la deuxième textbox avec la souris
-			else if (textboxNickname.touche(Mouse::getPosition(*mainWin)))
+			else if (textboxNickname.touche(Mouse::getPosition(*mainWin)) && !validation)
 			{
 				textboxActif = &textboxNickname; //Ce textbox devient actif
 				textboxNickname.selectionner();  //on l'affiche comme étant sélectionné
 				textboxErreur.insererTexte(""); //on efface le message d'erreur
 			}
-			//Sinon si on touche la troisième textbox avec la souris
+
+			else if (textboxNom.touche(Mouse::getPosition(*mainWin)) && validation)
+			{
+				textboxActif = &textboxNom; //Ce textbox devient actif
+				textboxNom.selectionner();  //on l'affiche comme étant sélectionné
+				textboxErreur.insererTexte(""); //on efface le message d'erreur
+			}
+
+			else if (textboxPrenom.touche(Mouse::getPosition(*mainWin)) && validation)
+			{
+				textboxActif = &textboxPrenom; //Ce textbox devient actif
+				textboxPrenom.selectionner();  //on l'affiche comme étant sélectionné
+				textboxErreur.insererTexte(""); //on efface le message d'erreur
+			}
+
 			else if (textboxCourriel.touche(Mouse::getPosition(*mainWin)) && validation)
 			{
 				textboxActif = &textboxCourriel; //Ce textbox devient actif
@@ -117,9 +136,12 @@ void ModifierCompte::getInputs()
 				if (Controleur::GetInstance()->VerificationCompte(textboxNickname.getTexte(), textboxPassword.getTexte()) || validation)
 				{
 					//Vérification si les informations entrées sont valide
-					if (Controleur::GetInstance()->ValidationCompte(textboxNickname.getTexte(), textboxPassword.getTexte(),))
+					if (validation)
 					{
-
+						//Modifie le compte
+						Controleur::GetInstance()->RequeteModificationCompte(textboxNickname.getTexte(), textboxPassword.getTexte(), textboxNom.getTexte(), textboxPrenom.getTexte(), textboxCourriel.getTexte());
+						isRunning = false;
+						transitionVersScene = Controleur::GetInstance()->RequeteChangerScene(Scene::scenes::MODIFIER_COMPTE, event);
 					}
 					validation = true;
 				}
@@ -137,7 +159,7 @@ void ModifierCompte::getInputs()
 			else if (event.key.code == Keyboard::Escape)
 			{
 				isRunning = false;
-				transitionVersScene = Controleur::GetInstance()->RequeteChangerScene(Scene::scenes::TITRE, event);
+				transitionVersScene = Controleur::GetInstance()->RequeteChangerScene(Scene::scenes::MODIFIER_COMPTE, event);
 			}
 		}
 
@@ -165,6 +187,14 @@ void ModifierCompte::update()
 	{
 		textboxPassword.deSelectionner();
 	}
+	if (textboxActif != &textboxNom)
+	{
+		textboxNom.deSelectionner();
+	}
+	if (textboxActif != &textboxPrenom)
+	{
+		textboxPrenom.deSelectionner();
+	}
 	if (textboxActif != &textboxCourriel)
 	{
 		textboxCourriel.deSelectionner();
@@ -175,12 +205,19 @@ void ModifierCompte::draw()
 {
 	mainWin->clear();
 	mainWin->draw(ecranTitre);
-	textboxNickname.dessiner(mainWin);
-	descriptionNickname.dessiner(mainWin);
-	descriptionPassword.dessiner(mainWin);
-	textboxPassword.dessiner(mainWin);
+	if (!validation)
+	{
+		textboxNickname.dessiner(mainWin);
+		descriptionNickname.dessiner(mainWin);
+		descriptionPassword.dessiner(mainWin);
+		textboxPassword.dessiner(mainWin);
+	}
 	if (validation)
 	{
+		textboxNom.dessiner(mainWin);
+		descriptionNom.dessiner(mainWin);
+		textboxPrenom.dessiner(mainWin);
+		descriptionPrenom.dessiner(mainWin);
 		textboxCourriel.dessiner(mainWin);
 		descriptionCourriel.dessiner(mainWin);
 	}

@@ -31,6 +31,8 @@ namespace platformer
 		//Boites de texte
 		Textbox textboxNickname;
 		Textbox textboxPassword;
+		Textbox textboxNom;
+		Textbox textboxPrenom;
 		Textbox textboxCourriel;
 		//Message d'erreur
 		Textbox textboxErreur;
@@ -38,6 +40,8 @@ namespace platformer
 		//Message
 		Textbox descriptionNickname;
 		Textbox descriptionPassword;
+		Textbox descriptionNom;
+		Textbox descriptionPrenom;
 		Textbox descriptionCourriel;
 
 		Textbox* textboxActif = nullptr;

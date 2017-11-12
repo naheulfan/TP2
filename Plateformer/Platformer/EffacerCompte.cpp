@@ -115,10 +115,11 @@ void EffacerCompte::getInputs()
 					descriptionNickname.insererTexte("Entez \"effacer\" pour effacer le compte");
 					if (textboxNickname.getTexte() == "effacer")
 					{
-						Controleur::GetInstance()->RequeteEffacerCompte(nickname, password);
-						//À changer
-						isRunning = false;
-						transitionVersScene = Scene::scenes::MENU;
+						if (Controleur::GetInstance()->RequeteEffacerCompte(nickname, password))
+						{
+							isRunning = false;
+							transitionVersScene = Controleur::GetInstance()->RequeteChangerScene(Scene::scenes::EFFACER_COMPTE, event);
+						}
 					}
 					else if (validation)
 					{
@@ -140,7 +141,7 @@ void EffacerCompte::getInputs()
 			else if (event.key.code == Keyboard::Escape)
 			{
 				isRunning = false;
-				transitionVersScene = Controleur::GetInstance()->RequeteChangerScene(Scene::scenes::TITRE, event);
+				transitionVersScene = Controleur::GetInstance()->RequeteChangerScene(Scene::scenes::EFFACER_COMPTE, event);
 			}
 		}
 

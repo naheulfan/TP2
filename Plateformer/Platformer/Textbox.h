@@ -22,6 +22,7 @@ namespace platformer
 		~Textbox();
 		void init(const int longueur, const int limite, const Vector2f position, const Font& font);
 		void initInfo(const Vector2f position, const Font& font, const bool estErreur);
+		void initInfoTitre(const Vector2f position, const Font& font, const bool estErreur);
 		void insererTexte(String leTexte);
 		void ajouterChar(const char leChar);
 		void retirerChar();
@@ -30,6 +31,7 @@ namespace platformer
 		void deSelectionner();
 		bool touche(const Vector2i& position);
 		String getTexte() const;
+
 
 	private:
 		void ajustementsVisuels();		

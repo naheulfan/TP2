@@ -72,6 +72,36 @@ void Textbox::initInfo(const Vector2f position, const Font& font, const bool est
 		texte.setFillColor(Color::White);
 	}	
 }
+/// <summary>
+/// Voir précédent, mais utilisé comme Label pour un Titre
+/// La boite est toujours présente (pas le choix), mais carrément invisible
+///
+/// Si le texte notifie une erreur, on le mettra de couleur rouge
+/// </summary>
+void Textbox::initInfoTitre(const Vector2f position, const Font& font, const bool estErreur)
+{
+	int hauteur = 60;
+	this->limite = 60;// pas de graphique associé, on peut mettre un long texte par défaut.
+
+	boite.setSize(Vector2f(0, 0));
+	boite.setFillColor(Color::Transparent);
+	boite.setOutlineColor(Color::Transparent);
+	boite.setOutlineThickness(0);
+	boite.setOrigin(Vector2f(0, 0));
+	boite.setPosition(position);
+
+	texte.setFont(font);
+	texte.setCharacterSize(50);
+
+	if (estErreur)
+	{
+		texte.setFillColor(Color::Red);
+	}
+	else
+	{
+		texte.setFillColor(Color::White);
+	}
+}
 
 /// <summary>
 /// Fait juste changer la couleur du cadre.

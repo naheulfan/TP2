@@ -31,31 +31,20 @@ bool GestionCompte::init(RenderWindow * const window)
 		return false;
 	}
 
-	titre.setString("Gestion compte");
-	titre.setFont(font);
-	titre.setCharacterSize(50);
-	titre.setFillColor(Color::White);
+	titre.initInfoTitre(Vector2f(430,80),font,false);
+	titre.insererTexte("Gestion compte");
 
-	texteModifier.setString("\"E\" pour effacer un compte");
-	texteModifier.setFont(font);
-	texteModifier.setCharacterSize(20);
-	texteModifier.setFillColor(Color::White);
+	texteCreer.initInfo(Vector2f(430, 260), font, false);
+	texteCreer.insererTexte("\"C\" pour creer un compte");
 
-	texteEffacer.setString("\"D\" pour modifier un compte");
-	texteEffacer.setFont(font);
-	texteEffacer.setCharacterSize(20);
-	texteEffacer.setFillColor(Color::White);
+	texteModifier.initInfo(Vector2f(430, 290), font, false);
+	texteModifier.insererTexte("\"E\" pour effacer un compte");
 
-	texteCreer.setString("\"C\" pour creer un compte");
-	texteCreer.setFont(font);
-	texteCreer.setCharacterSize(20);
-	texteCreer.setFillColor(Color::White);
+	texteEffacer.initInfo(Vector2f(430, 320), font,false);
+	texteEffacer.insererTexte("\"D\" pour modifier un compte");
 
-	texteMenu.setString("\"M\" pour revenir au menu principal");
-	texteMenu.setFont(font);
-	texteMenu.setCharacterSize(20);
-	texteMenu.setFillColor(Color::White);
-
+	texteMenu.initInfo(Vector2f(430, 350), font, false);
+	texteMenu.insererTexte("\"M\" pour revenir au menu principal");
 
 	//ecranTitre.setTexture(ecranTitreT);
 
@@ -85,21 +74,17 @@ void GestionCompte::getInputs()
 
 void GestionCompte::update()
 {
-	titre.setPosition(mainWin->getSize().x / 2 - 175, 80);
-	texteCreer.setPosition(mainWin->getSize().x / 2 - 120, mainWin->getSize().y - 100);
-	texteEffacer.setPosition(mainWin->getSize().x / 2 - 120, mainWin->getSize().y - 130);
-	texteModifier.setPosition(mainWin->getSize().x / 2 - 120, mainWin->getSize().y - 160);
-	texteMenu.setPosition(mainWin->getSize().x / 2 - 120, mainWin->getSize().y - 190);
+
 }
 
 void GestionCompte::draw()
 {
 	mainWin->clear();
-	mainWin->draw(titre);
-	mainWin->draw(texteMenu);
-	mainWin->draw(texteEffacer);
-	mainWin->draw(texteCreer);
-	mainWin->draw(texteModifier);
+	titre.dessiner(mainWin);
+	texteCreer.dessiner(mainWin);
+	texteModifier.dessiner(mainWin);
+	texteEffacer.dessiner(mainWin);
+	texteMenu.dessiner(mainWin);
 	mainWin->display();
 
 }
