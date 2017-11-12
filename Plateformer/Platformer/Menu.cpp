@@ -31,22 +31,15 @@ bool SceneMenu::init(RenderWindow * const window)
 		return false;
 	}
 
-	texteLogin.setString("Espace pour continuer");
-	texteLogin.setFont(font);
-	texteLogin.setCharacterSize(20);
-	texteLogin.setFillColor(Color::White);
+	texteLogin.initInfo(Vector2f(430, 350), font, false);
+	texteLogin.insererTexte("Espace pour continuer");
 
-	texteScore.setString("\"S\" pour les scores");
-	texteScore.setFont(font);
-	texteScore.setCharacterSize(20);
-	texteScore.setFillColor(Color::White);
+	texteScore.initInfo(Vector2f(430, 320), font, false);
+	texteScore.insererTexte("\"S\" pour les scores");
 
-	texteCompte.setString("\"G\" pour la gestion de compte");
-	texteCompte.setFont(font);
-	texteCompte.setCharacterSize(20);
-	texteCompte.setFillColor(Color::White);
+	texteCompte.initInfo(Vector2f(430, 290), font, false);
+	texteCompte.insererTexte("\"G\" pour la gestion de compte");
 	
-
 	ecranTitre.setTexture(ecranTitreT);
 
 	this->mainWin = window;
@@ -75,18 +68,16 @@ void SceneMenu::getInputs()
 
 void SceneMenu::update()
 {
-	texteScore.setPosition(mainWin->getSize().x / 2 - 120, mainWin->getSize().y - 100);
-	texteCompte.setPosition(mainWin->getSize().x / 2 - 120, mainWin->getSize().y - 130);
-	texteLogin.setPosition(mainWin->getSize().x / 2 - 120, mainWin->getSize().y - 160);
+
 }
 
 void SceneMenu::draw()
 {
 	mainWin->clear();
 	mainWin->draw(ecranTitre);
-	mainWin->draw(texteScore);
-	mainWin->draw(texteCompte);
-	mainWin->draw(texteLogin);
+	texteScore.dessiner(mainWin);
+	texteCompte.dessiner(mainWin);
+	texteLogin.dessiner(mainWin);
 	mainWin->display();
 	
 }

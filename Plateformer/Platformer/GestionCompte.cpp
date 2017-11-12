@@ -21,10 +21,10 @@ Scene::scenes GestionCompte::run()
 
 bool GestionCompte::init(RenderWindow * const window)
 {
-	//if (!ecranTitreT.loadFromFile("Ressources\\Sprites\\Title.png"))
-	//{
-	//	return false;
-	//}
+	if (!ecranTitreT.loadFromFile("Ressources\\Sprites\\Title.png"))
+	{
+		return false;
+	}
 
 	if (!font.loadFromFile("Ressources\\Fonts\\Peric.ttf"))
 	{
@@ -46,7 +46,7 @@ bool GestionCompte::init(RenderWindow * const window)
 	texteMenu.initInfo(Vector2f(430, 350), font, false);
 	texteMenu.insererTexte("\"M\" pour revenir au menu principal");
 
-	//ecranTitre.setTexture(ecranTitreT);
+	ecranTitre.setTexture(ecranTitreT);
 
 	this->mainWin = window;
 	isRunning = true;
@@ -80,6 +80,7 @@ void GestionCompte::update()
 void GestionCompte::draw()
 {
 	mainWin->clear();
+	mainWin->draw(ecranTitre);
 	titre.dessiner(mainWin);
 	texteCreer.dessiner(mainWin);
 	texteModifier.dessiner(mainWin);

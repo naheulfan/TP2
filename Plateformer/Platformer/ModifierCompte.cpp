@@ -60,6 +60,9 @@ bool ModifierCompte::init(RenderWindow * const window)
 	descriptionCourriel.initInfo(Vector2f(430, 350), font, false);
 	descriptionCourriel.insererTexte("Courriel");
 
+	titre.initInfoTitre(Vector2f(430, 80), font, false);
+	titre.insererTexte("Modification compte");
+
 	textboxErreur.initInfo(Vector2f(430, 410), font, true);
 
 	this->mainWin = window;
@@ -205,6 +208,7 @@ void ModifierCompte::draw()
 {
 	mainWin->clear();
 	mainWin->draw(ecranTitre);
+	titre.dessiner(mainWin);
 	if (!validation)
 	{
 		textboxNickname.dessiner(mainWin);

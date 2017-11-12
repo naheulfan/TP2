@@ -43,6 +43,7 @@ namespace platformer
 		Textbox descriptionNom;
 		Textbox descriptionPrenom;
 		Textbox descriptionCourriel;
+		Textbox titre;
 
 		Textbox* textboxActif = nullptr;
 

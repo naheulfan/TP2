@@ -16,8 +16,8 @@ namespace platformer
 		void update();
 		void draw();
 	private:
-		//Texture ecranTitreT;
-		//Sprite ecranTitre;
+		Texture ecranTitreT;
+		Sprite ecranTitre;
 		Font font;
 		Textbox titre;
 		Textbox texteModifier;

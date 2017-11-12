@@ -149,8 +149,12 @@ bool Controleur::ValidationCompte(std::string nickname, std::string password, st
 				return false;
 			}
 		}
+		return ValidationInfoCompte(password, nom, prenom, courriel);
 	}
-	return ValidationInfoCompte(password,nom,prenom,courriel);
+	else
+	{
+		return false;
+	}
 }
 
 bool Controleur::ValidationInfoCompte(std::string password, std::string nom, std::string prenom, std::string courriel)

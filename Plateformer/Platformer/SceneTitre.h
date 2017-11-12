@@ -26,10 +26,18 @@ namespace platformer
 		Texture ecranTitreT;
 		Sprite ecranTitre;
 
+		//Boite de texte
 		Textbox textboxPassword;
-		Textbox textboxErreur; // Ce textbox agit plutôt comme un messagebox.
-
 		Textbox textboxNickname;
+
+		//Message
+		Textbox descriptionPassword;
+		Textbox descriptionNickname;
+
+		//Message d'erreur
+		Textbox textboxErreur; 
+
+		
 
 		Font font;
 

@@ -41,9 +41,14 @@ bool SceneTitre::init(RenderWindow * const window)
 	//Les positions sont arbitraires, obtenus par essai et erreur.
 	//par rapport au fond d'écran
 	textboxPassword.init(480, 15, Vector2f(430, 320), font);
-	textboxErreur.initInfo(Vector2f(430, 290), font, true);
+	descriptionPassword.initInfo(Vector2f(430, 290), font, false);
+	descriptionPassword.insererTexte("Mot de passe");
 
 	textboxNickname.init(480, 25, Vector2f(430, 260), font);
+	descriptionNickname.initInfo(Vector2f(430, 230), font, false);
+	descriptionNickname.insererTexte("Surnom");
+
+	textboxErreur.initInfo(Vector2f(430, 290), font, true);
 
 	this->mainWin = window;
 	isRunning = true;
@@ -156,7 +161,9 @@ void SceneTitre::draw()
 	mainWin->clear();
 	mainWin->draw(ecranTitre);
 	textboxPassword.dessiner(mainWin);
+	descriptionPassword.dessiner(mainWin);
 	textboxErreur.dessiner(mainWin);
 	textboxNickname.dessiner(mainWin);
+	descriptionNickname.dessiner(mainWin);
 	mainWin->display();
 }

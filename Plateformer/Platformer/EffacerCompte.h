@@ -36,6 +36,7 @@ namespace platformer
 		//Message
 		Textbox descriptionNickname;
 		Textbox descriptionPassword;
+		Textbox titre;
 
 		Textbox* textboxActif = nullptr;
 

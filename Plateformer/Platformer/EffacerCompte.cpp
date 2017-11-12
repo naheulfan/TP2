@@ -52,6 +52,9 @@ bool EffacerCompte::init(RenderWindow * const window)
 	descriptionNickname.initInfo(Vector2f(430, 230), font, false);
 	descriptionNickname.insererTexte("Surnom");
 
+	titre.initInfoTitre(Vector2f(430, 80), font, false);
+	titre.insererTexte("Effacer compte");
+
 	this->mainWin = window;
 	isRunning = true;
 	validation = false;
@@ -177,6 +180,7 @@ void EffacerCompte::draw()
 	mainWin->draw(ecranTitre);
 	textboxNickname.dessiner(mainWin);
 	descriptionNickname.dessiner(mainWin);
+	titre.dessiner(mainWin);
 	if (!validation)
 	{
 		descriptionPassword.dessiner(mainWin);

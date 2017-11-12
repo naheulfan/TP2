@@ -21,27 +21,46 @@ Scene::scenes CreationCompte::run()
 
 bool CreationCompte::init(RenderWindow * const window)
 {
+	if (!ecranTitreT.loadFromFile("Ressources\\Sprites\\Title.png"))
+	{
+		return false;
+	}
+
 	if (!font.loadFromFile("Ressources\\Fonts\\Peric.ttf"))
 	{
 		return false;
 	}
-	textboxNickname.init(480, 25, Vector2f(430, 200), font);
-	textboxErreur3.initInfo(Vector2f(430, 170), font, true);
 
-	textboxPassword.init(480, 15, Vector2f(430, 260), font);
-	textboxErreur2.initInfo(Vector2f(430, 230), font, true);
+	ecranTitre.setTexture(ecranTitreT);
 
-	textboxNom.init(480, 25, Vector2f(430, 320), font);
-	textboxErreur.initInfo(Vector2f(430, 290), font, true);
+	textboxNickname.init(480, 25, Vector2f(430, 180), font);
+	descriptionNickname.initInfo(Vector2f(430, 150), font, false);
+	descriptionNickname.insererTexte("Surnom");
 
-	textboxPrenom.init(480, 25, Vector2f(430, 380), font);
-	textboxErreur1.initInfo(Vector2f(430, 350), font, true);
+	textboxPassword.init(480, 15, Vector2f(430, 240), font);
+	descriptionPassword.initInfo(Vector2f(430, 210), font, false);
+	descriptionPassword.insererTexte("*Mot de passe");
+	infoPassword.initInfo(Vector2f(430, 450), font, true);
+	infoPassword.insererTexte("*Une lette minuscule, une lettre majuscule,");
+	infoPassword2.initInfo(Vector2f(430, 465), font, true);
+	infoPassword2.insererTexte("un chiffre et un caractere special");
 
-	textboxCourriel.init(480, 24, Vector2f(430, 440), font);
-	textboxErreur0.initInfo(Vector2f(430, 410), font, true);
+	textboxNom.init(480, 25, Vector2f(430, 300), font);
+	descriptionNom.initInfo(Vector2f(430, 270), font, false);
+	descriptionNom.insererTexte("Nom");
+
+	textboxPrenom.init(480, 25, Vector2f(430, 360), font);
+	descriptionPrenom.initInfo(Vector2f(430, 330), font, false);
+	descriptionPrenom.insererTexte("Prenom");
+
+	textboxCourriel.init(480, 24, Vector2f(430, 420), font);
+	descriptionCourriel.initInfo(Vector2f(430, 390), font, false);
+	descriptionCourriel.insererTexte("Courriel");
 
 	titre.initInfoTitre(Vector2f(430, 80), font, false);
 	titre.insererTexte("Creation compte");
+
+	textboxErreur.initInfo(Vector2f(430, 110), font, true);
 
 	this->mainWin = window;
 	isRunning = true;
@@ -67,13 +86,13 @@ void CreationCompte::getInputs()
 			{
 				textboxActif = &textboxNickname; //Ce textbox devient actif
 				textboxNickname.selectionner();  //on l'affiche comme étant sélectionné
-										  //textboxErreurNickname.insererTexte(""); //on efface le message d'erreur (optionnel, amis ça fait clean si on fait un nouvel essai)
+				textboxErreur.insererTexte("");	 //textboxErreurNickname.insererTexte(""); //on efface le message d'erreur (optionnel, amis ça fait clean si on fait un nouvel essai)
 			}
 			else if (textboxPassword.touche(Mouse::getPosition(*mainWin)))
 			{
 				textboxActif = &textboxPassword; //Ce textbox devient actif
 				textboxPassword.selectionner();  //on l'affiche comme étant sélectionné
-										  //textboxErreurNickname.insererTexte(""); //on efface le message d'erreur (optionnel, amis ça fait clean si on fait un nouvel essai)
+				textboxErreur.insererTexte("");	//textboxErreurNickname.insererTexte(""); //on efface le message d'erreur (optionnel, amis ça fait clean si on fait un nouvel essai)
 			}
 			else if (textboxNom.touche(Mouse::getPosition(*mainWin)))
 			{
@@ -85,13 +104,13 @@ void CreationCompte::getInputs()
 			{
 				textboxActif = &textboxPrenom; //Ce textbox devient actif
 				textboxPrenom.selectionner();  //on l'affiche comme étant sélectionné
-				textboxErreur1.insererTexte(""); //on efface le message d'erreur (optionnel, amis ça fait clean si on fait un nouvel essai)
+				textboxErreur.insererTexte(""); //on efface le message d'erreur (optionnel, amis ça fait clean si on fait un nouvel essai)
 			}
 			else if (textboxCourriel.touche(Mouse::getPosition(*mainWin)))
 			{
 				textboxActif = &textboxCourriel; //Ce textbox devient actif
 				textboxCourriel.selectionner();  //on l'affiche comme étant sélectionné
-				textboxErreur0.insererTexte(""); //on efface le message d'erreur (optionnel, amis ça fait clean si on fait un nouvel essai)
+				textboxErreur.insererTexte(""); //on efface le message d'erreur (optionnel, amis ça fait clean si on fait un nouvel essai)
 			}
 			else
 			{
@@ -119,7 +138,7 @@ void CreationCompte::getInputs()
 				else
 				{
 					//On affiche notre erreur.
-					textboxErreur.insererTexte("Mauvais mot de passe, veillez recommencer");
+					textboxErreur.insererTexte("Erreur, veillez recommencer");
 				}
 			}
 			else if (event.key.code == Keyboard::BackSpace)
@@ -172,12 +191,20 @@ void CreationCompte::update()
 void CreationCompte::draw()
 {
 	mainWin->clear();
+	mainWin->draw(ecranTitre);
 	titre.dessiner(mainWin);
 	textboxNickname.dessiner(mainWin);
+	descriptionNickname.dessiner(mainWin);
 	textboxPassword.dessiner(mainWin);
+	descriptionPassword.dessiner(mainWin);
+	infoPassword.dessiner(mainWin);
+	infoPassword2.dessiner(mainWin);
 	textboxNom.dessiner(mainWin);
+	descriptionNom.dessiner(mainWin);
 	textboxPrenom.dessiner(mainWin);
+	descriptionPrenom.dessiner(mainWin);
 	textboxCourriel.dessiner(mainWin);
+	descriptionCourriel.dessiner(mainWin);
 	mainWin->display();
 
 }
