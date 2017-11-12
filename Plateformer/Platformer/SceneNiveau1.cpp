@@ -1,5 +1,7 @@
 #include "SceneNiveau1.h"
-
+#include <iostream>
+#include <sstream>
+#include <fstream>
 using namespace platformer;
 
 SceneNiveau1::SceneNiveau1()
@@ -262,6 +264,30 @@ void SceneNiveau1::update()
 		{
 			joueur.Dies();
 			gameOverText.setString("Partie Terminee! esc pour retourner au menu");
+			std::string texte = "";
+			std::ifstream fichier("scores.txt");
+			if (fichier)
+			{
+				std::string line;
+				int compteurLine = 0;
+				while (getline(fichier, line))
+				{
+					++compteurLine;
+					if (compteurLine != compteActif)
+					{
+						texte += line + "\n";
+					}
+					else
+					{
+						texte += line + " " + std::to_string(score) + "\n";
+					}
+				}
+			}
+			fichier.close();
+
+			std::ofstream nouveauFichier("scores.txt");
+			nouveauFichier << texte;
+			nouveauFichier.close();
 		}
 	}
 }

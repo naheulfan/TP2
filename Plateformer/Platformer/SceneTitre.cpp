@@ -1,6 +1,6 @@
 #include "SceneTitre.h"
 #include "Controleur.h"
-
+#include "Modele.h"
 using namespace platformer;
 
 SceneTitre::SceneTitre()
@@ -108,6 +108,8 @@ void SceneTitre::getInputs()
 
 				if (Controleur::GetInstance()->VerificationCompte(textboxNickname.getTexte(), textboxPassword.getTexte()))
 				{
+					
+					compteActif = Modele::NoCompte(textboxNickname.getTexte());
 					isRunning = false;
 					transitionVersScene = Controleur::GetInstance()->RequeteChangerScene(Scene::scenes::TITRE, event);;
 				}

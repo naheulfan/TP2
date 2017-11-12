@@ -93,6 +93,10 @@
 //						textboxErreur1.insererTexte("Nom invalide, veuillez recommencer");
 //					}
 //				}
+//				else if (textboxActif == &textbox2)
+//				{
+//					if (Controleur::)
+//				}
 //			}
 //			else if (event.key.code == Keyboard::BackSpace)
 //			{

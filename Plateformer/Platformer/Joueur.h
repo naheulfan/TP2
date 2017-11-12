@@ -70,8 +70,6 @@ namespace platformer
 		bool isSlown;
 		bool isConfused;
 		bool isDead;
-		
-
 	};
 }
 
