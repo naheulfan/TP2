@@ -38,13 +38,13 @@ bool Scores::init(RenderWindow * const window)
 		{
 			std::string line;
 			int compteurLine = 0;
+			std::vector<std::string> textScores;
 				while (getline(fichier, line))
 				{
 					++compteurLine;
 					lignes.push_back(line);
 					std::stringstream input_stringstream(line); //https://stackoverflow.com/questions/14265581/parse-split-a-string-in-c-using-string-delimiter-standard-c
 					std::string word;
-					std::vector<std::string> textScores;
 					std::vector<int> playerScores;
 					textScores.reserve(10);
 					while (getline(input_stringstream,word, ' '))
@@ -65,6 +65,7 @@ bool Scores::init(RenderWindow * const window)
 								{
 									temp = topTenScores[j];
 									topTenScores[j] = playerScores.at(k);
+									scores[i].insererTexte(modele.GetNomCompte().at(k) + ": " + std::to_string(topTenScores[j]));
 								}
 								if (j <= 8)
 								{
@@ -74,7 +75,6 @@ bool Scores::init(RenderWindow * const window)
 								{
 									topTenScores[j + 1] = temp;
 								}
-								textScores.push_back(modele.GetNomCompte().at(k) + " :" + std::to_string(playerScores.at(k)));
 							}
 							
 						}

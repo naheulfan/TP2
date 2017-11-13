@@ -40,3 +40,8 @@ int Ennemi::GetEnnemiType()
 {
 	return typeEnnemi;
 }
+
+void Ennemi::Attack()
+{
+
+}

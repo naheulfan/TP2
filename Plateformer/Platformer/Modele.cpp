@@ -200,6 +200,7 @@ void Modele::ModifierCompte(std::string nickname, std::string password, std::str
 	nouveauFichier << texte;
 	nouveauFichier.close();
 }
+
 void Modele::setNoCompte(int noCompte)
 {
 	Modele::noCompte = noCompte;

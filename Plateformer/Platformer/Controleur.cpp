@@ -239,7 +239,7 @@ bool Controleur::ValidationInfoCompte(std::string password, std::string nom, std
 	if (password.size() >= 5 && password.size() <= 15)
 	{
 		//Vérification si le mot de passe contient un minimum d'une minuscule, d'une majuscule et d'un chiffre
-		if (!std::any_of(password.begin(), password.end(), islower) && !std::any_of(password.begin(), password.end(), isupper) && !std::any_of(password.begin(), password.end(), isdigit))
+		if (!std::any_of(password.begin(), password.end(), islower) || !std::any_of(password.begin(), password.end(), isupper) || !std::any_of(password.begin(), password.end(), isdigit))
 		{
 			return false;
 		}
@@ -328,11 +328,19 @@ bool Controleur::ValidationInfoCompte(std::string password, std::string nom, std
 					return false;
 				}
 				//Vérification s'il y a quelque chose devant le "@" et entre le "@" et le "."
-				else if (atPosition == 0 || dotPosition - atPosition == 0)
+				else if (atPosition == 0 || dotPosition - atPosition == 1)
 				{
 					return false;
 				}
 			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
 		}
 	}
 	return true;
@@ -353,8 +361,9 @@ bool Controleur::RequeteEffacerCompte(std::string nickname, std::string password
 		//Demande au modèle d'effacer le compte
 		noCompte = modele.NoCompte(nickname);
 		modele.EffacerCompte(noCompte);
+		return true;
 	}
-	return true;
+	return false;
 }
 
 /// <summary>
@@ -394,6 +403,7 @@ bool Controleur::RequeteModificationCompte(std::string nickname, std::string pas
 	{
 		//Envoie des données au modèle
 		modele.ModifierCompte(nickname, password, nom, prenom, courriel);
+		return true;
 	}
-	return true;
+	return false;
 }
