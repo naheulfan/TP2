@@ -394,6 +394,7 @@ bool Controleur::RequeteModificationCompte(std::string nickname, std::string pas
 	{
 		//Envoie des données au modèle
 		modele.ModifierCompte(nickname, password, nom, prenom, courriel);
+		return true;
 	}
-	return true;
+	return false;
 }
