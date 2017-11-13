@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
+#include <iostream>
+#include <fstream>
+#include <sstream>
 #include "../Platformer/Modele.h"
 #include "../Platformer/Controleur.h"
 //Il faut que ce dernier lien soit aussi dans 
@@ -24,6 +27,8 @@ namespace ProjetSFMLTest
 			modele.EffacerCompte(modele.NoCompte("compteTest"));
 
 			Assert::IsFalse(Controleur::GetInstance()->CompteExiste("compteTest"));
+			std::ofstream fichier("comptes.txt");
+			fichier << "";
 		}
 
 		TEST_METHOD(ModeleNoCompte)
@@ -36,7 +41,8 @@ namespace ProjetSFMLTest
 
 			Assert::IsTrue(modele.NoCompte("compteTest") == comptes.size());
 
-			modele.EffacerCompte(modele.NoCompte("compteTest"));
+			std::ofstream fichier("comptes.txt");
+			fichier << "";
 		}
 
 		TEST_METHOD(ModeleDonneeCompte)
@@ -57,7 +63,8 @@ namespace ProjetSFMLTest
 			Assert::IsTrue(compte[3] == modele.DonneeCompte("compteTest")[3]);
 			Assert::IsTrue(compte[4] == modele.DonneeCompte("compteTest")[4]);
 
-			modele.EffacerCompte(modele.NoCompte("compteTest"));
+			std::ofstream fichier("comptes.txt");
+			fichier << "";
 		}
 
 		TEST_METHOD(ModeleAjoutCompte)
@@ -68,7 +75,6 @@ namespace ProjetSFMLTest
 
 			Assert::IsTrue(Controleur::GetInstance()->CompteExiste("compteTest"));
 
-			modele.EffacerCompte(modele.NoCompte("compteTest"));
 		}
 
 		TEST_METHOD(ModeleGetNomCompte)
@@ -81,7 +87,8 @@ namespace ProjetSFMLTest
 
 			Assert::IsTrue("compteTest" == comptes.back());
 
-			modele.EffacerCompte(modele.NoCompte("compteTest"));
+			std::ofstream fichier("comptes.txt");
+			fichier << "";
 		}
 
 		TEST_METHOD(ModeleModifierCompte)
@@ -104,7 +111,8 @@ namespace ProjetSFMLTest
 			Assert::IsFalse(compte[3] == modele.DonneeCompte("compteTest")[3]);
 			Assert::IsFalse(compte[4] == modele.DonneeCompte("compteTest")[4]);
 
-			modele.EffacerCompte(modele.NoCompte("compteTest"));
+			std::ofstream fichier("comptes.txt");
+			fichier << "";
 		}
 	};
 
@@ -120,7 +128,8 @@ namespace ProjetSFMLTest
 
 			Assert::IsTrue(Controleur::GetInstance()->VerificationCompte("compteTest", "Test-123"));
 
-			modele.EffacerCompte(modele.NoCompte("compteTest"));
+			std::ofstream fichier("comptes.txt");
+			fichier << "";
 		}
 
 		TEST_METHOD(ControleurVerificationCompteFalse)
@@ -131,7 +140,8 @@ namespace ProjetSFMLTest
 
 			Assert::IsFalse(Controleur::GetInstance()->VerificationCompte("compteTest", "123456"));
 
-			modele.EffacerCompte(modele.NoCompte("compteTest"));
+			std::ofstream fichier("comptes.txt");
+			fichier << "";
 		}
 
 
@@ -162,133 +172,134 @@ namespace ProjetSFMLTest
 			//Compte déjà existant
 			Assert::IsFalse(Controleur::GetInstance()->ValidationCompte("compteTest", "Test-123", "Langevin", "Bruno", "test@gmail.com"));
 
-			modele.EffacerCompte(modele.NoCompte("compteTest"));
+			std::ofstream fichier("comptes.txt");
+			fichier << "";
 		}
 
 
 
 		TEST_METHOD(ControleurValidationInfoCompte)
 		{
-			Assert::IsTrue(Controleur::GetInstance()->ValidationCompte("compteTest", "Test-123", "Langevin", "Bruno", "test@gmail.com"));
+			Assert::IsTrue(Controleur::GetInstance()->ValidationInfoCompte("Test-123", "Langevin", "Bruno", "test@gmail.com"));
 		}
 
 		TEST_METHOD(ControleurValidationInfoCompteMotDePasse1)
 		{
-			Assert::IsTrue(Controleur::GetInstance()->ValidationCompte("compteTest", "Te#st.123", "Langevin", "Bruno", "test@gmail.com"));
+			Assert::IsTrue(Controleur::GetInstance()->ValidationInfoCompte("Te#st.123", "Langevin", "Bruno", "test@gmail.com"));
 		}
 		TEST_METHOD(ControleurValidationInfoCompteMotDePasse2)
 		{
-			Assert::IsTrue(Controleur::GetInstance()->ValidationCompte("compteTest", "Te#st@12_3", "Langevin", "Bruno", "test@gmail.com"));
+			Assert::IsTrue(Controleur::GetInstance()->ValidationInfoCompte("Te#st@12_3", "Langevin", "Bruno", "test@gmail.com"));
 		}
 		TEST_METHOD(ControleurValidationInfoCompteMotDePasseFalse1)
 		{
 			//Manque un majuscule
-			Assert::IsFalse(Controleur::GetInstance()->ValidationCompte("compteTest", "te#st.123", "Langevin", "Bruno", "test@gmail.com"));
+			Assert::IsFalse(Controleur::GetInstance()->ValidationInfoCompte("te#st.123", "Langevin", "Bruno", "test@gmail.com"));
 		}
 		TEST_METHOD(ControleurValidationInfoCompteMotDePasseFalse2)
 		{
 			//Tous les caractères sont des alphanumériques
-			Assert::IsFalse(Controleur::GetInstance()->ValidationCompte("compteTest", "Test", "Langevin", "Bruno", "test@gmail.com"));
+			Assert::IsFalse(Controleur::GetInstance()->ValidationInfoCompte("Tesasdt", "Langevin", "Bruno", "test@gmail.com"));
 		}
 
 		TEST_METHOD(ControleurValidationInfoCompteNom1)
 		{
-			Assert::IsTrue(Controleur::GetInstance()->ValidationCompte("compteTest", "Test-123", "Langevin-Pleau", "Bruno", "test@gmail.com"));
+			Assert::IsTrue(Controleur::GetInstance()->ValidationInfoCompte("Test-123", "Langevin-Pleau", "Bruno", "test@gmail.com"));
 		}
 		TEST_METHOD(ControleurValidationInfoCompteNom2)
 		{
-			Assert::IsTrue(Controleur::GetInstance()->ValidationCompte("compteTest", "Test-123", "L.Pleau", "Bruno", "test@gmail.com"));
+			Assert::IsTrue(Controleur::GetInstance()->ValidationInfoCompte("Test-123", "L.Pleau", "Bruno", "test@gmail.com"));
 		}
 		TEST_METHOD(ControleurValidationInfoCompteNom3)
 		{
-			Assert::IsTrue(Controleur::GetInstance()->ValidationCompte("compteTest", "Test-123", "L.Pleau-LP", "Bruno", "test@gmail.com"));
+			Assert::IsTrue(Controleur::GetInstance()->ValidationInfoCompte("Test-123", "L.Pleau-LP", "Bruno", "test@gmail.com"));
 		}
 		TEST_METHOD(ControleurValidationInfoCompteNomFalse1)
 		{
 			//Caractère spécial
-			Assert::IsFalse(Controleur::GetInstance()->ValidationCompte("compteTest", "Test-123", "La#ngevin", "Bruno", "test@gmail.com"));
+			Assert::IsFalse(Controleur::GetInstance()->ValidationInfoCompte("Test-123", "La#ngevin", "Bruno", "test@gmail.com"));
 		}
 		TEST_METHOD(ControleurValidationInfoCompteNomFalse2)
 		{
 			//Nom trop court
-			Assert::IsFalse(Controleur::GetInstance()->ValidationCompte("compteTest", "Test-123", "L", "Bruno", "test@gmail.com"));
+			Assert::IsFalse(Controleur::GetInstance()->ValidationInfoCompte("Test-123", "L", "Bruno", "test@gmail.com"));
 		}
 		TEST_METHOD(ControleurValidationInfoCompteNomFalse3)
 		{
 			//Nom trop long
-			Assert::IsFalse(Controleur::GetInstance()->ValidationCompte("compteTest", "Test-123", "abcdefghijklmnopqurtuvwxyz", "Bruno", "test@gmail.com"));
+			Assert::IsFalse(Controleur::GetInstance()->ValidationInfoCompte("Test-123", "abcdefghijklmnopqurtuvwxyz", "Bruno", "test@gmail.com"));
 		}
 
 		TEST_METHOD(ControleurValidationInfoComptePrenom1)
 		{
-			Assert::IsTrue(Controleur::GetInstance()->ValidationCompte("compteTest", "Test-123", "Langevin", "A.Bruno", "test@gmail.com"));
+			Assert::IsTrue(Controleur::GetInstance()->ValidationInfoCompte("Test-123", "Langevin", "A.Bruno", "test@gmail.com"));
 		}
 		TEST_METHOD(ControleurValidationInfoComptePrenom2)
 		{
-			Assert::IsTrue(Controleur::GetInstance()->ValidationCompte("compteTest", "Test-123", "Langevin", "A.Bruno-Lan", "test@gmail.com"));
+			Assert::IsTrue(Controleur::GetInstance()->ValidationInfoCompte("Test-123", "Langevin", "A.Bruno-Lan", "test@gmail.com"));
 		}
 		TEST_METHOD(ControleurValidationInfoComptePrenom3)
 		{
-			Assert::IsTrue(Controleur::GetInstance()->ValidationCompte("compteTest", "Test-123", "Langevin", "Anto-Bruno", "test@gmail.com"));
+			Assert::IsTrue(Controleur::GetInstance()->ValidationInfoCompte("Test-123", "Langevin", "Anto-Bruno", "test@gmail.com"));
 		}
 		TEST_METHOD(ControleurValidationInfoComptePrenomFalse1)
 		{
 			//Caractère spécial
-			Assert::IsFalse(Controleur::GetInstance()->ValidationCompte("compteTest", "Test-123", "Langevin", "Bru#no", "test@gmail.com"));
+			Assert::IsFalse(Controleur::GetInstance()->ValidationInfoCompte("Test-123", "Langevin", "Bru#no", "test@gmail.com"));
 		}
 		TEST_METHOD(ControleurValidationInfoComptePrenomFalse2)
 		{
-			//Nom trop court
-			Assert::IsFalse(Controleur::GetInstance()->ValidationCompte("compteTest", "Test-123", "Langevin", "B", "test@gmail.com"));
+			//Prenom trop court
+			Assert::IsFalse(Controleur::GetInstance()->ValidationInfoCompte("Test-123", "Langevin", "B", "test@gmail.com"));
 		}
 		TEST_METHOD(ControleurValidationInfoComptePrenomFalse3)
 		{
-			//Nom trop long
-			Assert::IsFalse(Controleur::GetInstance()->ValidationCompte("compteTest", "Test-123", "Langevin", "abcdefghijklmnopqurtuvwxyz", "test@gmail.com"));
+			//Prenom trop long
+			Assert::IsFalse(Controleur::GetInstance()->ValidationInfoCompte("Test-123", "Langevin", "abcdefghijklmnopqurtuvwxyz", "test@gmail.com"));
 		}
 
 		TEST_METHOD(ControleurValidationInfoCompteCourriel1)
 		{
-			Assert::IsTrue(Controleur::GetInstance()->ValidationCompte("compteTest", "Test-123", "Langevin", "Anto-Bruno", "te-st@gmail.ca"));
+			Assert::IsTrue(Controleur::GetInstance()->ValidationInfoCompte("Test-123", "Langevin", "Anto-Bruno", "te-st@gmail.ca"));
 		}
 		TEST_METHOD(ControleurValidationInfoCompteCourriel2)
 		{
-			Assert::IsTrue(Controleur::GetInstance()->ValidationCompte("compteTest", "Test-123", "Langevin", "Anto-Bruno", "te_st@hotmail.com"));
+			Assert::IsTrue(Controleur::GetInstance()->ValidationInfoCompte("Test-123", "Langevin", "Anto-Bruno", "te_st@hotmail.com"));
 		}
 		TEST_METHOD(ControleurValidationInfoCompteCourrielFalse1)
 		{
 			//"@" après le "."
-			Assert::IsFalse(Controleur::GetInstance()->ValidationCompte("compteTest", "Test-123", "Langevin", "Anto-Bruno", "te-st.gmail@ca"));
+			Assert::IsFalse(Controleur::GetInstance()->ValidationInfoCompte("Test-123", "Langevin", "Anto-Bruno", "te-st.gmail@ca"));
 		}
 		TEST_METHOD(ControleurValidationInfoCompteCourrielFalse2)
 		{
 			//Pas de "@"
-			Assert::IsFalse(Controleur::GetInstance()->ValidationCompte("compteTest", "Test-123", "Langevin", "Anto-Bruno", "te_sthotmail.com"));
+			Assert::IsFalse(Controleur::GetInstance()->ValidationInfoCompte("Test-123", "Langevin", "Anto-Bruno", "te_sthotmail.com"));
 		}
 		TEST_METHOD(ControleurValidationInfoCompteCourrielFalse3)
 		{
 			//Pas de "."
-			Assert::IsFalse(Controleur::GetInstance()->ValidationCompte("compteTest", "Test-123", "Langevin", "Anto-Bruno", "te-st@gmailca"));
+			Assert::IsFalse(Controleur::GetInstance()->ValidationInfoCompte("Test-123", "Langevin", "Anto-Bruno", "te-st@gmailca"));
 		}
 		TEST_METHOD(ControleurValidationInfoCompteCourrielFalse4)
 		{
 			//Domaine trop court
-			Assert::IsFalse(Controleur::GetInstance()->ValidationCompte("compteTest", "Test-123", "Langevin", "Anto-Bruno", "te_st@hotmailcom."));
+			Assert::IsFalse(Controleur::GetInstance()->ValidationInfoCompte("Test-123", "Langevin", "Anto-Bruno", "te_st@hotmailcom."));
 		}
 		TEST_METHOD(ControleurValidationInfoCompteCourrielFalse5)
 		{
 			//Domaine trop long
-			Assert::IsFalse(Controleur::GetInstance()->ValidationCompte("compteTest", "Test-123", "Langevin", "Anto-Bruno", "te_st@gmail.hotmailcom"));
+			Assert::IsFalse(Controleur::GetInstance()->ValidationInfoCompte("Test-123", "Langevin", "Anto-Bruno", "te_st@gmail.hotmailcom"));
 		}
 		TEST_METHOD(ControleurValidationInfoCompteCourrielFalse6)
 		{
 			//Rien en avant du "@"
-			Assert::IsFalse(Controleur::GetInstance()->ValidationCompte("compteTest", "Test-123", "Langevin", "Anto-Bruno", "@gmail.com"));
+			Assert::IsFalse(Controleur::GetInstance()->ValidationInfoCompte("Test-123", "Langevin", "Anto-Bruno", "@gmail.com"));
 		}
 		TEST_METHOD(ControleurValidationInfoCompteCourrielFalse7)
 		{
 			//Rien entre le "@" et le "."
-			Assert::IsFalse(Controleur::GetInstance()->ValidationCompte("compteTest", "Test-123", "Langevin", "Anto-Bruno", "asdf@.com"));
+			Assert::IsFalse(Controleur::GetInstance()->ValidationInfoCompte("Test-123", "Langevin", "Anto-Bruno", "asdf@.com"));
 		}
 
 
@@ -301,6 +312,8 @@ namespace ProjetSFMLTest
 			
 			Assert::IsTrue(Controleur::GetInstance()->RequeteEffacerCompte("compteTest", "Test-123"));
 			Assert::IsFalse(Controleur::GetInstance()->CompteExiste("compteTest"));
+			std::ofstream fichier("comptes.txt");
+			fichier << "";
 		}
 		TEST_METHOD(ControleurValidationInfoRequeteEffacerCompteFalse1)
 		{
@@ -311,7 +324,8 @@ namespace ProjetSFMLTest
 			Assert::IsFalse(Controleur::GetInstance()->RequeteEffacerCompte("compteTest", "Te-123"));
 			Assert::IsTrue(Controleur::GetInstance()->CompteExiste("compteTest"));
 
-			modele.EffacerCompte(modele.NoCompte("compteTest"));
+			std::ofstream fichier("comptes.txt");
+			fichier << "";
 		}
 
 		TEST_METHOD(ControleurCompteExiste1)
@@ -322,16 +336,18 @@ namespace ProjetSFMLTest
 
 			Assert::IsTrue(Controleur::GetInstance()->CompteExiste("compteTest"));
 
-			modele.EffacerCompte(modele.NoCompte("compteTest"));
+			std::ofstream fichier("comptes.txt");
+			fichier << "";
 		}
 		TEST_METHOD(ControleurCompteExisteFalse1)
 		{
-			Assert::IsTrue(Controleur::GetInstance()->CompteExiste("compteTest"));
+			Assert::IsFalse(Controleur::GetInstance()->CompteExiste("compteTest"));
 		}
 
 
 		TEST_METHOD(ControleurRequeteModificationCompte1)
 		{
+
 			Modele modele;
 			std::string* compte = new std::string[5];
 			std::string* compteNew = new std::string[5];
@@ -351,7 +367,8 @@ namespace ProjetSFMLTest
 			Assert::IsFalse(compte[3] == compteNew[3]);
 			Assert::IsFalse(compte[4] == compteNew[4]);
 
-			modele.EffacerCompte(modele.NoCompte("compteTest"));
+			std::ofstream fichier("comptes.txt");
+			fichier << "";
 		}
 		TEST_METHOD(ControleurRequeteModificationCompte2)
 		{
@@ -372,7 +389,8 @@ namespace ProjetSFMLTest
 			Assert::IsTrue(compte[3] == modele.DonneeCompte("compteTest")[3]);
 			Assert::IsTrue(compte[4] == modele.DonneeCompte("compteTest")[4]);
 
-			modele.EffacerCompte(modele.NoCompte("compteTest"));
+			std::ofstream fichier("comptes.txt");
+			fichier << "";
 		}
 		TEST_METHOD(ControleurRequeteModificationCompteFalse1)
 		{
@@ -394,7 +412,8 @@ namespace ProjetSFMLTest
 			Assert::IsTrue(compte[3] == modele.DonneeCompte("compteTest")[3]);
 			Assert::IsTrue(compte[4] == modele.DonneeCompte("compteTest")[4]);
 
-			modele.EffacerCompte(modele.NoCompte("compteTest"));
+			std::ofstream fichier("comptes.txt");
+			fichier << "";
 		}
 	};
 }
