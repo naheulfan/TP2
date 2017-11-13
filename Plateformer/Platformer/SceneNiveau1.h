@@ -25,7 +25,6 @@ namespace platformer
 		void getInputs();
 		void update();
 		void draw();
-		static int* compteActif;
 
 	private:
 		static const int NOMBRE_TUILES_X = 20;
@@ -67,5 +66,7 @@ namespace platformer
 		sf::Font font;
 		sf::Text scoreText;
 		sf::Text gameOverText;
+		std::string jambes; //nécessaire pour que le code marche.
+		bool scoreAdded;
 	};
 }

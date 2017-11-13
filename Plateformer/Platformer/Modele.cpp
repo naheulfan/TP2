@@ -9,7 +9,7 @@ using namespace platformer;
 Modele::Modele()
 {
 }
-
+ int Modele::noCompte;
 /// <summary>
 /// Ajout d'un compte dans le fichier .txt
 /// </summary>
@@ -199,4 +199,12 @@ void Modele::ModifierCompte(std::string nickname, std::string password, std::str
 	std::ofstream nouveauFichier("comptes.txt");
 	nouveauFichier << texte;
 	nouveauFichier.close();
+}
+void Modele::setNoCompte(int noCompte)
+{
+	Modele::noCompte = noCompte;
+}
+int Modele::GetNoCompte()
+{
+	return Modele::noCompte;
 }

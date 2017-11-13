@@ -2,6 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include "Modele.h"
 using namespace platformer;
 
 SceneNiveau1::SceneNiveau1()
@@ -101,6 +102,7 @@ bool SceneNiveau1::init(RenderWindow * const window)
 	gameOverText.setCharacterSize(30);
 	gameOverText.setPosition(sf::Vector2f(0, mainWin->getSize().y / 2));
 	scoreText.setColor(sf::Color::Red);
+	scoreAdded = false;
 	return true;
 
 }
@@ -276,16 +278,21 @@ void SceneNiveau1::update()
 			{
 				std::string line;
 				int compteurLine = 0;
-				while (getline(fichier, line))
+				if (scoreAdded == false)
 				{
-					++compteurLine;
-					if (compteurLine != compteActif)
+					while (getline(fichier, line))
 					{
-						texte += line + "\n";
-					}
-					else
-					{
-						texte += line + " " + std::to_string(score) + "\n";
+						++compteurLine;
+						if (compteurLine != Modele::GetNoCompte())
+						{
+							texte += line + "\n";
+						}
+						else
+						{
+							texte += line + " " + std::to_string(score) + "\n";
+							scoreAdded = true;
+						}
+
 					}
 				}
 			}

@@ -19,9 +19,12 @@ namespace platformer
 		void EffacerCompte(int noLigneEffacer);
 
 		static int NoCompte(std::string nickname);
+		static void setNoCompte(int noCompte);
+		static int GetNoCompte();
 
 		void ModifierCompte(std::string nickname, std::string password, std::string nom, std::string prenom, std::string courriel);
 	private:
 		//poid mouche ?
+		static int noCompte;
 	};
 }
