@@ -58,6 +58,15 @@ Scene::scenes Controleur::RequeteChangerScene(Scene::scenes sceneCourante, Event
 			return Scene::scenes::NIVEAU1;
 		}
 	}
+	//si la scène est l'écran de scores
+	else if (sceneCourante == Scene::scenes::SCORE)
+	{
+		//Retourne à l'écran de menu si la touche appuyé est "Escape"
+		if (event.key.code == Keyboard::Escape)
+		{
+			return Scene::scenes::MENU;
+		}
+	}
 	//Si la scène est le menu
 	else if (sceneCourante == Scene::scenes::MENU)
 	{
@@ -75,6 +84,10 @@ Scene::scenes Controleur::RequeteChangerScene(Scene::scenes sceneCourante, Event
 		else if (event.key.code == Keyboard::G)
 		{
 			return Scene::scenes::GESTION_COMPTE;
+		}
+		else if (event.key.code == Keyboard::S)
+		{
+			return Scene::scenes::SCORE;
 		}
 	}
 	//Si la scène est l'écran de gestion de compte
