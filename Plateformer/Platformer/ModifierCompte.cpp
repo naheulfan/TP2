@@ -24,8 +24,14 @@ Scene::scenes ModifierCompte::run()
 	return transitionVersScene;
 }
 
+/// <summary>
+/// Initialise les variables de la scène
+/// </summary>
+/// <param name="window">La fenêtre du jeu</param>
+/// <returns>True si l'initialisation c'est bien passée</returns>
 bool ModifierCompte::init(RenderWindow * const window)
 {
+	//Initialise les textures
 	if (!ecranTitreT.loadFromFile("Ressources\\Sprites\\Title.png"))
 	{
 		return false;
@@ -38,8 +44,7 @@ bool ModifierCompte::init(RenderWindow * const window)
 
 	ecranTitre.setTexture(ecranTitreT);
 
-	//Les positions sont arbitraires, obtenus par essai et erreur.
-	//par rapport au fond d'écran
+	//Initialise les données pour les textbox
 	textboxNickname.init(480, 25, Vector2f(430, 260), font);
 	descriptionNickname.initInfo(Vector2f(430, 230), font, false);
 	descriptionNickname.insererTexte("Surnom");
@@ -72,11 +77,13 @@ bool ModifierCompte::init(RenderWindow * const window)
 	return true;
 }
 
+/// <summary>
+/// Reçoit les évènements du joueur
+/// </summary>
 void ModifierCompte::getInputs()
 {
 	while (mainWin->pollEvent(event))
 	{
-		//Esseyer de mettre dans controlleur
 		if (event.type == Event::Closed)
 		{
 			isRunning = false;
@@ -93,21 +100,18 @@ void ModifierCompte::getInputs()
 				textboxPassword.selectionner();  //on l'affiche comme étant sélectionné
 				textboxErreur.insererTexte(""); //on efface le message d'erreur
 			}
-			//Sinon si on touche la deuxième textbox avec la souris
 			else if (textboxNickname.touche(Mouse::getPosition(*mainWin)) && !validation)
 			{
 				textboxActif = &textboxNickname; //Ce textbox devient actif
 				textboxNickname.selectionner();  //on l'affiche comme étant sélectionné
 				textboxErreur.insererTexte(""); //on efface le message d'erreur
 			}
-
 			else if (textboxNom.touche(Mouse::getPosition(*mainWin)) && validation)
 			{
 				textboxActif = &textboxNom; //Ce textbox devient actif
 				textboxNom.selectionner();  //on l'affiche comme étant sélectionné
 				textboxErreur.insererTexte(""); //on efface le message d'erreur
 			}
-
 			else if (textboxPrenom.touche(Mouse::getPosition(*mainWin)) && validation)
 			{
 				textboxActif = &textboxPrenom; //Ce textbox devient actif
@@ -154,18 +158,20 @@ void ModifierCompte::getInputs()
 					textboxErreur.insererTexte("Il y a eu une erreur, veillez recommencer");
 				}
 			}
+			//Effacement d'un caractère dans la textbox active si "Backspace" est appuyée
 			else if (event.key.code == Keyboard::BackSpace)
 			{
 				textboxActif->retirerChar();
 				backspaceActif = true;  //Pour s'assurer que backspace n'est pas saisie comme caractère
 			}
+			//Changement de scène si la touche "Escape" est appuyée
 			else if (event.key.code == Keyboard::Escape)
 			{
 				isRunning = false;
 				transitionVersScene = Controleur::GetInstance()->RequeteChangerScene(Scene::scenes::MODIFIER_COMPTE, event);
 			}
 		}
-
+		//Ajout des caractères dans la textbox active
 		if (!backspaceActif && !enterActif && textboxActif != nullptr && (event.type == Event::TextEntered))
 		{
 			if (event.text.unicode < 128)
@@ -180,6 +186,9 @@ void ModifierCompte::getInputs()
 	backspaceActif = false;
 }
 
+/// <summary>
+/// Déselectionne les boites qui ne sont pas actives
+/// </summary>
 void ModifierCompte::update()
 {
 	if (textboxActif != &textboxNickname)
@@ -204,6 +213,9 @@ void ModifierCompte::update()
 	}
 }
 
+/// <summary>
+/// Effectue l'affichage de la scène
+/// </summary>
 void ModifierCompte::draw()
 {
 	mainWin->clear();

@@ -19,8 +19,14 @@ Scene::scenes SceneMenu::run()
 	return transitionVersScene;
 }
 
+/// <summary>
+/// Initialise les variables de la scène
+/// </summary>
+/// <param name="window">La fenêtre du jeu</param>
+/// <returns>True si l'initialisation c'est bien passée</returns>
 bool SceneMenu::init(RenderWindow * const window)
 {
+	//Initialise les textures
 	if (!ecranTitreT.loadFromFile("Ressources\\Sprites\\Title.png"))
 	{
 		return false;
@@ -30,7 +36,7 @@ bool SceneMenu::init(RenderWindow * const window)
 	{
 		return false;
 	}
-
+	//Initialise les données pour les textbox
 	texteLogin.initInfo(Vector2f(430, 350), font, false);
 	texteLogin.insererTexte("Espace pour continuer");
 
@@ -48,16 +54,20 @@ bool SceneMenu::init(RenderWindow * const window)
 	return true;
 }
 
+/// <summary>
+/// Reçoit les évènements du joueur
+/// </summary>
 void SceneMenu::getInputs()
 {
 	while (mainWin->pollEvent(event))
 	{
 		if (event.type == Event::Closed)
 		{
+			//Changement de scène
 			isRunning = false;
 			transitionVersScene = Scene::scenes::SORTIE;
 		}
-
+		//Changement de scène
 		transitionVersScene = Controleur::GetInstance()->RequeteChangerScene(Scene::scenes::MENU, event);
 		if (transitionVersScene != Scene::scenes::MENU)
 		{
@@ -71,6 +81,9 @@ void SceneMenu::update()
 
 }
 
+/// <summary>
+/// Effectue l'affichage de la scène
+/// </summary>
 void SceneMenu::draw()
 {
 	mainWin->clear();

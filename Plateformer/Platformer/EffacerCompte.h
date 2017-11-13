@@ -46,6 +46,7 @@ namespace platformer
 		bool backspaceActif = false;
 		bool enterActif = false;
 
+		//True si on est rendu à la vérificaiton
 		bool validation;
 	};
 }

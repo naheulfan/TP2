@@ -24,8 +24,14 @@ Scene::scenes SceneTitre::run()
 	return transitionVersScene;
 }
 
+/// <summary>
+/// Initialise les variables de la scène
+/// </summary>
+/// <param name="window">La fenêtre du jeu</param>
+/// <returns>True si l'initialisation c'est bien passée</returns>
 bool SceneTitre::init(RenderWindow * const window)
 {
+	//Initialise les textures
 	if (!ecranTitreT.loadFromFile("Ressources\\Sprites\\Title.png"))
 	{
 		return false;
@@ -38,8 +44,7 @@ bool SceneTitre::init(RenderWindow * const window)
 
 	ecranTitre.setTexture(ecranTitreT);
 
-	//Les positions sont arbitraires, obtenus par essai et erreur.
-	//par rapport au fond d'écran
+	//Initialise les données pour les textbox
 	textboxPassword.init(480, 15, Vector2f(430, 320), font);
 	descriptionPassword.initInfo(Vector2f(430, 290), font, false);
 	descriptionPassword.insererTexte("Mot de passe");
@@ -56,6 +61,9 @@ bool SceneTitre::init(RenderWindow * const window)
 	return true;
 }
 
+/// <summary>
+/// Reçoit les évènements du joueur
+/// </summary>
 void SceneTitre::getInputs()
 {
 	while (mainWin->pollEvent(event))
@@ -110,7 +118,7 @@ void SceneTitre::getInputs()
 			if (event.key.code == Keyboard::Return)
 			{
 				enterActif = true; //Pour s'assurer que enter n'est pas saisie comme caractère
-
+				//Vérification si le compte est associé avec le mot de passe
 				if (Controleur::GetInstance()->VerificationCompte(textboxNickname.getTexte(), textboxPassword.getTexte()))
 				{
 					SceneNiveau1::compteActif = Modele::NoCompte(textboxNickname.getTexte());
@@ -123,11 +131,13 @@ void SceneTitre::getInputs()
 					textboxErreur.insererTexte("Mauvais mot de passe, veillez recommencer");
 				}
 			}
+			//Effacement d'un caractère dans la textbox active si "Backspace" est appuyée
 			else if (event.key.code == Keyboard::BackSpace)
 			{
 				textboxActifPassword->retirerChar();
 				backspaceActif = true;  //Pour s'assurer que backspace n'est pas saisie comme caractère
 			}
+			//Changement de scène si la touche "Escape" est appuyée
 			else if (event.key.code == Keyboard::Escape)
 			{
 				isRunning = false;
@@ -155,6 +165,9 @@ void SceneTitre::update()
 {
 }
 
+/// <summary>
+/// Effectue l'affichage de la scène
+/// </summary>
 void SceneTitre::draw()
 {
 	mainWin->clear();

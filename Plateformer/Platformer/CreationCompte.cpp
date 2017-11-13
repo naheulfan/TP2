@@ -19,8 +19,14 @@ Scene::scenes CreationCompte::run()
 	return transitionVersScene;
 }
 
+/// <summary>
+/// Initialise les variables de la scène
+/// </summary>
+/// <param name="window">La fenêtre du jeu</param>
+/// <returns>True si l'initialisation c'est bien passée</returns>
 bool CreationCompte::init(RenderWindow * const window)
 {
+	//Initialise les textures
 	if (!ecranTitreT.loadFromFile("Ressources\\Sprites\\Title.png"))
 	{
 		return false;
@@ -33,6 +39,7 @@ bool CreationCompte::init(RenderWindow * const window)
 
 	ecranTitre.setTexture(ecranTitreT);
 
+	//Initialise les données pour les textbox
 	textboxNickname.init(480, 25, Vector2f(430, 180), font);
 	descriptionNickname.initInfo(Vector2f(430, 150), font, false);
 	descriptionNickname.insererTexte("Surnom");
@@ -68,6 +75,9 @@ bool CreationCompte::init(RenderWindow * const window)
 	return true;
 }
 
+/// <summary>
+/// Reçoit les évènements du joueur
+/// </summary>
 void CreationCompte::getInputs()
 {
 	while (mainWin->pollEvent(event))
@@ -78,7 +88,7 @@ void CreationCompte::getInputs()
 			transitionVersScene = Scene::scenes::SORTIE;
 		}
 
-
+		//Si on a un événement de click de souris
 		else if (event.type == Event::MouseButtonPressed)
 		{
 			//Si on touche à la textbox avec la souris
@@ -120,18 +130,20 @@ void CreationCompte::getInputs()
 			}
 
 
-		}
+		}	
+		//Un événement de touche de clavier AVEC un textobx actif
 		if (event.type == Event::KeyPressed && textboxActif != nullptr)
 		{
-			//VALIDER LES INFOS DANS TOUS LES TEXTBOX D'UNE SCÈNE
 			if (event.key.code == Keyboard::Return)
 			{
 				enterActif = true; //Pour s'assurer que enter n'est pas saisie comme caractère
 
-				//Appeller ajout compte
+				//Vérification des données
 				if (Controleur::GetInstance()->ValidationCompte(textboxNickname.getTexte(), textboxPassword.getTexte(), textboxNom.getTexte(), textboxPrenom.getTexte(), textboxCourriel.getTexte()))
 				{
+					//Ajout du compte
 					modele.AjoutCompte(textboxNickname.getTexte(), textboxPassword.getTexte(), textboxNom.getTexte(), textboxPrenom.getTexte(), textboxCourriel.getTexte());
+					//Changement de scène
 					isRunning = false;
 					transitionVersScene = Controleur::GetInstance()->RequeteChangerScene(Scene::scenes::CREER_COMPTE, event);
 				}
@@ -141,17 +153,20 @@ void CreationCompte::getInputs()
 					textboxErreur.insererTexte("Erreur, veillez recommencer");
 				}
 			}
+			//Effacement d'un caractère dans la textbox active si "Backspace" est appuyée
 			else if (event.key.code == Keyboard::BackSpace)
 			{
 				textboxActif->retirerChar();
 				backspaceActif = true;  //Pour s'assurer que backspace n'est pas saisie comme caractère
 			}
+			//Changement de scène si la touche "Escape" est appuyée
 			else if (event.key.code == Keyboard::Escape)
 			{
 				isRunning = false;
 				transitionVersScene = Controleur::GetInstance()->RequeteChangerScene(Scene::scenes::CREER_COMPTE, event);
 			}
 		}
+		//Ajout des caractères dans la textbox active
 		if (!backspaceActif && !enterActif && textboxActif != nullptr && (event.type == Event::TextEntered))
 		{
 			if (event.text.unicode < 128) 
@@ -160,10 +175,14 @@ void CreationCompte::getInputs()
 			}
 		}
 	}
+	//Dans tous les cas on netoie ces conditions après chaque boucle.
 	enterActif = false;
 	backspaceActif = false;
 }
 
+/// <summary>
+/// Déselectionne les boites qui ne sont pas actives
+/// </summary>
 void CreationCompte::update()
 {
 	if (textboxActif != &textboxNickname)
@@ -188,6 +207,9 @@ void CreationCompte::update()
 	}
 }
 
+/// <summary>
+/// Effectue l'affichage de la scène
+/// </summary>
 void CreationCompte::draw()
 {
 	mainWin->clear();
