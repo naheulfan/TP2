@@ -25,6 +25,7 @@ namespace platformer
 		void getInputs();
 		void update();
 		void draw();
+		static int* compteActif;
 
 	private:
 		static const int NOMBRE_TUILES_X = 20;
