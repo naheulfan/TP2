@@ -19,8 +19,14 @@ Scene::scenes GestionCompte::run()
 	return transitionVersScene;
 }
 
+/// <summary>
+/// Initialise les variables de la scène
+/// </summary>
+/// <param name="window">La fenêtre du jeu</param>
+/// <returns>True si l'initialisation c'est bien passée</returns>
 bool GestionCompte::init(RenderWindow * const window)
 {
+	//Initialise les textures
 	if (!ecranTitreT.loadFromFile("Ressources\\Sprites\\Title.png"))
 	{
 		return false;
@@ -30,7 +36,7 @@ bool GestionCompte::init(RenderWindow * const window)
 	{
 		return false;
 	}
-
+	//Initialise les données pour les textbox
 	titre.initInfoTitre(Vector2f(430,80),font,false);
 	titre.insererTexte("Gestion compte");
 
@@ -54,6 +60,9 @@ bool GestionCompte::init(RenderWindow * const window)
 	return true;
 }
 
+/// <summary>
+/// Reçoit les évènements du joueur
+/// </summary>
 void GestionCompte::getInputs()
 {
 	while (mainWin->pollEvent(event))
@@ -63,7 +72,7 @@ void GestionCompte::getInputs()
 			isRunning = false;
 			transitionVersScene = Scene::scenes::SORTIE;
 		}
-
+		//Changement de scène
 		transitionVersScene = Controleur::GetInstance()->RequeteChangerScene(Scene::scenes::GESTION_COMPTE, event);
 		if (transitionVersScene != Scene::scenes::GESTION_COMPTE)
 		{
@@ -77,6 +86,9 @@ void GestionCompte::update()
 
 }
 
+/// <summary>
+/// Effectue l'affichage de la scène
+/// </summary>
 void GestionCompte::draw()
 {
 	mainWin->clear();
@@ -87,5 +99,4 @@ void GestionCompte::draw()
 	texteEffacer.dessiner(mainWin);
 	texteMenu.dessiner(mainWin);
 	mainWin->display();
-
 }

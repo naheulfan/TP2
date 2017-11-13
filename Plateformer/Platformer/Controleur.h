@@ -21,6 +21,7 @@ namespace platformer
 
 	private:
 		Controleur();
+		//Instance du controlleur
 		static Controleur *instance;
 		Modele modele;
 		Controleur(const Controleur&);

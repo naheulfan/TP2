@@ -40,8 +40,14 @@ Scene::scenes SceneNiveau1::run()
 	return transitionVersScene;
 }
 
+/// <summary>
+/// Initialise les variables de la scène
+/// </summary>
+/// <param name="window">La fenêtre du jeu</param>
+/// <returns>True si l'initialisation c'est bien passée</returns>
 bool SceneNiveau1::init(RenderWindow * const window)
 {
+	//Initialise les textures
 	for (int i = 0; i < TUILES_ROUGES; i++)
 	{
 		if (!tuilesRougesT[i].loadFromFile("Ressources\\Tiles\\BlockA" + std::to_string(i) + ".png"))
@@ -99,6 +105,9 @@ bool SceneNiveau1::init(RenderWindow * const window)
 
 }
 
+/// <summary>
+/// Reçoit les évènements du joueur
+/// </summary>
 void SceneNiveau1::getInputs()
 {
 	while (mainWin->pollEvent(event))
@@ -114,6 +123,7 @@ void SceneNiveau1::getInputs()
 
 		if (event.type == Event::KeyPressed)
 		{
+			//Changement de scène si la touche "Escape" est appuyée
 			if (event.key.code == sf::Keyboard::Escape)
 			{
 				isRunning = false;
@@ -121,7 +131,6 @@ void SceneNiveau1::getInputs()
 			}
 		}
 	}
-
 	interfaceCommande = 0;
 
 	//Méthode binaire: appuyer à gauche et à droite sumultanément va donner 3, et le personnage ne se dépalcera alors pas.
@@ -146,6 +155,7 @@ void SceneNiveau1::update()
 	{
 		joueur.move(1);
 	}
+	//Fait un saut lorsque la touche "Espace" est appuyée
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || joueur.GetJump() || joueur.GetIsFalling())
 	{
 		interfaceCommande |= 4;
@@ -166,20 +176,16 @@ void SceneNiveau1::update()
 			bool uneCollision = false;
 			for (int i = 0; i < 3; i++)
 			{
-				//Chexk avec tous les blocs
+				//Vérifie la collision avec tous les blocs
 				if (joueur.CollisionPlateforme(section[0].GetPositions()[i], section[0].GetSizes()[i], TAILLE_TUILES_Y) || joueur.CollisionPlateforme(section[1].GetPositions()[i], section[1].GetSizes()[i], TAILLE_TUILES_Y))
 				{
 					uneCollision = true;
 				}
+				//Fait tomber le personnage
 				if (!uneCollision)
 				{
 					joueur.SetIsFalling(true);
 				}
-
-				//for (int i = 0; i < NOMBRE_TUILES_X; ++i)
-				//{
-				//	joueur.Gravity(Vector2f(i, mainWin->getSize().y - TAILLE_TUILES_Y * 2), TAILLE_TUILES_X, TAILLE_TUILES_Y);
-				//}
 			}
 			if (joueur.getPosition().y < mainWin->getSize().y - 2 * TAILLE_TUILES_Y)
 			{
@@ -292,6 +298,9 @@ void SceneNiveau1::update()
 	}
 }
 
+/// <summary>
+/// Effectue l'affichage de la scène
+/// </summary>
 void SceneNiveau1::draw()
 {
 	mainWin->clear();

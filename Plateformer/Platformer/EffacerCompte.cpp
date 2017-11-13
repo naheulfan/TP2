@@ -24,8 +24,14 @@ Scene::scenes EffacerCompte::run()
 	return transitionVersScene;
 }
 
+/// <summary>
+/// Initialise les variables de la scène
+/// </summary>
+/// <param name="window">La fenêtre du jeu</param>
+/// <returns>True si l'initialisation c'est bien passée</returns>
 bool EffacerCompte::init(RenderWindow * const window)
 {
+	//Initialise les textures
 	if (!ecranTitreT.loadFromFile("Ressources\\Sprites\\Title.png"))
 	{
 		return false;
@@ -38,8 +44,7 @@ bool EffacerCompte::init(RenderWindow * const window)
 
 	ecranTitre.setTexture(ecranTitreT);
 
-	//Les positions sont arbitraires, obtenus par essai et erreur.
-	//par rapport au fond d'écran
+	//Initialise les données pour les textbox
 	textboxPassword.init(480, 15, Vector2f(430, 320), font);
 
 	textboxErreur.initInfo(Vector2f(430, 350), font, true);
@@ -62,11 +67,13 @@ bool EffacerCompte::init(RenderWindow * const window)
 	return true;
 }
 
+/// <summary>
+/// Reçoit les évènements du joueur
+/// </summary>
 void EffacerCompte::getInputs()
 {
 	while (mainWin->pollEvent(event))
 	{
-		//Esseyer de mettre dans controlleur
 		if (event.type == Event::Closed)
 		{
 			isRunning = false;
@@ -84,7 +91,6 @@ void EffacerCompte::getInputs()
 				textboxErreur.insererTexte(""); //on efface le message d'erreur
 				
 			}
-			//Sinon on touche l'autre textbox avec la souris
 			else if (textboxNickname.touche(Mouse::getPosition(*mainWin)))
 			{
 				textboxActif = &textboxNickname; //Ce textbox devient actif
@@ -106,20 +112,24 @@ void EffacerCompte::getInputs()
 				enterActif = true; //Pour s'assurer que enter n'est pas saisie comme caractère
 
 
+				//Vérification des données
 				if (Controleur::GetInstance()->VerificationCompte(textboxNickname.getTexte(), textboxPassword.getTexte()) || validation)
 				{
-					//Ajouter une deuxième vérification
 					if (!validation)
 					{
+						//Garde en mémoire le surnom et le mot de passe
 						nickname = textboxNickname.getTexte();
 						password = textboxPassword.getTexte();
 						textboxNickname.insererTexte("");
 					}
+					//Validation pour effacer le compte
 					descriptionNickname.insererTexte("Entez \"effacer\" pour effacer le compte");
 					if (textboxNickname.getTexte() == "effacer")
 					{
+						//Demande pour effacer le compte
 						if (Controleur::GetInstance()->RequeteEffacerCompte(nickname, password))
 						{
+							//Changement de scène
 							isRunning = false;
 							transitionVersScene = Controleur::GetInstance()->RequeteChangerScene(Scene::scenes::EFFACER_COMPTE, event);
 						}
@@ -136,18 +146,20 @@ void EffacerCompte::getInputs()
 					textboxErreur.insererTexte("Mauvais mot de passe, veillez recommencer");
 				}
 			}
+			//Effacement d'un caractère dans la textbox active si "Backspace" est appuyée
 			else if (event.key.code == Keyboard::BackSpace)
 			{
 				textboxActif->retirerChar();
 				backspaceActif = true;  //Pour s'assurer que backspace n'est pas saisie comme caractère
 			}
+			//Changement de scène si la touche "Escape" est appuyée
 			else if (event.key.code == Keyboard::Escape)
 			{
 				isRunning = false;
 				transitionVersScene = Controleur::GetInstance()->RequeteChangerScene(Scene::scenes::EFFACER_COMPTE, event);
 			}
 		}
-
+		//Ajout des caractères dans la textbox active
 		if (!backspaceActif && !enterActif && textboxActif != nullptr && (event.type == Event::TextEntered))
 		{
 			if (event.text.unicode < 128) 
@@ -162,6 +174,9 @@ void EffacerCompte::getInputs()
 	backspaceActif = false;
 }
 
+/// <summary>
+/// Déselectionne les boites qui ne sont pas actives
+/// </summary>
 void EffacerCompte::update()
 {
 	if (textboxActif != &textboxNickname)
@@ -174,6 +189,9 @@ void EffacerCompte::update()
 	}
 }
 
+/// <summary>
+/// Effectue l'affichage de la scène
+/// </summary>
 void EffacerCompte::draw()
 {
 	mainWin->clear();
@@ -181,6 +199,7 @@ void EffacerCompte::draw()
 	textboxNickname.dessiner(mainWin);
 	descriptionNickname.dessiner(mainWin);
 	titre.dessiner(mainWin);
+	//Affichage seulement lors de l'étape de validation
 	if (!validation)
 	{
 		descriptionPassword.dessiner(mainWin);
