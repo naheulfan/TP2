@@ -65,7 +65,18 @@ bool Scores::init(RenderWindow * const window)
 								{
 									temp = topTenScores[j];
 									topTenScores[j] = playerScores.at(k);
-									scores[i].insererTexte(modele.GetNomCompte().at(k) + ": " + std::to_string(topTenScores[j]));
+									bool scoreAlreadyThere = false;
+									for (int compteur = 0; compteur < 10; compteur++)
+									{
+										if (scores[i].getTexte() == modele.GetNomCompte().at(compteurLine - 1) + ": " + std::to_string(topTenScores[j]))
+										{
+											scoreAlreadyThere = true;
+										}
+									}
+									if (!scoreAlreadyThere)
+									{
+									scores[i].insererTexte(modele.GetNomCompte().at(compteurLine -1) + ": " + std::to_string(topTenScores[j]));
+									}
 								}
 								if (j <= 8)
 								{
@@ -79,6 +90,7 @@ bool Scores::init(RenderWindow * const window)
 							
 						}
 					}
+					
 				}
 			}
 		

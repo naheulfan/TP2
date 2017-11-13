@@ -273,7 +273,8 @@ void SceneNiveau1::update()
 			joueur.Dies();
 			gameOverText.setString("Partie Terminee! esc pour retourner au menu");
 			std::string texte = "";
-			std::ifstream fichier("scores.txt");
+			std::ifstream fichier;
+			fichier.open("scores.txt");
 			if (fichier)
 			{
 				std::string line;
@@ -290,17 +291,20 @@ void SceneNiveau1::update()
 						else
 						{
 							texte += line + " " + std::to_string(score) + "\n";
-							scoreAdded = true;
 						}
 
 					}
 				}
 			}
-			fichier.close();
+			if (!scoreAdded)
+			{
+				fichier.close();
 
-			std::ofstream nouveauFichier("scores.txt");
-			nouveauFichier << texte;
-			nouveauFichier.close();
+				std::ofstream nouveauFichier("scores.txt");
+				nouveauFichier << texte;
+				nouveauFichier.close();
+				scoreAdded = true;
+			}
 		}
 	}
 }
